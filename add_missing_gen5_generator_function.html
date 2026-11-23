@@ -1,0 +1,2720 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Frame – Design Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:wght@400;700;800&family=Space+Grotesk:wght@400;600;700&family=Bebas+Neue&family=Caveat:wght@500;700&family=Poppins:wght@400;600;800&family=Montserrat:wght@400;700;900&family=Oswald:wght@500;700&family=Pacifico&family=Anton&family=Dancing+Script:wght@600;700&family=Hind+Siliguri:wght@400;600;700&family=Noto+Sans+Bengali:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #e6e9f0;
+  --panel: #ffffff;
+  --ink: #16182a;
+  --mute: #6b7087;
+  --line: #dde0ea;
+  --acc: #5b3df5;
+  --accs: #ece8ff;
+  --field: #f3f4f8;
+  --r: 16px;
+  --sh: 0 1px 2px rgba(20,20,60,.05), 0 10px 30px rgba(20,20,60,.09);
+  --acc2: #ff5fa2;
+  color-scheme: light;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+:root[data-theme="dark"] {
+  --bg: #0d0f18;
+  --panel: #171a27;
+  --ink: #eceef8;
+  --mute: #9298b3;
+  --line: #2a2e42;
+  --acc: #8f7aff;
+  --accs: #2b2552;
+  --field: #20243a;
+  color-scheme: dark;
+}
+* {
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+}
+body {
+  font: 13px/1.4 "Plus Jakarta Sans", system-ui, sans-serif;
+  background: radial-gradient(900px 480px at 8% -8%, color-mix(in srgb, var(--acc) 16%, transparent), transparent),
+              radial-gradient(800px 420px at 100% 0, color-mix(in srgb, var(--acc2) 12%, transparent), transparent),
+              var(--bg);
+  color: var(--ink);
+  overflow: hidden;
+}
+#app {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+}
+header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 14px;
+  margin: 10px 12px 0;
+  height: 54px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  box-shadow: var(--sh);
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -.02em;
+  margin-right: 10px;
+}
+.logo i {
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #5b3df5, #ff5fa2);
+  display: block;
+  position: relative;
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--acc) 45%, transparent);
+}
+.logo i:after {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 2px solid #fff;
+  border-radius: 3px;
+}
+.sp { flex: 1; }
+button, select, input, textarea { font: inherit; color: inherit; }
+.btn {
+  background: var(--field);
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform .15s, box-shadow .15s, background .15s;
+}
+.btn:hover { border-color: var(--line); transform: translateY(-1px); box-shadow: var(--sh); }
+.btn:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--acc);
+  outline-offset: 1px;
+}
+.btn.pri {
+  background: linear-gradient(135deg, var(--acc), var(--acc2));
+  color: #fff;
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--acc) 40%, transparent);
+}
+.zl { min-width: 44px; text-align: center; color: var(--mute); font-weight: 600; }
+main {
+  display: grid;
+  grid-template-columns: 300px 1fr 300px;
+  gap: 12px;
+  padding: 10px 12px 12px;
+  min-height: 0;
+}
+aside {
+  background: var(--panel);
+  overflow: auto;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  box-shadow: var(--sh);
+}
+h3 {
+  margin: 18px 0 8px;
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-weight: 700;
+  color: var(--mute);
+}
+h3:first-child { margin-top: 0; }
+#tabs {
+  position: sticky;
+  top: -14px;
+  z-index: 5;
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  background: var(--panel);
+  padding: 14px 0 10px;
+  margin: -14px 0 4px;
+}
+#tabs button {
+  flex: 1;
+  min-width: 52px;
+  border: 0;
+  border-radius: 10px;
+  padding: 8px 4px;
+  background: var(--field);
+  color: var(--mute);
+  font-weight: 700;
+  font-size: 11.5px;
+  cursor: pointer;
+  transition: .15s;
+}
+#tabs button:hover { color: var(--ink); }
+#tabs button.on {
+  background: var(--acc);
+  color: #fff;
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--acc) 40%, transparent);
+}
+.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.tile {
+  aspect-ratio: 1;
+  background: var(--field);
+  border: 1px solid transparent;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform .15s, box-shadow .15s, border-color .15s;
+}
+.tile:hover { border-color: var(--acc); transform: translateY(-2px); box-shadow: var(--sh); }
+.tile i { display: block; width: 24px; height: 24px; background: var(--ink); }
+.txt {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: var(--field);
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 8px 12px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  transition: transform .15s, box-shadow .15s, border-color .15s;
+}
+.txt:hover { border-color: var(--acc); }
+.tpls { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+.tp {
+  height: 64px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 11px;
+  color: #fff;
+  display: flex;
+  align-items: flex-end;
+  padding: 6px;
+  transition: transform .15s, box-shadow .15s, border-color .15s;
+}
+.tp:hover { transform: translateY(-2px); box-shadow: var(--sh); }
+#tgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; align-items: start; }
+.th {
+  position: relative;
+  container-type: inline-size;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid var(--line);
+  width: 100%;
+  transition: transform .15s, box-shadow .15s, border-color .15s;
+}
+.th:hover { transform: translateY(-2px); box-shadow: var(--sh); border-color: var(--acc); }
+.th * { position: absolute; pointer-events: none; white-space: pre-wrap; }
+.stk-card {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid var(--line);
+  background: var(--field);
+  transition: transform .15s, box-shadow .15s, border-color .15s;
+}
+.stk-card:hover { transform: translateY(-2px); box-shadow: var(--sh); outline: 2px solid var(--acc); }
+.stk-card img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+.stk-lbl {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  background: linear-gradient(transparent, rgba(12,14,26,.82));
+  color: #fff;
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 8px 5px 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+.stk-cats { display: flex; gap: 4px; flex-wrap: wrap; margin: 8px 0 6px; }
+.stk-cat {
+  border: 1px solid var(--line);
+  background: var(--field);
+  color: var(--mute);
+  border-radius: 999px;
+  padding: 3px 8px;
+  font-size: 10.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.stk-cat.on { background: var(--acc); color: #fff; border-color: var(--acc); }
+.sw { display: flex; flex-wrap: wrap; gap: 6px; }
+.sw button { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--line); cursor: pointer; padding: 0; }
+select, input[type=number], input[type=text], input[type=url], textarea {
+  width: 100%;
+  background: var(--field);
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 6px 8px;
+}
+input[type=color] { width: 100%; height: 30px; border: 1px solid var(--line); border-radius: 10px; background: none; padding: 2px; cursor: pointer; }
+input[type=range] { width: 100%; accent-color: var(--acc); }
+.f { display: grid; grid-template-columns: 92px 1fr; align-items: center; gap: 8px; margin-bottom: 8px; }
+.f span { color: var(--mute); font-weight: 600; }
+.row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+#view {
+  position: relative;
+  overflow: auto;
+  display: flex;
+  min-height: 0;
+  padding: 36px;
+  border-radius: var(--r);
+  border: 1px solid var(--line);
+  background-color: color-mix(in srgb, var(--bg) 60%, var(--panel));
+  background-image: radial-gradient(color-mix(in srgb, var(--mute) 35%, transparent) 1px, transparent 1.3px);
+  background-size: 20px 20px;
+}
+#wrap { position: relative; margin: auto; flex: none; }
+#stage {
+  position: absolute;
+  left: 0; top: 0;
+  transform-origin: 0 0;
+  box-shadow: 0 20px 60px rgba(20,20,60,.28), 0 0 0 1px rgba(0,0,0,.06);
+  overflow: visible;
+}
+#clip { position: absolute; inset: 0; overflow: hidden; }
+#clip.grid::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(127,127,127,.45) calc(1px/var(--z)), transparent 0),
+                    linear-gradient(90deg, rgba(127,127,127,.45) calc(1px/var(--z)), transparent 0);
+  background-size: 8.3333% 8.3333%;
+}
+.el { position: absolute; touch-action: none; user-select: none; cursor: move; transform-origin: 50% 50%; }
+.el img { pointer-events: none; user-select: none; -webkit-user-drag: none; }
+.el.text { white-space: pre-wrap; word-break: break-word; }
+.el[contenteditable=true] { user-select: text; outline: calc(2px/var(--z)) solid var(--acc); outline-offset: calc(3px/var(--z)); cursor: text; background: rgba(91, 61, 245, 0.06); }
+.el.ms { outline: calc(2px/var(--z)) dashed var(--acc); outline-offset: calc(2px/var(--z)); }
+#mq { position: absolute; border: calc(1.5px/var(--z)) solid var(--acc); background: color-mix(in srgb, var(--acc) 12%, transparent); pointer-events: none; }
+#selbox { position: absolute; display: none; pointer-events: none; border: calc(2px/var(--z)) solid var(--acc); transform-origin: 50% 50%; }
+.h {
+  position: absolute;
+  width: calc(13px/var(--z));
+  height: calc(13px/var(--z));
+  background: #fff;
+  border: calc(2px/var(--z)) solid var(--acc);
+  border-radius: 50%;
+  pointer-events: auto;
+  touch-action: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,.25);
+}
+.h[data-k=nw] { left: 0; top: 0; transform: translate(-50%, -50%); cursor: nwse-resize; }
+.h[data-k=ne] { left: 100%; top: 0; transform: translate(-50%, -50%); cursor: nesw-resize; }
+.h[data-k=se] { left: 100%; top: 100%; transform: translate(-50%, -50%); cursor: nwse-resize; }
+.h[data-k=sw] { left: 0; top: 100%; transform: translate(-50%, -50%); cursor: nesw-resize; }
+.h[data-k=rot] { left: 50%; top: calc(-36px/var(--z)); transform: translate(-50%, -50%); cursor: grab; background: var(--acc); }
+.g { position: absolute; background: #ff3d8b; display: none; pointer-events: none; }
+#gv { top: 0; bottom: 0; width: calc(1.5px/var(--z)); left: 50%; }
+#gh { left: 0; right: 0; height: calc(1.5px/var(--z)); top: 50%; }
+.ly { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 8px; cursor: pointer; border: 1px solid transparent; }
+.ly:hover { background: var(--field); }
+.ly.on { background: var(--accs); border-color: var(--acc); }
+.ly b { flex: 1; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ly button { background: none; border: 0; cursor: pointer; color: var(--mute); font-size: 11px; padding: 2px 6px; border-radius: 6px; }
+.ly button:hover { background: var(--field); color: var(--ink); }
+#modal, #kmodal {
+  position: fixed;
+  inset: 0;
+  background: rgba(10,10,25,.6);
+  display: none;
+  place-items: center;
+  z-index: 60;
+  padding: 20px;
+  backdrop-filter: blur(6px);
+}
+#modal.on, #kmodal.on { display: grid; }
+#modal > div, #kmodal > div {
+  background: var(--panel);
+  border-radius: 20px;
+  padding: 18px;
+  max-width: 560px;
+  width: 100%;
+  max-height: 100%;
+  overflow: auto;
+}
+#modal img { width: 100%; border-radius: 8px; border: 1px solid var(--line); display: block; margin: 10px 0; }
+.kk { display: grid; grid-template-columns: 170px 1fr; gap: 8px 12px; align-items: center; }
+.kk kbd { background: var(--field); border: 1px solid var(--line); border-radius: 6px; padding: 2px 8px; font: 600 12px 'Plus Jakarta Sans', sans-serif; justify-self: start; }
+#ctx {
+  position: fixed;
+  z-index: 70;
+  display: none;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: var(--sh);
+  padding: 6px;
+  min-width: 170px;
+}
+#ctx button { display: block; width: 100%; text-align: left; background: none; border: 0; padding: 8px 10px; border-radius: 8px; cursor: pointer; }
+#ctx button:hover { background: var(--field); }
+
+/* Home Overlay */
+#home {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  background: var(--panel);
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+#hmain { flex: 1; min-width: 0; overflow: auto; padding: 0; background: var(--panel); }
+#hero {
+  --hf: #16182a;
+  --hf2: rgba(22,24,42,.66);
+  --hchip: rgba(255,255,255,.7);
+  --hchipb: rgba(22,24,42,.1);
+  --hon: rgba(255,255,255,.8);
+  --hhov: rgba(91,61,245,.08);
+  --htg: rgba(91,61,245,.12);
+  --htc: #5b3df5;
+  --hlk: #5b3df5;
+  --hmk: #5b3df5;
+  --hmkc: #fff;
+  --hsh: rgba(70,50,160,.25);
+  --hbg: radial-gradient(520px 320px at 90% 8%, rgba(255,190,225,.6), transparent 70%),
+         radial-gradient(520px 340px at 55% 105%, rgba(160,215,255,.55), transparent 70%),
+         linear-gradient(135deg, #f4f2ff, #e8e2ff 55%, #ffeaf5);
+  position: relative;
+  margin: 12px;
+  border-radius: 32px;
+  overflow: hidden;
+  color: var(--hf);
+  padding: 18px 36px 60px;
+  background: var(--hbg);
+}
+:root[data-theme="dark"] #hero {
+  --hf: #fff;
+  --hf2: rgba(255,255,255,.74);
+  --hchip: rgba(255,255,255,.08);
+  --hchipb: rgba(255,255,255,.22);
+  --hon: rgba(255,255,255,.16);
+  --hhov: rgba(255,255,255,.1);
+  --htg: rgba(198,255,61,.14);
+  --htc: #c6ff3d;
+  --hlk: #c6ff3d;
+  --hmk: #c6ff3d;
+  --hmkc: #14123a;
+  --hsh: rgba(0,0,0,.45);
+  --hbg: radial-gradient(520px 320px at 90% 8%, rgba(255,130,190,.35), transparent 70%),
+         radial-gradient(520px 340px at 55% 105%, rgba(120,200,255,.3), transparent 70%),
+         linear-gradient(135deg, #2b2872, #4a3fa8 60%, #6b3f9e);
+}
+#hnav { position: relative; z-index: 3; display: flex; align-items: center; gap: 6px; margin-bottom: 54px; flex-wrap: wrap; }
+.hlogo { display: flex; align-items: center; gap: 9px; font: 800 21px 'Plus Jakarta Sans', sans-serif; letter-spacing: -.02em; margin-right: auto; cursor: pointer; color: var(--hf); }
+.hlogo i { width: 26px; height: 26px; border-radius: 9px; background: linear-gradient(135deg, #c6ff3d, #ff5fa2); display: block; }
+.rb {
+  border: 0;
+  background: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border-radius: 999px;
+  color: var(--hf2);
+  font: 600 13px 'Plus Jakarta Sans', sans-serif;
+  cursor: pointer;
+}
+.rb svg { width: 18px; height: 18px; }
+.rb:hover { background: var(--hhov); color: var(--hf); }
+.rb.on { background: var(--hon); color: var(--hf); }
+.rb.mk { margin-left: 8px; background: var(--hmk); color: var(--hmkc); font-weight: 800; animation: glow 2.6s ease-in-out infinite; }
+.rb.mk i { font-style: normal; font-size: 18px; line-height: 1; }
+.hgrid { position: relative; z-index: 2; display: grid; grid-template-columns: 1.05fr .95fr; gap: 24px; align-items: center; }
+.htag { display: inline-block; padding: 6px 14px; border-radius: 999px; background: var(--htg); color: var(--htc); font-weight: 700; font-size: 12px; letter-spacing: .04em; margin-bottom: 18px; }
+#hh { text-align: left; font: 700 clamp(38px, 5vw, 66px)/1.04 'Space Grotesk', sans-serif; letter-spacing: -.03em; margin: 0 0 16px; color: var(--hf); }
+#hh em { font-style: normal; background-image: linear-gradient(transparent 62%, #c6ff3dbb 62% 92%, transparent 92%); background-repeat: no-repeat; background-size: 0 100%; animation: mark .9s .8s cubic-bezier(.2,.8,.2,1) forwards; }
+.hsubp { max-width: 480px; color: var(--hf2); font-size: 16px; line-height: 1.55; margin: 0 0 26px; }
+#hsearch {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 560px;
+  margin: 0 0 16px;
+  background: #fff;
+  border: 1px solid rgba(22,24,42,.08);
+  border-radius: 999px;
+  padding: 0 8px 0 22px;
+  height: 60px;
+  box-shadow: 0 12px 32px rgba(91,61,245,.14);
+  color: #6b7087;
+}
+#hq { flex: 1; border: 0; background: none !important; outline: 0; font: inherit; font-size: 16px; padding: 0; color: #14123a; }
+#hgo { border: 0; background: #2b2580; color: #fff; border-radius: 999px; padding: 12px 22px; font-weight: 700; cursor: pointer; transition: .15s; }
+#hgo:hover { background: #5b3df5; }
+#hchips { display: flex; justify-content: flex-start; align-items: center; flex-wrap: wrap; margin: 0 0 22px; gap: 8px; }
+.hlab { color: var(--hf2); font-weight: 600; margin-right: 4px; }
+.chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--hchipb);
+  background: var(--hchip);
+  color: var(--hf);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.chip i { width: 22px; height: 22px; border-radius: 7px; display: block; }
+.chip:hover { border-color: var(--hmk); }
+.hlink { border: 0; background: none; color: var(--hlk); font: 700 14px 'Plus Jakarta Sans', sans-serif; cursor: pointer; padding: 0; }
+.hlink:hover { text-decoration: underline; }
+#hfloat {
+  position: relative;
+  height: 400px;
+  translate: var(--px, 0px) var(--py, 0px);
+  rotate: var(--pr, 0deg);
+  transition: translate .35s ease-out, rotate .35s ease-out;
+}
+#hfloat:before {
+  content: '';
+  position: absolute;
+  left: 26%; top: 50px;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: #a78bfa;
+  opacity: .16;
+  filter: blur(36px);
+  animation: pulse 5s ease-in-out infinite;
+}
+#hfloat .fc { position: absolute; border-radius: 14px; overflow: hidden; box-shadow: 0 24px 50px var(--hsh); cursor: pointer; transition: transform .2s; }
+#hfloat .fc:nth-child(1) { animation: fcIn .8s .1s cubic-bezier(.2,.8,.2,1) both, fcF1 6s .9s ease-in-out infinite; }
+#hfloat .fc:nth-child(2) { animation: fcIn .8s .3s cubic-bezier(.2,.8,.2,1) both, fcF2 7s 1.1s ease-in-out infinite; }
+#hfloat .fc:nth-child(3) { animation: fcIn .8s .5s cubic-bezier(.2,.8,.2,1) both, fcF3 5.5s 1.3s ease-in-out infinite; }
+#hfloat .fc:hover { transform: translateY(-8px) rotate(0) !important; z-index: 5; animation-play-state: paused; }
+#hfloat .fc .th { border: 0; border-radius: 0; width: 100%; display: block; }
+.hsec { padding: 38px 24px 8px; max-width: 1280px; margin: 0 auto; }
+.hsec h2 { font: 700 27px 'Space Grotesk', sans-serif; letter-spacing: -.02em; margin: 0 0 4px; display: flex; align-items: center; gap: 12px; }
+.hsub { color: var(--mute); margin: 0 0 18px; }
+#hclr { border: 1px solid var(--line); background: var(--field); color: var(--ink); border-radius: 999px; padding: 4px 12px; font: 600 12px 'Plus Jakarta Sans'; cursor: pointer; }
+#hcards { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; margin: 16px 0 24px; }
+.hc {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 86px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 16px;
+  color: #16182a;
+  text-align: left;
+  font: 700 15px/1.25 'Plus Jakarta Sans', sans-serif;
+  cursor: pointer;
+  transition: transform .15s, box-shadow .15s;
+}
+.hc:hover { transform: translateY(-3px); box-shadow: var(--sh); }
+.hc b { display: block; max-width: 52%; position: relative; z-index: 1; }
+.hc .pv { position: absolute; right: 14px; top: 14px; width: 78px; transform: rotate(6deg); box-shadow: 0 8px 18px rgba(20,20,60,.25); border-radius: 6px; overflow: hidden; }
+.pv .th { border: 0; border-radius: 0; width: 100%; }
+#hdisc { columns: 200px; column-gap: 16px; }
+#hdisc .th { break-inside: avoid; margin-bottom: 16px; display: block; position: relative; }
+#hdisc .th:hover { transform: translateY(-3px); }
+#pgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; align-items: start; margin-top: 14px; }
+.pj { cursor: pointer; }
+.pj .th { display: block; }
+.pm { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 8px; }
+.pm div { min-width: 0; }
+.pm b { display: block; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pm small { color: var(--mute); font-size: 11px; }
+.pm button { border: 0; background: var(--field); color: var(--mute); border-radius: 8px; padding: 4px 9px; font-size: 11px; cursor: pointer; }
+.pm button:hover { color: #e11d48; }
+#cmenu {
+  position: fixed;
+  left: auto;
+  right: 36px;
+  top: 84px;
+  z-index: 40;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(20,20,60,.25);
+  padding: 8px;
+  display: none;
+  min-width: 270px;
+}
+#cmenu.on { display: block; }
+#cmenu button { display: flex; justify-content: space-between; gap: 16px; width: 100%; border: 0; background: none; color: var(--ink); padding: 10px 12px; border-radius: 10px; cursor: pointer; font: 600 13px 'Plus Jakarta Sans'; }
+#cmenu button:hover { background: var(--field); }
+#cmenu small { color: var(--mute); font-weight: 500; }
+
+.rv { opacity: 0; translate: 0 26px; transition: opacity .6s ease, translate .6s cubic-bezier(.2,.8,.2,1); }
+.rv.in { opacity: 1; translate: 0 0; }
+@keyframes fcIn { from { opacity: 0; scale: .82; } to { opacity: 1; scale: 1; } }
+@keyframes fcF1 { 0%,100% { translate: 0 0; } 50% { translate: 0 -16px; } }
+@keyframes fcF2 { 0%,100% { translate: 0 0; } 50% { translate: 0 -22px; } }
+@keyframes fcF3 { 0%,100% { translate: 0 0; } 50% { translate: 0 -12px; } }
+@keyframes pulse { 0%,100% { scale: 1; opacity: .16; } 50% { scale: 1.25; opacity: .3; } }
+@keyframes mark { to { background-size: 100% 100%; } }
+@keyframes glow { 0%,100% { box-shadow: 0 0 0 0 var(--hmk); } 60% { box-shadow: 0 0 0 12px transparent; } }
+
+@media (max-width: 960px) {
+  main { grid-template-columns: 1fr; grid-template-rows: auto minmax(260px, 1fr) auto; padding: 8px; }
+  aside { max-height: 28vh; border: 1px solid var(--line); }
+  body { overflow: auto; }
+  #app { height: auto; min-height: 100%; }
+  #view { min-height: 340px; }
+  header { flex-wrap: wrap; height: auto; padding: 8px 12px; }
+}
+@media (max-width: 900px) {
+  .hgrid { grid-template-columns: 1fr; }
+  #hfloat { display: none; }
+  #hero { margin: 8px; padding: 14px 16px 36px; }
+  #hnav { margin-bottom: 28px; }
+  .rb:not(.mk) { padding: 7px 10px; }
+  .hsec { padding: 28px 14px 4px; }
+  #cmenu { right: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *:before, *:after { animation: none !important; transition: none !important; }
+  .rv { opacity: 1; translate: none; }
+  #hh em { background-size: 100% 100%; }
+}
+</style>
+</head>
+<body>
+<div id="app">
+<header>
+  <div class="logo" data-act="home" role="button" title="Home" style="cursor:pointer"><i></i>Frame</div>
+  <button class="btn" data-act="undo" title="Undo (Ctrl+Z)">Undo</button>
+  <button class="btn" data-act="redo" title="Redo (Ctrl+Y)">Redo</button>
+  <div class="sp"></div>
+  <button class="btn" data-act="zout" aria-label="Zoom out">−</button>
+  <span class="zl" id="zl">50%</span>
+  <button class="btn" data-act="zin" aria-label="Zoom in">+</button>
+  <button class="btn" data-act="fit">Fit</button>
+  <button class="btn" data-act="z100">100%</button>
+  <button class="btn" data-act="grid">Grid</button>
+  <button class="btn" data-act="keys">Shortcuts</button>
+  <button class="btn" data-act="theme">Theme</button>
+  <button class="btn pri" data-act="export">Export PNG</button>
+</header>
+<main>
+<aside id="left">
+  <h3>Canvas size</h3>
+  <select id="preset">
+    <option value="1080,1080">Instagram post · 1080×1080</option>
+    <option value="1080,1920">Story · 1080×1920</option>
+    <option value="1920,1080">Presentation · 1920×1080</option>
+    <option value="1280,720">YouTube thumbnail · 1280×720</option>
+    <option value="1240,1754">A4 poster · 1240×1754</option>
+    <option value="820,312">Facebook cover · 820×312</option>
+  </select>
+  <h3>Templates</h3>
+  <div class="tpls" id="tpls"></div>
+  <h3 id="preset-h3">Preset designs</h3>
+  <select id="cat" aria-label="Category"></select>
+  <div id="tgrid"></div>
+  <h3>Shapes</h3>
+  <div class="grid" id="shapes"></div>
+  <h3>Text</h3>
+  <button class="txt" data-act="add-h1" style="font:800 20px 'Space Grotesk'">Add a heading</button>
+  <button class="txt" data-act="add-h2" style="font:600 15px 'Plus Jakarta Sans'">Add a subheading</button>
+  <button class="txt" data-act="add-p" style="font:400 13px 'Plus Jakarta Sans'">Add body text</button>
+  <button class="txt" data-act="add-s" style="font:700 20px 'Caveat'">Add a script note</button>
+  <button class="txt" data-act="add-neon" style="font:800 18px 'Space Grotesk';color:#fff;background:#12122b;text-shadow:0 0 12px #22d3ee">Neon glow</button>
+  <button class="txt" data-act="add-outline" style="font:800 18px 'Space Grotesk';-webkit-text-stroke:1px currentColor;color:transparent">Outline text</button>
+  <button class="txt" data-act="add-retro" style="font:800 18px 'Space Grotesk';text-shadow:3px 3px 0 #ff5fa2">Retro shadow</button>
+  <button class="txt" data-act="add-bn" style="font:700 20px 'Hind Siliguri'">বাংলা শিরোনাম</button>
+  <h3>Images</h3>
+  <button class="btn" data-act="upload" style="width:100%">Upload image</button>
+  <input type="file" id="file" accept="image/*" hidden>
+  <div style="display:flex;gap:6px;margin-top:8px">
+    <input type="url" id="imgurl" placeholder="Paste image link (https://...)" style="flex:1;min-width:0">
+    <button type="button" class="btn pri" data-act="add-url" style="flex:none;padding:6px 12px">Add</button>
+  </div>
+  <div id="url-msg" style="color:var(--mute);font-size:11px;margin-top:4px;display:none"></div>
+  <input type="text" id="stk-q" placeholder="Search pictures (travel, food, cafe, tech...)" style="margin-top:8px">
+  <div class="stk-cats" id="stk-cats"></div>
+  <div class="grid" id="stock" style="grid-template-columns:repeat(3,1fr);margin-top:6px"></div>
+  <div style="color:var(--mute);font-size:11px;margin-top:6px">Upload, paste a link (or press Ctrl+V anywhere), or pick from curated pictures below.</div>
+  <h3>Background</h3>
+  <div class="sw" id="sw"></div>
+</aside>
+<section id="view">
+  <div id="wrap">
+    <div id="stage">
+      <div id="clip"></div>
+      <div id="selbox">
+        <div class="h" data-k="nw"></div>
+        <div class="h" data-k="ne"></div>
+        <div class="h" data-k="se"></div>
+        <div class="h" data-k="sw"></div>
+        <div class="h" data-k="rot"></div>
+      </div>
+      <div class="g" id="gv"></div>
+      <div class="g" id="gh"></div>
+    </div>
+  </div>
+</section>
+<aside class="r">
+  <div id="props"></div>
+  <h3>Layers</h3>
+  <div id="layers"></div>
+</aside>
+</main>
+</div>
+
+<div id="home"></div>
+
+<div id="modal">
+  <div>
+    <b>Your design is ready</b><br>
+    <span style="color:var(--mute)">Press and hold (or right-click) the image and choose Save image.</span>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0">
+      <select id="xf" style="width:auto">
+        <option value="png">PNG</option>
+        <option value="jpeg">JPG</option>
+        <option value="webp">WEBP</option>
+      </select>
+      <select id="xs" style="width:auto">
+        <option value="1">100% (1x)</option>
+        <option value="2">200% (2x)</option>
+        <option value="0.5">50% (0.5x)</option>
+      </select>
+      <label style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="xt"> Transparent</label>
+      <button class="btn" data-act="export">Update</button>
+    </div>
+    <img id="out" alt="Exported design">
+    <div style="padding:0;display:flex;gap:8px">
+      <button class="btn pri" data-act="dl">Try download</button>
+      <button class="btn" data-act="close">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const st = $('#stage'), clip = $('#clip'), sb = $('#selbox');
+const NAMES = {
+  text: 'Text', rect: 'Rectangle', ell: 'Circle', tri: 'Triangle', star: 'Star',
+  dia: 'Diamond', hex: 'Hexagon', pent: 'Pentagon', arrow: 'Arrow', plus: 'Plus',
+  heart: 'Heart', para: 'Banner', burst: 'Burst', img: 'Image'
+};
+const FONTS = [
+  'Plus Jakarta Sans', 'Space Grotesk', 'Playfair Display', 'Bebas Neue', 'Caveat',
+  'Poppins', 'Montserrat', 'Oswald', 'Anton', 'Pacifico', 'Dancing Script',
+  'Hind Siliguri', 'Noto Sans Bengali', 'Georgia', 'Arial Black'
+];
+
+let S = { w: 1080, h: 1080, bg: '#ffffff', els: [] };
+let sel = null, z = .5, hist = [], fut = [], uid = 1, drag = null;
+let ms = new Set(), curP = null, mq = null, clipb = null, repl = 0;
+
+const N = (type, o = {}) => ({
+  id: uid++, type, x: 0, y: 0, w: 240, h: 240, r: 0, op: 1,
+  fill: '#5b3df5', g: 0, fill2: '#ff5fa2', rad: 0, sh: 0,
+  text: 'Text', font: 'Plus Jakarta Sans', fs: 64, wt: 700, al: 'left', col: '#16182a', ls: 0, hide: 0,
+  ...o
+});
+
+const cur = () => S.els.find(e => e.id === sel);
+const byId = i => S.els.find(e => e.id === i);
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+const POLY = { tri: 1, star: 1, dia: 1, hex: 1, pent: 1, arrow: 1, plus: 1, heart: 1, para: 1, burst: 1 };
+
+function pts(t) {
+  if (t === 'tri') return [[.5, 0], [1, 1], [0, 1]];
+  if (t === 'dia') return [[.5, 0], [1, .5], [.5, 1], [0, .5]];
+  if (t === 'hex') return [[.25, 0], [.75, 0], [1, .5], [.75, 1], [.25, 1], [0, .5]];
+  if (t === 'pent') return [0, 1, 2, 3, 4].map(i => [.5 + .5 * Math.cos(-Math.PI / 2 + i * 2 * Math.PI / 5), .5 + .5 * Math.sin(-Math.PI / 2 + i * 2 * Math.PI / 5)]);
+  if (t === 'arrow') return [[0, .35], [.6, .35], [.6, .1], [1, .5], [.6, .9], [.6, .65], [0, .65]];
+  if (t === 'plus') return [[.35, 0], [.65, 0], [.65, .35], [1, .35], [1, .65], [.65, .65], [.65, 1], [.35, 1], [.35, .65], [0, .65], [0, .35], [.35, .35]];
+  if (t === 'para') return [[.2, 0], [1, 0], [.8, 1], [0, 1]];
+  if (t === 'heart') {
+    const a = [];
+    for (let i = 0; i < 40; i++) {
+      const th = i / 40 * 2 * Math.PI;
+      const x = 16 * Math.sin(th) ** 3;
+      const y = -(13 * Math.cos(th) - 5 * Math.cos(2 * th) - 2 * Math.cos(3 * th) - Math.cos(4 * th));
+      a.push([.5 + x / 34, .46 + y / 34]);
+    }
+    return a;
+  }
+  if (t === 'burst') {
+    const a = [];
+    for (let i = 0; i < 24; i++) {
+      const r = i % 2 ? .38 : .5, th = i * Math.PI / 12;
+      a.push([.5 + r * Math.cos(th), .5 + r * Math.sin(th)]);
+    }
+    return a;
+  }
+  const a = [];
+  for (let i = 0; i < 10; i++) {
+    const r = i % 2 ? .21 : .5, th = -Math.PI / 2 + i * Math.PI / 5;
+    a.push([.5 + r * Math.cos(th), .5 + r * Math.sin(th)]);
+  }
+  return a;
+}
+const poly = t => 'polygon(' + pts(t).map(p => p[0] * 100 + '% ' + p[1] * 100 + '%').join(',') + ')';
+
+/* Offline SVG fallback builder + Online photo registry */
+const SV = d => 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice">' + d + '</svg>');
+const LG = (a, b) => '<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + a + '"/><stop offset="1" stop-color="' + b + '"/></linearGradient></defs><rect width="800" height="800" fill="url(#g)"/>';
+
+const FALLBACK_SVG = [
+  SV(LG('#ff9966', '#7b2ff7') + '<circle cx="400" cy="430" r="120" fill="#ffe29a"/><path d="M0 800V540L170 380L320 520L480 340L660 540L800 440V800Z" fill="#4a1d7a"/><path d="M0 800V640L210 500L380 640L570 480L800 660V800Z" fill="#240b45"/>'),
+  SV(LG('#7dd3fc', '#fef3c7') + '<circle cx="560" cy="330" r="80" fill="#fde68a"/><path d="M0 470Q100 440 200 470T400 470T600 470T800 470V800H0Z" fill="#0ea5e9"/><path d="M0 560Q120 520 240 560T480 560T720 560T800 550V800H0Z" fill="#0369a1"/><path d="M0 660Q140 620 280 660T560 660T800 650V800H0Z" fill="#082f49"/>'),
+  SV(LG('#0f172a', '#7c3aed') + '<circle cx="620" cy="200" r="70" fill="#fef9c3"/><g fill="#0b1020"><rect x="30" y="430" width="100" height="370"/><rect x="140" y="320" width="120" height="480"/><rect x="270" y="470" width="90" height="330"/><rect x="370" y="270" width="130" height="530"/><rect x="510" y="400" width="100" height="400"/><rect x="620" y="340" width="90" height="460"/><rect x="700" y="470" width="100" height="330"/></g>'),
+  SV(LG('#bbf7d0', '#15803d') + '<circle cx="620" cy="170" r="70" fill="#fef9c3"/><g fill="#14532d"><path d="M80 800L180 420L280 800Z"/><path d="M230 800L360 330L490 800Z"/><path d="M450 800L570 400L690 800Z"/><path d="M620 800L720 460L800 800Z"/></g>'),
+  SV(LG('#fde68a', '#fb923c') + '<circle cx="400" cy="300" r="100" fill="#fff7ed"/><path d="M0 800V520Q200 420 400 520T800 480V800Z" fill="#f59e0b"/><path d="M0 800V640Q250 540 480 640T800 600V800Z" fill="#d97706"/>'),
+  SV('<rect width="800" height="800" fill="#020617"/><defs><filter id="b"><feGaussianBlur stdDeviation="45"/></filter></defs><g filter="url(#b)"><ellipse cx="260" cy="300" rx="260" ry="90" fill="#34d399" opacity=".8"/><ellipse cx="540" cy="260" rx="260" ry="80" fill="#8b5cf6" opacity=".8"/></g>'),
+  SV('<rect width="800" height="800" fill="#fdf2f8"/><circle cx="260" cy="280" r="220" fill="#f472b6" opacity=".8"/><circle cx="520" cy="360" r="240" fill="#818cf8" opacity=".75"/><circle cx="400" cy="560" r="200" fill="#fbbf24" opacity=".8"/>'),
+  SV('<rect width="800" height="800" fill="#111827"/><circle cx="220" cy="240" r="150" fill="#c6ff3d"/><rect x="380" y="140" width="260" height="260" fill="#7c3aed" transform="rotate(20 510 270)"/><circle cx="600" cy="600" r="110" fill="none" stroke="#22d3ee" stroke-width="28"/>'),
+  SV(LG('#34d399', '#065f46') + '<circle cx="590" cy="190" r="90" fill="#fb923c"/><g fill="#064e3b"><ellipse cx="170" cy="560" rx="60" ry="260" transform="rotate(-25 170 560)"/><ellipse cx="560" cy="600" rx="60" ry="270" transform="rotate(30 560 600)"/></g>'),
+  SV(LG('#1e1b4b', '#000000') + '<circle cx="420" cy="420" r="170" fill="#f97316"/><ellipse cx="420" cy="420" rx="290" ry="60" fill="none" stroke="#fde68a" stroke-width="16" transform="rotate(-20 420 420)"/>'),
+  SV(LG('#fef3c7', '#fde68a') + '<rect x="70" y="90" width="660" height="620" rx="48" fill="#fffbeb"/><circle cx="285" cy="390" r="155" fill="#78350f"/><circle cx="285" cy="390" r="128" fill="#f8fafc"/><circle cx="540" cy="390" r="135" fill="#f59e0b"/>'),
+  SV(LG('#fff7ed', '#fed7aa') + '<ellipse cx="400" cy="620" rx="260" ry="38" fill="#cbd5e1"/><path d="M160 580H640V615H160Z" fill="#d97706"/><rect x="170" y="485" width="460" height="32" rx="10" fill="#facc15"/><path d="M160 485C160 350 640 350 640 485Z" fill="#ea580c"/>'),
+  SV(LG('#ecfdf5', '#d1fae5') + '<circle cx="400" cy="410" r="250" fill="#ffffff" stroke="#10b981" stroke-width="14"/><circle cx="340" cy="350" r="68" fill="#fb923c"/><circle cx="465" cy="360" r="62" fill="#f43f5e"/>'),
+  SV(LG('#e0e7ff', '#c7d2fe') + '<rect x="0" y="540" width="800" height="260" fill="#334155"/><rect x="180" y="250" width="440" height="280" rx="18" fill="#0f172a"/><rect x="200" y="270" width="400" height="230" rx="8" fill="#6366f1"/>'),
+  SV(LG('#f8fafc', '#e2e8f0') + '<rect x="110" y="130" width="240" height="310" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="6"/><rect x="420" y="190" width="270" height="250" rx="16" fill="#1e1b4b"/><circle cx="555" cy="315" r="72" fill="#c6ff3d"/>'),
+  SV(LG('#ffedd5', '#fed7aa') + '<circle cx="400" cy="240" r="190" fill="#fbbf24" opacity=".65"/><circle cx="400" cy="330" r="115" fill="#fdba74"/><path d="M210 740C210 520 590 520 590 740Z" fill="#5b3df5"/>'),
+  SV(LG('#fdf4ff', '#fae8ff') + '<rect x="170" y="150" width="460" height="500" rx="36" fill="#ffffff" stroke="#e879f9" stroke-width="8"/><circle cx="400" cy="510" r="88" fill="#c6ff3d"/>'),
+  SV(LG('#f0fdf4', '#dcfce7') + '<path d="M150 310H360L385 670H125Z" fill="#10b981"/><path d="M390 270H640L675 670H355Z" fill="#f59e0b"/>'),
+  SV(LG('#e0f2fe', '#bae6fd') + '<circle cx="630" cy="170" r="85" fill="#fde047"/><path d="M0 610H800V800H0Z" fill="#f1f5f9"/><polygon points="140,650 660,650 740,750 60,750" fill="#8b5cf6"/>'),
+  SV('<rect width="800" height="800" fill="#090d16"/><path d="M0 440C180 260 320 580 500 390C640 240 720 420 800 360" fill="none" stroke="#22d3ee" stroke-width="18"/><path d="M0 520C200 350 340 660 520 470C650 330 730 500 800 450" fill="none" stroke="#ff5fa2" stroke-width="14"/>')
+];
+
+/* Curated online photo URLs + instant SVG fallback */
+const ONLINE_PHOTOS = [
+  { cat: 'travel', title: 'Mountain Trail', tags: 'travel adventure mountain hike nature', url: 'https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[0] },
+  { cat: 'travel', title: 'Tropical Coast', tags: 'travel beach ocean summer coast', url: 'https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[1] },
+  { cat: 'urban', title: 'City Night Lights', tags: 'urban city street night neon architecture', url: 'https://images.pexels.com/photos/313782/pexels-photo-313782.jpeg?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[2] },
+  { cat: 'nature', title: 'Misty Pine Woods', tags: 'nature forest trees fog green', url: 'https://images.pexels.com/photos/167699/pexels-photo-167699.jpeg?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[3] },
+  { cat: 'travel', title: 'Desert Horizon', tags: 'travel desert sand dunes sunset', url: 'https://images.pexels.com/photos/1001435/pexels-photo-1001435.jpeg?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[4] },
+  { cat: 'nature', title: 'Northern Glow', tags: 'nature aurora night sky stars', url: 'https://images.pexels.com/photos/1933239/pexels-photo-1933239.jpeg?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[5] },
+  { cat: 'abstract', title: 'Color Waves', tags: 'abstract gradient art modern color', url: 'https://images.pexels.com/photos/2693212/pexels-photo-2693212.png?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[6] },
+  { cat: 'urban', title: 'Modern Tower', tags: 'architecture modern building glass urban', url: 'https://images.pexels.com/photos/323705/pexels-photo-323705.jpeg?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[7] },
+  { cat: 'nature', title: 'Botanical Green', tags: 'nature leaves plants garden fresh', url: 'https://images.pexels.com/photos/1072179/pexels-photo-1072179.jpeg?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[8] },
+  { cat: 'abstract', title: 'Deep Cosmos', tags: 'abstract space galaxy stars dark', url: 'https://images.pexels.com/photos/1169754/pexels-photo-1169754.jpeg?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[9] },
+  { cat: 'food', title: 'Morning Espresso', tags: 'food cafe coffee espresso cup', url: 'https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[10] },
+  { cat: 'food', title: 'Artisan Burger', tags: 'food burger dining meal promo', url: 'https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[11] },
+  { cat: 'food', title: 'Fresh Salad Bowl', tags: 'food healthy salad fresh bowl', url: 'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[12] },
+  { cat: 'workspace', title: 'Laptop Workspace', tags: 'workspace desk laptop tech code', url: 'https://images.pexels.com/photos/1181675/pexels-photo-1181675.jpeg?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[13] },
+  { cat: 'workspace', title: 'Creative Studio', tags: 'workspace design studio notebook desk', url: 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[14] },
+  { cat: 'lifestyle', title: 'Street Fashion', tags: 'lifestyle fashion style outfit portrait', url: 'https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[15] },
+  { cat: 'shopping', title: 'Boutique Rack', tags: 'shopping fashion store retail sale', url: 'https://images.pexels.com/photos/934070/pexels-photo-934070.jpeg?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[16] },
+  { cat: 'shopping', title: 'Market Bags', tags: 'shopping bags store retail promo', url: 'https://images.pexels.com/photos/5632399/pexels-photo-5632399.jpeg?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[17] },
+  { cat: 'lifestyle', title: 'Fitness & Yoga', tags: 'lifestyle fitness wellness workout yoga', url: 'https://images.pexels.com/photos/4056723/pexels-photo-4056723.jpeg?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[18] },
+  { cat: 'food', title: 'Sweet Bakery', tags: 'food bakery pastry cake dessert', url: 'https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[19] },
+  { cat: 'lifestyle', title: 'Autumn Trench Look', tags: 'fashion trench coat outfit studio editorial', url: 'https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[15] },
+  { cat: 'lifestyle', title: 'Minimalist Portrait', tags: 'fashion portrait studio aesthetic minimal', url: 'https://images.pexels.com/photos/1382731/pexels-photo-1382731.jpeg?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[16] },
+  { cat: 'nature', title: 'Morning Dew & Sun', tags: 'good morning nature sunrise meadow calm', url: 'https://images.pexels.com/photos/158028/bellingrath-gardens-alabama-landscape-scenic-158028.jpeg?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[3] },
+  { cat: 'shopping', title: 'Skincare & Serum', tags: 'skincare beauty bottle glow minimal', url: 'https://images.pexels.com/photos/3735657/pexels-photo-3735657.jpeg?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[17] },
+  { cat: 'lifestyle', title: 'Golden Hour Walk', tags: 'quote motivation sunset walk peaceful', url: 'https://images.pexels.com/photos/247431/pexels-photo-247431.jpeg?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[4] },
+  { cat: 'food', title: 'Artisan Pizza Slice', tags: 'pizza food dining party oven', url: 'https://images.pexels.com/photos/825661/pexels-photo-825661.jpeg?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[11] },
+  { cat: 'lifestyle', title: 'Warm Knit Sweater', tags: 'fashion knitwear sweater autumn style', url: 'https://images.pexels.com/photos/7679720/pexels-photo-7679720.jpeg?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[15] },
+  { cat: 'travel', title: 'Coastal Sunset Pier', tags: 'travel pier ocean sunset horizon', url: 'https://images.pexels.com/photos/457882/pexels-photo-457882.jpeg?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[1] },
+  { cat: 'workspace', title: 'Minimalist Desk Setup', tags: 'workspace monitor desk keyboard creative', url: 'https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[13] },
+  { cat: 'shopping', title: 'Luxury Handbag Edit', tags: 'bag accessories fashion boutique store', url: 'https://images.pexels.com/photos/1152077/pexels-photo-1152077.jpeg?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[16] },
+  { cat: 'nature', title: 'Sunlit Green Valley', tags: 'nature valley hills spring meadow', url: 'https://images.pexels.com/photos/440731/pexels-photo-440731.jpeg?auto=compress&cs=tinysrgb&w=900', fb: FALLBACK_SVG[3] }
+];
+
+const FALLBACK_MAP = new Map();
+ONLINE_PHOTOS.forEach(p => { FALLBACK_MAP.set(p.url, p.fb); });
+
+const STOCK = ONLINE_PHOTOS.map((p, idx) => ({
+  cat: p.cat,
+  title: p.title,
+  tags: p.tags,
+  src: p.url,
+  fb: p.fb || FALLBACK_SVG[idx % FALLBACK_SVG.length]
+}));
+
+const STK_CATS = [
+  ['all', 'All'],
+  ['travel', 'Travel'],
+  ['food', 'Food'],
+  ['lifestyle', 'Lifestyle'],
+  ['shopping', 'Shop'],
+  ['nature', 'Nature'],
+  ['urban', 'Urban'],
+  ['workspace', 'Tech'],
+  ['abstract', 'Art']
+];
+let stkCat = 'all', stkQ = '';
+
+function renderStock() {
+  const g = $('#stock');
+  if (!g) return;
+  const q = stkQ.trim().toLowerCase();
+  const list = STOCK.map((item, idx) => ({ item, idx })).filter(({ item }) => {
+    const matchCat = stkCat === 'all' || item.cat === stkCat;
+    const matchQ = !q || (item.title + ' ' + item.tags + ' ' + item.cat).toLowerCase().includes(q);
+    return matchCat && matchQ;
+  });
+  g.innerHTML = list.length
+    ? list.map(({ item, idx }) =>
+        `<div class="stk-card" data-act="stock" data-i="${idx}" title="${esc(item.title)}">` +
+        `<img src="${esc(item.src)}" alt="${esc(item.title)}" loading="lazy">` +
+        `<span class="stk-lbl">${esc(item.title)}</span></div>`
+      ).join('')
+    : '<div style="grid-column:1/-1;color:var(--mute);font-size:11px;padding:8px 0">No matching pictures found.</div>';
+}
+
+function fallbackFor(src) {
+  return FALLBACK_MAP.get(src) || FALLBACK_SVG[0];
+}
+
+document.addEventListener('error', ev => {
+  const t = ev.target;
+  if (t && t.tagName === 'IMG' && !t.dataset.fbApplied) {
+    t.dataset.fbApplied = '1';
+    t.src = fallbackFor(t.getAttribute('src') || '');
+  }
+}, true);
+
+/* history + storage */
+const snapJ = () => JSON.stringify(S);
+function snap() {
+  const j = snapJ();
+  if (hist[hist.length - 1] === j) return;
+  hist.push(j);
+  if (hist.length > 80) hist.shift();
+  fut = [];
+}
+function undo() {
+  if (!hist.length) return;
+  fut.push(snapJ());
+  S = JSON.parse(hist.pop());
+  sel = null;
+  render();
+  props();
+  save();
+}
+function redo() {
+  if (!fut.length) return;
+  hist.push(snapJ());
+  S = JSON.parse(fut.pop());
+  sel = null;
+  render();
+  props();
+  save();
+}
+function save() {
+  try { localStorage.setItem('frame-doc', snapJ()); } catch (e) {}
+  curP = curP || String(Date.now());
+  saveProj();
+}
+
+/* rendering */
+function imgBox(e) {
+  return e.crp
+    ? `position:absolute;left:${-e.cl / (1 - e.cl - e.cr) * 100}%;top:${-e.ct / (1 - e.ct - e.cb) * 100}%;width:${100 / (1 - e.cl - e.cr)}%;height:${100 / (1 - e.ct - e.cb)}%;object-fit:fill;`
+    : 'width:100%;height:100%;object-fit:cover;';
+}
+function imgFx(e) {
+  return `brightness(${e.bri ?? 100}%) contrast(${e.con ?? 100}%) saturate(${e.sat ?? 100}%) blur(${e.blur || 0}px) grayscale(${e.gry || 0}%) sepia(${e.sep || 0}%) hue-rotate(${e.hue || 0}deg)`;
+}
+
+function vis(e, d) {
+  d.style.opacity = e.op;
+  d.style.display = e.hide ? 'none' : '';
+  d.style.filter = e.sh ? `drop-shadow(0 ${e.shy ?? 12}px ${e.shb ?? 18}px ${e.shc || '#000000'}99)` : '';
+  d.style.mixBlendMode = e.bm || 'normal';
+  if (e.type === 'text') {
+    d.style.font = `${e.it ? 'italic ' : ''}${e.wt} ${e.fs}px/${e.lh || 1.2} "${e.font}",sans-serif`;
+    d.style.textTransform = e.up ? 'uppercase' : '';
+    d.style.textDecoration = e.ul ? 'underline' : '';
+    d.style.webkitTextStroke = e.stw ? `${e.stw}px ${e.stc || '#000000'}` : '';
+    d.style.color = e.col;
+    d.style.textAlign = e.al;
+    d.style.letterSpacing = e.ls + 'px';
+    d.textContent = e.text;
+  } else if (e.type === 'img') {
+    d.style.overflow = 'hidden';
+    d.style.clipPath = POLY[e.mask] ? poly(e.mask) : '';
+    d.innerHTML = `<img src="${esc(e.src)}" draggable="false" style="${imgBox(e)}display:block;pointer-events:none;user-select:none;border-radius:${e.mask === 'ell' ? '50%' : e.rad + 'px'};filter:${imgFx(e)}">`;
+  } else {
+    d.style.background = e.g ? `linear-gradient(${e.ga ?? 135}deg,${e.fill},${e.fill2})` : e.fill;
+    d.style.boxShadow = e.bw ? `inset 0 0 0 ${e.bw}px ${e.bc || '#000000'}` : '';
+    if (e.pic) {
+      const px = e.pox ?? 50, py = e.poy ?? 50;
+      d.style.overflow = 'hidden';
+      d.innerHTML = `<img src="${esc(e.pic)}" draggable="false" style="width:100%;height:100%;object-fit:cover;object-position:${px}% ${py}%;transform:scale(${(e.pz || 100) / 100});transform-origin:${px}% ${py}%;display:block;pointer-events:none">`;
+    } else {
+      d.style.overflow = '';
+    }
+    d.style.borderRadius = e.type === 'ell' ? '50%' : e.type === 'rect' ? e.rad + 'px' : '';
+    d.style.clipPath = POLY[e.type] ? poly(e.type) : '';
+  }
+}
+
+function place(e, d) {
+  d = d || clip.querySelector(`[data-id="${e.id}"]`);
+  if (!d) return;
+  d.style.left = e.x + 'px';
+  d.style.top = e.y + 'px';
+  d.style.width = e.w + 'px';
+  d.style.transform = `rotate(${e.r}deg) scale(${e.fx ? -1 : 1},${e.fy ? -1 : 1})`;
+  if (e.type === 'text') {
+    d.style.height = 'auto';
+    e.h = d.offsetHeight;
+  } else {
+    d.style.height = e.h + 'px';
+  }
+}
+
+function updSel() {
+  const e = cur();
+  if (!e || e.hide) { sb.style.display = 'none'; return; }
+  sb.querySelectorAll('.h').forEach(h => h.style.display = (e.lock || ms.size > 1) ? 'none' : '');
+  Object.assign(sb.style, {
+    display: 'block', left: e.x + 'px', top: e.y + 'px',
+    width: e.w + 'px', height: e.h + 'px', transform: `rotate(${e.r}deg)`
+  });
+}
+
+function render() {
+  if (sel === null) ms.clear();
+  clip.innerHTML = '';
+  st.style.width = S.w + 'px';
+  st.style.height = S.h + 'px';
+  clip.style.background = S.g2 ? `linear-gradient(${S.bga ?? 135}deg,${S.bg},${S.bg2 || '#ffffff'})` : S.bg;
+  S.els.forEach(e => {
+    const d = document.createElement('div');
+    d.className = 'el ' + e.type;
+    d.dataset.id = e.id;
+    clip.appendChild(d);
+    if (ms.has(e.id)) d.classList.add('ms');
+    vis(e, d);
+    place(e, d);
+  });
+  zoomApply();
+  updSel();
+  layers();
+}
+
+function zoomApply() {
+  const w = $('#wrap');
+  w.style.width = S.w * z + 'px';
+  w.style.height = S.h * z + 'px';
+  st.style.transform = `scale(${z})`;
+  st.style.setProperty('--z', z);
+  $('#zl').textContent = Math.round(z * 100) + '%';
+}
+function fit() {
+  const v = $('#view');
+  z = Math.max(.05, Math.min((v.clientWidth - 72) / S.w, (v.clientHeight - 72) / S.h, 1));
+  zoomApply();
+}
+function setZ(v) { z = Math.min(3, Math.max(.05, v)); zoomApply(); }
+
+/* layers + props */
+function layers() {
+  $('#layers').innerHTML = [...S.els].reverse().map(e =>
+    `<div class="ly ${(e.id === sel || ms.has(e.id)) ? 'on' : ''}" data-id="${e.id}">` +
+    `<b>${e.type === 'text' ? esc(e.text.slice(0, 18) || 'Text') : NAMES[e.type]}</b>` +
+    `<button data-act="lyup" data-id="${e.id}" aria-label="Move up">↑</button>` +
+    `<button data-act="lydn" data-id="${e.id}" aria-label="Move down">↓</button>` +
+    `<button data-act="lylock" data-id="${e.id}" aria-label="Lock">${e.lock ? '🔒' : '🔓'}</button>` +
+    `<button data-act="eye" data-id="${e.id}" aria-label="Toggle visibility">${e.hide ? 'Show' : 'Hide'}</button></div>`
+  ).join('') || '<div style="color:var(--mute)">Nothing here yet. Add a shape, some text or pick a template.</div>';
+}
+
+const F = (l, h) => `<label class="f"><span>${l}</span>${h}</label>`;
+const inp = (p, v, t = 'number', x = '') => `<input data-p="${p}" type="${t}" value="${esc(v)}" ${x}>`;
+const chk = (p, v) => `<input data-p="${p}" type="checkbox" ${v ? 'checked' : ''} style="width:18px;height:18px;accent-color:var(--acc)">`;
+const sl = (p, o, v) => `<select data-p="${p}">${o.map(x => `<option ${String(x) === String(v) ? 'selected' : ''}>${x}</option>`).join('')}</select>`;
+
+function applyCrop(e, cl, cr, ct, cb) {
+  const fw = e.w / (1 - e.cl - e.cr), fh = e.h / (1 - e.ct - e.cb);
+  const fx = e.x - e.cl * fw, fy = e.y - e.ct * fh;
+  e.cl = cl; e.cr = cr; e.ct = ct; e.cb = cb;
+  e.w = Math.round(fw * (1 - cl - cr));
+  e.h = Math.round(fh * (1 - ct - cb));
+  e.x = Math.round(fx + cl * fw);
+  e.y = Math.round(fy + ct * fh);
+}
+function scaleEl(e, k) {
+  const cx = e.x + e.w / 2, cy = e.y + e.h / 2;
+  e.w = Math.round(e.w * k);
+  const nh = e.h * k;
+  if (e.type === 'text') e.fs = e.fs * k;
+  else e.h = Math.round(nh);
+  e.x = Math.round(cx - e.w / 2);
+  e.y = Math.round(cy - nh / 2);
+}
+function sizeUI(e) {
+  const t = e.type === 'text';
+  return '<h3>Size and position</h3>' +
+    F('X', inp('x', Math.round(e.x))) +
+    F('Y', inp('y', Math.round(e.y))) +
+    F('Width', inp('w', Math.round(e.w))) +
+    (t ? '' : F('Height', inp('h', Math.round(e.h)))) +
+    (t ? '' : F('Lock ratio', chk('lr', e.lr))) +
+    `<div class='row' style='margin-top:0'>${[50, 75, 125, 150, 200].map(p => `<button class='btn' data-act='sc-${p}'>${p}%</button>`).join('')}</div>` +
+    `<div class='row'><button class='btn' data-act='fitc'>Fit canvas</button><button class='btn' data-act='fillc'>Fill canvas</button></div>`;
+}
+function fxRow() {
+  return `<h3>Photo effects</h3><div class='row' style='margin-top:0'>${[['Original', 'original'], ['Vivid', 'vivid'], ['B&W', 'bw'], ['Sepia', 'sepia'], ['Fade', 'fade'], ['Cool', 'cool']].map(n => `<button class='btn' data-act='fx-${n[1]}'>${n[0]}</button>`).join('')}</div>`;
+}
+function cropUI(e) {
+  if (!e.crp) return "<h3>Crop and cut</h3><div class='row' style='margin-top:0'><button class='btn' data-act='cropstart'>Crop image</button></div>";
+  const sl2 = (k, l) => F(l, inp(k, Math.round((e[k] || 0) * 100), 'range', 'min="0" max="80"'));
+  return '<h3>Crop and cut</h3>' + sl2('cl', 'Left') + sl2('cr', 'Right') + sl2('ct', 'Top') + sl2('cb', 'Bottom') +
+    "<div class='row'><button class='btn' data-act='cropreset'>Reset crop</button><button class='btn' data-act='cutv'>Cut left / right</button><button class='btn' data-act='cuth'>Cut top / bottom</button></div>";
+}
+function picUI(e) {
+  let h = '<h3>Picture inside shape</h3><div class="row" style="margin-top:0"><button class="btn" data-act="picset">' + (e.pic ? 'Replace image' : 'Set image') + '</button>' + (e.pic ? '<button class="btn" data-act="picdel">Remove</button>' : '') + '</div>';
+  h += '<div style="display:flex;gap:6px;margin-top:8px"><input type="url" id="shape-pic-url" placeholder="Paste image link (https://...)" style="flex:1;min-width:0"><button type="button" class="btn" data-act="picset-url" style="flex:none">Set link</button></div>';
+  if (e.pic) h += F('Zoom', inp('pz', e.pz || 100, 'range', 'min="100" max="400"')) + F('Position X', inp('pox', e.pox ?? 50, 'range', 'min="0" max="100"')) + F('Position Y', inp('poy', e.poy ?? 50, 'range', 'min="0" max="100"'));
+  return h + '<div class="grid" style="grid-template-columns:repeat(5,1fr);margin-top:8px">' +
+    STOCK.slice(0, 10).map((it, i) => `<img data-act="picstock" data-i="${i}" src="${esc(it.src)}" alt="${esc(it.title)}" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;cursor:pointer;border:1px solid var(--line)">`).join('') +
+    '</div><p style="color:var(--mute);font-size:11px">Tip: drop an image file onto any shape on the canvas.</p>';
+}
+
+function props() {
+  const P = $('#props'), e = cur();
+  if (ms.size > 1) { P.innerHTML = multiUI(); return; }
+  if (!e) {
+    P.innerHTML = '<h3>Canvas</h3>' +
+      F('Width', inp('w', S.w)) + F('Height', inp('h', S.h)) +
+      F('Color', inp('bg', S.bg, 'color')) + F('Gradient', chk('g2', S.g2)) +
+      F('Second', inp('bg2', S.bg2 || '#ffffff', 'color')) +
+      F('Angle', inp('bga', S.bga ?? 135, 'range', 'min="0" max="360"')) +
+      F('Resize to', `<select id='mrz'>${[...$('#preset').options].map(o => `<option value='${o.value}'>${o.textContent}</option>`).join('')}</select>`) +
+      '<div class="row"><button class="btn" data-act="mresize">Resize and scale content</button></div>' +
+      '<p style="color:var(--mute)">Click an element to edit it. Double-click text to type directly. Shift while resizing keeps the ratio.</p>';
+    return;
+  }
+  let h = `<h3>${NAMES[e.type]}</h3>`;
+  if (e.type === 'text') {
+    h += `<div class="row" style="margin-top:0;margin-bottom:8px"><button class="btn pri" data-act="edit-text" style="width:100%">Edit text on canvas</button></div>` +
+      F('Text', `<textarea data-p="text" rows="3">${esc(e.text)}</textarea>`) +
+      F('Font', sl('font', FONTS, e.font)) + F('Size', inp('fs', Math.round(e.fs))) +
+      F('Weight', sl('wt', [400, 600, 700, 800], e.wt)) + F('Align', sl('al', ['left', 'center', 'right'], e.al)) +
+      F('Color', inp('col', e.col, 'color')) + F('Spacing', inp('ls', e.ls, 'range', 'min="-5" max="30"')) +
+      F('Line height', inp('lh', e.lh || 1.2, 'range', 'min="0.8" max="2" step="0.05"')) +
+      F('Italic', chk('it', e.it)) + F('Underline', chk('ul', e.ul)) + F('Uppercase', chk('up', e.up)) +
+      F('Outline', inp('stw', e.stw || 0, 'range', 'min="0" max="20"')) +
+      F('Outline color', inp('stc', e.stc || '#000000', 'color'));
+  } else if (e.type !== 'img') {
+    h += F('Fill', inp('fill', e.fill, 'color')) + F('Gradient', chk('g', e.g)) +
+      F('Second', inp('fill2', e.fill2, 'color')) +
+      F('Angle', inp('ga', e.ga ?? 135, 'range', 'min="0" max="360"')) +
+      F('Border', inp('bw', e.bw || 0, 'range', 'min="0" max="60"')) +
+      F('Border color', inp('bc', e.bc || '#000000', 'color')) + picUI(e);
+  }
+  if (e.type === 'img') {
+    h += F('Shape mask', `<select data-p="mask">${[['none', 'None'], ['ell', 'Circle'], ['tri', 'Triangle'], ['star', 'Star'], ['dia', 'Diamond'], ['hex', 'Hexagon'], ['pent', 'Pentagon'], ['heart', 'Heart'], ['burst', 'Burst']].map(m => `<option value="${m[0]}" ${(e.mask || 'none') === m[0] ? 'selected' : ''}>${m[1]}</option>`).join('')}</select>`);
+    h += F('Brightness', inp('bri', e.bri ?? 100, 'range', 'min="40" max="180"')) +
+      F('Contrast', inp('con', e.con ?? 100, 'range', 'min="40" max="180"')) +
+      F('Saturate', inp('sat', e.sat ?? 100, 'range', 'min="0" max="200"')) +
+      F('Blur', inp('blur', e.blur || 0, 'range', 'min="0" max="20"')) +
+      F('Grayscale', inp('gry', e.gry || 0, 'range', 'min="0" max="100"')) +
+      F('Sepia', inp('sep', e.sep || 0, 'range', 'min="0" max="100"')) +
+      F('Hue', inp('hue', e.hue || 0, 'range', 'min="0" max="360"')) +
+      fxRow() + cropUI(e) +
+      '<div class="row"><button class="btn" data-act="replace">Replace image</button><button class="btn" data-act="fillc">Fill canvas</button></div>' +
+      '<div style="display:flex;gap:6px;margin-top:8px"><input type="url" id="rep-img-url" placeholder="New image link (https://...)" style="flex:1;min-width:0"><button type="button" class="btn" data-act="replace-url" style="flex:none">Set link</button></div>';
+  }
+  if (e.type === 'rect' || e.type === 'img') h += F('Corners', inp('rad', e.rad, 'range', 'min="0" max="400"'));
+  h += sizeUI(e) +
+    F('Opacity', inp('op', e.op, 'range', 'min="0" max="1" step="0.01"')) +
+    F('Rotate', inp('r', Math.round(e.r))) +
+    F('Shadow', chk('sh', e.sh)) +
+    F('Shadow blur', inp('shb', e.shb ?? 18, 'range', 'min="0" max="80"')) +
+    F('Shadow Y', inp('shy', e.shy ?? 12, 'range', 'min="-40" max="80"')) +
+    F('Shadow color', inp('shc', e.shc || '#000000', 'color')) +
+    F('Blend', sl('bm', ['normal', 'multiply', 'screen', 'overlay', 'darken', 'lighten', 'difference', 'soft-light'], e.bm || 'normal'));
+  h += `<div class="row"><button class="btn" data-act="dup">Duplicate</button>${window.EyeDropper ? '<button class="btn" data-act="eyed">Eyedropper</button>' : ''}<button class="btn" data-act="cut">Cut</button><button class="btn" data-act="flipx">Flip H</button><button class="btn" data-act="flipy">Flip V</button><button class="btn" data-act="lock">${e.lock ? 'Unlock' : 'Lock'}</button><button class="btn" data-act="front">Front</button><button class="btn" data-act="back">Back</button><button class="btn" data-act="del">Delete</button></div>
+  <h3>Align to canvas</h3><div class="row"><button class="btn" data-act="al-l">Left</button><button class="btn" data-act="al-c">Center</button><button class="btn" data-act="al-r">Right</button><button class="btn" data-act="al-t">Top</button><button class="btn" data-act="al-m">Middle</button><button class="btn" data-act="al-b">Bottom</button></div>`;
+  P.innerHTML = h;
+}
+
+$('#props').addEventListener('pointerdown', snap);
+$('#props').addEventListener('focusin', snap);
+$('#props').addEventListener('change', e => { if (['x', 'y', 'w', 'h', 'lr'].includes(e.target.dataset.p)) props(); });
+$('#props').addEventListener('input', ev => {
+  const t = ev.target, p = t.dataset.p;
+  if (!p) return;
+  const o = sel ? cur() : S;
+  const v0 = t.type === 'checkbox' ? 0 : +t.value;
+  if (sel && o.crp && ['cl', 'cr', 'ct', 'cb'].includes(p)) {
+    const c = { cl: o.cl, cr: o.cr, ct: o.ct, cb: o.cb };
+    c[p] = v0 / 100;
+    if (c.cl + c.cr <= .9 && c.ct + c.cb <= .9) { applyCrop(o, c.cl, c.cr, c.ct, c.cb); render(); save(); }
+    return;
+  }
+  let v = t.type === 'checkbox' ? (t.checked ? 1 : 0) : (t.type === 'number' || t.type === 'range') ? +t.value : t.value;
+  if (p === 'wt') v = +v;
+  o[p] = v;
+  if (sel && p === 'lr' && v) o.ar = o.w / o.h;
+  if (sel && o.lr && (p === 'w' || p === 'h')) {
+    const ar = o.ar || o.w / o.h;
+    if (p === 'w') o.h = Math.round(v / ar);
+    else o.w = Math.round(v * ar);
+  }
+  if (!sel && (p === 'w' || p === 'h')) { render(); fit(); } else { render(); }
+  save();
+});
+
+const grpOf = id => { const e = byId(id); return e && e.grp ? S.els.filter(x => x.grp === e.grp).map(x => x.id) : [id]; };
+function msMark() { clip.querySelectorAll('.el').forEach(d => d.classList.toggle('ms', ms.has(+d.dataset.id))); }
+function select_(id) {
+  sel = id;
+  ms = new Set(id != null ? grpOf(id) : []);
+  if (ms.size < 2) ms.clear();
+  msMark(); updSel(); layers(); props();
+}
+function startMq(ev) {
+  const [px, py] = PT(ev), b = document.createElement('div');
+  b.id = 'mq';
+  st.appendChild(b);
+  mq = { x: px, y: py, b };
+}
+function multiUI() {
+  const nm = { l: 'Left', c: 'Center', r: 'Right', t: 'Top', m: 'Middle', b: 'Bottom' };
+  return `<h3>${ms.size} selected</h3><div class='row'><button class='btn' data-act='mgroup'>Group</button><button class='btn' data-act='mungroup'>Ungroup</button><button class='btn' data-act='mdup'>Duplicate</button><button class='btn' data-act='mdel'>Delete</button></div>` +
+    `<h3>Align</h3><div class='row'>${Object.keys(nm).map(k => `<button class='btn' data-act='mal-${k}'>${nm[k]}</button>`).join('')}</div>` +
+    `<h3>Distribute</h3><div class='row'><button class='btn' data-act='mdh'>Horizontally</button><button class='btn' data-act='mdv'>Vertically</button></div>` +
+    `<p style='color:var(--mute);font-size:11px'>Shift+click adds or removes. Drag on empty canvas to box-select. Press ? for all shortcuts.</p>`;
+}
+function multiAct(a) {
+  const L = S.els.filter(e => ms.has(e.id));
+  if (L.length < 2) return;
+  snap();
+  if (a === 'mgroup') { const g = 'g' + Date.now(); L.forEach(e => e.grp = g); }
+  else if (a === 'mungroup') { L.forEach(e => delete e.grp); }
+  else if (a === 'mdel') { S.els = S.els.filter(e => !ms.has(e.id)); ms.clear(); sel = null; }
+  else if (a === 'mdup') {
+    const n = L.map(e => ({ ...e, id: uid++, x: e.x + 30, y: e.y + 30 })), g = L.some(e => e.grp) ? 'g' + Date.now() : null;
+    n.forEach(e => { if (g && e.grp) e.grp = g; });
+    S.els.push(...n); ms = new Set(n.map(e => e.id)); sel = n[0].id;
+  } else {
+    const x0 = Math.min(...L.map(e => e.x)), x1 = Math.max(...L.map(e => e.x + e.w));
+    const y0 = Math.min(...L.map(e => e.y)), y1 = Math.max(...L.map(e => e.y + e.h));
+    if (a === 'mal-l') L.forEach(e => e.x = x0);
+    else if (a === 'mal-r') L.forEach(e => e.x = x1 - e.w);
+    else if (a === 'mal-c') L.forEach(e => e.x = (x0 + x1) / 2 - e.w / 2);
+    else if (a === 'mal-t') L.forEach(e => e.y = y0);
+    else if (a === 'mal-b') L.forEach(e => e.y = y1 - e.h);
+    else if (a === 'mal-m') L.forEach(e => e.y = (y0 + y1) / 2 - e.h / 2);
+    else if (a === 'mdh' || a === 'mdv') {
+      const h = a === 'mdh', s = [...L].sort((p, q) => h ? p.x - q.x : p.y - q.y);
+      const tot = h ? x1 - x0 : y1 - y0, sz = s.reduce((t, e) => t + (h ? e.w : e.h), 0);
+      const gap = (tot - sz) / (s.length - 1);
+      let c = h ? x0 : y0;
+      s.forEach(e => { if (h) e.x = c; else e.y = c; c += (h ? e.w : e.h) + gap; });
+    }
+  }
+  render(); props(); save();
+}
+
+/* add */
+function mid(w, h) { return { x: Math.round((S.w - w) / 2), y: Math.round((S.h - h) / 2) }; }
+function add(e) { snap(); S.els.push(e); render(); select_(e.id); save(); }
+function addShape(t) {
+  const s = Math.round(Math.min(S.w, S.h) * .3);
+  add(N(t, { w: s, h: s, ...mid(s, s), fill: ['#5b3df5', '#ff5fa2', '#2de2c5', '#ffb020'][S.els.length % 4] }));
+}
+function addText(o) {
+  const w = Math.round(S.w * .8);
+  add(N('text', { w, x: Math.round(S.w * .1), y: Math.round(S.h * .4), ...o }));
+}
+function loadImg(file, cb) {
+  const r = new FileReader();
+  r.onload = () => {
+    const im = new Image();
+    im.onload = () => {
+      const m = 1600, k = Math.min(1, m / Math.max(im.width, im.height));
+      const c = document.createElement('canvas');
+      c.width = im.width * k; c.height = im.height * k;
+      c.getContext('2d').drawImage(im, 0, 0, c.width, c.height);
+      cb(c.toDataURL(file.type === 'image/png' ? 'image/png' : 'image/jpeg', .9), im);
+    };
+    im.src = r.result;
+  };
+  r.readAsDataURL(file);
+}
+function addImg(file) {
+  loadImg(file, (src, im) => {
+    const w = Math.round(Math.min(S.w * .6, im.width)), h = Math.round(w * im.height / im.width);
+    add(N('img', { src, w, h, ...mid(w, h) }));
+  });
+}
+
+function showUrlMsg(txt, isErr = false) {
+  const m = $('#url-msg');
+  if (!m) return;
+  if (!txt) { m.style.display = 'none'; m.textContent = ''; return; }
+  m.style.display = 'block';
+  m.style.color = isErr ? '#e11d48' : 'var(--acc)';
+  m.textContent = txt;
+  clearTimeout(showUrlMsg._t);
+  showUrlMsg._t = setTimeout(() => { m.style.display = 'none'; }, 3500);
+}
+
+function normalizeImgUrl(raw) {
+  const u = String(raw || '').trim();
+  if (!u) return '';
+  if (/^(https?:\/\/|data:image\/)/i.test(u)) return u;
+  if (/^[a-z0-9.-]+\.[a-z]{2,}(\/.*)?$/i.test(u)) return 'https://' + u;
+  return '';
+}
+
+function addImgFromUrl(rawUrl, mode = 'add') {
+  const url = normalizeImgUrl(rawUrl);
+  if (!url) {
+    showUrlMsg('সঠিক ইমেজ লিংক দিন (https://...)', true);
+    return;
+  }
+  showUrlMsg('ছবি লোড হচ্ছে...');
+  const im = new Image();
+  im.onload = () => {
+    const natW = im.naturalWidth || 800, natH = im.naturalHeight || 800;
+    const e = cur();
+    if (mode === 'replace' && e && e.type === 'img') {
+      snap();
+      e.src = url;
+      e.crp = 0;
+      render(); props(); save();
+      showUrlMsg('ছবি আপডেট হয়েছে!');
+    } else if (mode === 'shape' && e && e.type !== 'text' && e.type !== 'img') {
+      snap();
+      e.pic = url; e.pox = 50; e.poy = 50; e.pz = 100;
+      render(); props(); save();
+      showUrlMsg('শেপের ভেতরে ছবি যুক্ত হয়েছে!');
+    } else {
+      const w = Math.round(Math.min(S.w * .6, natW));
+      const h = Math.max(40, Math.round(w * natH / natW));
+      add(N('img', { src: url, w, h, ...mid(w, h) }));
+      showUrlMsg('ক্যানভাসে ছবি যুক্ত হয়েছে!');
+    }
+  };
+  im.onerror = () => {
+    showUrlMsg('লিংক থেকে ছবি লোড করা যায়নি। সরাসরি ইমেজ URL দিন।', true);
+  };
+  im.src = url;
+}
+
+/* featured templates */
+const TPL = [
+  ['Launch', 'linear-gradient(135deg,#5b3df5,#ff5fa2)', () => ({
+    w: 1080, h: 1080, bg: '#12122b', els: [
+      N('ell', { x: 520, y: -220, w: 820, h: 820, g: 1, fill: '#7b5cff', fill2: '#ff5fa2' }),
+      N('ell', { x: -160, y: 780, w: 480, h: 480, g: 1, fill: '#2de2c5', fill2: '#2b7bff' }),
+      N('star', { x: 820, y: 690, w: 190, h: 190, fill: '#ffd23f', r: 12 }),
+      N('text', { x: 90, y: 230, w: 860, text: 'Design\nwithout\nlimits.', font: 'Space Grotesk', fs: 150, wt: 700, col: '#ffffff' }),
+      N('rect', { x: 90, y: 880, w: 380, h: 96, rad: 48, fill: '#ffffff' }),
+      N('text', { x: 90, y: 907, w: 380, text: 'Start creating', fs: 34, wt: 700, al: 'center', col: '#12122b' })
+    ]
+  })],
+  ['Quote', 'linear-gradient(135deg,#ff5fa2,#ffb3d1)', () => ({
+    w: 1080, h: 1350, bg: '#ffd9e8', els: [
+      N('ell', { x: 560, y: 880, w: 700, h: 700, fill: '#ff5fa2' }),
+      N('text', { x: 80, y: 20, w: 300, text: '“', font: 'Playfair Display', fs: 420, wt: 800, col: '#16182a' }),
+      N('text', { x: 90, y: 400, w: 900, text: 'Good design is as little design as possible.', font: 'Playfair Display', fs: 92, wt: 700 }),
+      N('rect', { x: 90, y: 1100, w: 120, h: 8, fill: '#16182a' }),
+      N('text', { x: 90, y: 1136, w: 700, text: 'Dieter Rams', fs: 38, wt: 600 })
+    ]
+  })],
+  ['Sale', 'linear-gradient(135deg,#ffd400,#ff3d2e)', () => ({
+    w: 1920, h: 1080, bg: '#ffd400', els: [
+      N('ell', { x: 1220, y: 120, w: 560, h: 560, fill: '#ff3d2e', sh: 1 }),
+      N('text', { x: 80, y: 60, w: 1100, text: 'MEGA\nSALE', font: 'Bebas Neue', fs: 400, wt: 400 }),
+      N('text', { x: 1220, y: 164, w: 560, text: '50%\nOFF', font: 'Bebas Neue', fs: 190, wt: 400, al: 'center', col: '#ffffff' }),
+      N('text', { x: 1220, y: 780, w: 560, text: 'This weekend only', fs: 54, wt: 700, al: 'center' })
+    ]
+  })]
+];
+
+$('#tpls').innerHTML = TPL.map((t, i) => `<button class="tp" data-act="tpl" data-i="${i}" style="background:${t[1]}">${t[0]}</button>`).join('');
+$('#shapes').innerHTML = ['rect', 'ell', 'tri', 'star', 'dia', 'hex', 'pent', 'arrow', 'plus', 'heart', 'para', 'burst'].map(t =>
+  `<button class="tile" data-act="add-${t}" aria-label="Add ${NAMES[t]}"><i style="${t === 'ell' ? 'border-radius:50%' : t === 'rect' ? 'border-radius:4px' : 'clip-path:' + poly(t)}"></i></button>`
+).join('');
+$('#sw').innerHTML = ['#ffffff', '#16182a', '#ffd400', '#ff5fa2', '#5b3df5', '#2de2c5', '#ff7a3d', '#dfe6ff'].map(c =>
+  `<button data-act="bg" data-c="${c}" style="background:${c}" aria-label="Background ${c}"></button>`
+).join('') + [['#7b5cff', '#ff5fa2'], ['#00c6ff', '#0072ff'], ['#f9d423', '#ff4e50'], ['#11998e', '#38ef7d'], ['#fc466b', '#3f5efb'], ['#0f2027', '#2c5364'], ['#ff9a9e', '#fad0c4'], ['#667eea', '#764ba2']].map(g =>
+  `<button data-act="bgg" data-a="${g[0]}" data-b="${g[1]}" style="background:linear-gradient(135deg,${g[0]},${g[1]})" aria-label="Gradient background"></button>`
+).join('');
+
+$('#preset').onchange = e => {
+  snap();
+  const [w, h] = e.target.value.split(',').map(Number);
+  S.w = w; S.h = h;
+  render(); fit(); props(); save();
+};
+
+/* 150 categories x 15 designs = 2,250 templates */
+const fg = c => {
+  const n = parseInt(c.slice(1), 16);
+  return (.3 * (n >> 16) + .59 * (n >> 8 & 255) + .11 * (n & 255)) > 150 ? '#16182a' : '#ffffff';
+};
+const PAL = [
+  ['#12122b', '#ffffff', '#7b5cff', '#ff5fa2'],
+  ['#ffd400', '#16182a', '#ff3d2e', '#ffffff'],
+  ['#ffe4ec', '#16182a', '#ff5fa2', '#5b3df5'],
+  ['#0b3d2e', '#f4fff8', '#2de2c5', '#ffd23f'],
+  ['#eef2ff', '#16182a', '#2b7bff', '#2de2c5'],
+  ['#ff7a3d', '#ffffff', '#16182a', '#ffd23f']
+];
+const PAL2 = [
+  ['#0a0a0f', '#f5f5ff', '#c6ff3d', '#7a5cff'],
+  ['#e9f0ff', '#101828', '#3b6bff', '#ffb4d1'],
+  ['#fff1f2', '#2a0f1a', '#ff4d6d', '#ffc2d1'],
+  ['#101c17', '#e8fff3', '#34d399', '#fbbf24'],
+  ['#fef3c7', '#1c1917', '#f97316', '#7c3aed'],
+  ['#1e1b4b', '#ffffff', '#f0abfc', '#22d3ee'],
+  ['#f1f5f9', '#0f172a', '#0ea5e9', '#f43f5e'],
+  ['#fafafa', '#111111', '#ffd23f', '#ff5a1f']
+];
+
+const CATS = [
+  ['Instagram post', 1080, 1080, 'Space Grotesk', 1, [['Fresh\nDrops', 'New collection, out now'], ['Summer\nVibes', 'Sun, sea and good company'], ['Coffee\nTime', 'Your daily moment of calm'], ['Grand\nOpening', 'Join us this Saturday'], ['Stay\nCurious', 'Learn something new today'], ['New\nArrivals', 'Shop the latest styles']]],
+  ['Story', 1080, 1920, 'Plus Jakarta Sans', 1, [['Swipe\nUp', 'Something big is coming'], ['Today\nOnly', 'Limited time offer'], ['Meet the\nTeam', 'The people behind the work'], ['Ask Me\nAnything', 'Drop your questions below'], ['Backstage\nPass', 'A quick look inside'], ['Daily\nTips', 'Small steps, big change']]],
+  ['Presentation', 1920, 1080, 'Space Grotesk', 1, [['Annual\nReport', 'Results and highlights'], ['Our\nStrategy', 'Where we go next'], ['Product\nLaunch', 'Introducing what is new'], ['Team\nUpdate', 'Progress this quarter'], ['Pitch\nDeck', 'Idea, market, plan'], ['Thank\nYou', 'Questions are welcome']]],
+  ['Poster', 1240, 1754, 'Playfair Display', 1, [['Live\nMusic', 'Friday night, doors at 7'], ['Art\nExpo', 'Open to everyone'], ['Food\nFestival', 'Taste the city'], ['Book\nFair', 'Stories for every reader'], ['Tech\nSummit', 'Ideas that move us'], ['Yoga\nDay', 'Breathe, stretch, begin']]],
+  ['Sale and promo', 1080, 1080, 'Bebas Neue', 1.3, [['Mega\nSale', 'Up to 50% off'], ['Flash\nSale', 'Ends tonight at midnight'], ['Big\nDeal', 'Buy one, get one free'], ['Hot\nOffer', 'Free delivery this week'], ['Clearance', 'Everything must go'], ['Black\nFriday', 'Biggest discounts of the year']]],
+  ['Quote', 1080, 1350, 'Playfair Display', 1, [['Dream\nBig', 'Start where you are'], ['Keep\nGoing', 'Progress beats perfection'], ['Be\nKind', 'It costs nothing'], ['Stay\nHungry', 'Work hard, stay humble'], ['Think\nDifferent', 'Create what is next'], ['Just\nBegin', 'The rest will follow']]],
+  ['Birthday and invite', 1080, 1350, 'Caveat', 1.25, [['Happy\nBirthday', 'Make a wish'], ['Party\nTime', 'Cake, music and joy'], ['You are\nInvited', 'Saturday at 6 pm'], ['Let us\nCelebrate', 'Another year of magic'], ['Cheers\nto You', 'Here is to your day'], ['Hello\n30', 'A fresh new chapter']]],
+  ['YouTube thumbnail', 1280, 720, 'Bebas Neue', 1.3, [['How to\nDesign', 'Step by step guide'], ['Top\n10 Tips', 'You need to know'], ['Full\nCourse', 'Beginner to pro'], ['My Setup\nTour', 'Everything I use'], ['Honest\nReview', 'Worth it or not?'], ['Big\nNews', 'Watch till the end']]],
+  ['Facebook post', 1200, 630, 'Plus Jakarta Sans', 1, [['Join Our\nCommunity', 'Share ideas and stories'], ['Weekend\nSpecial', 'Fresh deals, just for you'], ['We Are\nHiring', 'Come build with us'], ['New\nBlog Post', 'Read it now'], ['Live\nTonight', 'Tune in at 8 pm'], ['Free\nWebinar', 'Save your seat today']]],
+  ['Facebook cover', 1640, 624, 'Space Grotesk', 1, [['Welcome', 'Updates, offers and more'], ['Shop Now', 'Fresh styles every week'], ['Join Us', 'A friendly community'], ['Our Story', 'Made with care'], ['Big Ideas', 'Start here'], ['Hello Friends', 'Glad you are here']]],
+  ['LinkedIn banner', 1584, 396, 'Plus Jakarta Sans', 1, [['Learn Daily', 'Learn. Build. Lead.'], ['Build the Future', 'Join our team'], ['We Are Hiring', 'Open roles worldwide'], ['Lead with Ideas', 'Insights for leaders'], ['Think Bigger', 'Strategy and growth'], ['Work Smarter', 'Tools for modern teams']]],
+  ['X / Twitter header', 1500, 500, 'Space Grotesk', 1, [['Create Daily', 'Design, code, repeat'], ['Hello World', 'Thoughts and updates'], ['Ship It', 'Build in public'], ['Stay Curious', 'Ideas worth sharing'], ['Make Things', 'Words, art and code'], ['Think Big', 'Start small']]],
+  ['Pinterest pin', 1000, 1500, 'Playfair Display', 1, [['Easy\nRecipes', 'Dinner in 20 minutes'], ['Cozy\nHome\nIdeas', 'Small space, big style'], ['Travel\nGuide', 'Hidden gems to visit'], ['Style\nTips', 'Outfits for every day'], ['Plant\nCare', 'Simple tricks that work'], ['DIY\nCrafts', 'Make it yourself']]],
+  ['Carousel slide', 1080, 1350, 'Space Grotesk', 1, [['Tip\nNumber 1', 'Swipe to learn more'], ['5 Ways\nto Grow', 'A quick guide'], ['Did You\nKnow', 'Facts worth sharing'], ['Save\nThis', 'Come back to it later'], ['Step\nby\nStep', 'Follow along'], ['Key\nTakeaway', 'Remember this one']]],
+  ['Business card', 1050, 600, 'Plus Jakarta Sans', 1, [['Alex\nRahman', 'Creative Director'], ['Studio\nNova', 'Design and branding'], ['Dr. Sara\nKhan', 'Family medicine'], ['Green\nLeaf', 'Organic food store'], ['Mira\nAhmed', 'Photographer'], ['Urban\nCafe', 'Coffee and bakery']]],
+  ['Wedding invite', 1080, 1528, 'Caveat', 1.25, [['Sara &\nAlex', 'Are getting married'], ['Save the\nDate', 'Join us for our wedding'], ['Together\nForever', 'Dinner and dancing to follow'], ['The\nWedding', 'Of Mira and Rafi'], ['Love\nStory', 'A day to remember'], ['We Said\nYes', 'Celebrate with us']]],
+  ['Certificate', 1754, 1240, 'Playfair Display', 1, [['Award\nof Merit', 'Given for outstanding work'], ['Well\nDone', 'This certifies your success'], ['Best\nStudent', 'Awarded with pride'], ['Top\nPerformer', 'Excellence in every task'], ['Course\nComplete', 'Congratulations on finishing'], ['Thank\nYou', 'For your amazing support']]],
+  ['Podcast cover', 1400, 1400, 'Bebas Neue', 1.3, [['The Daily\nTalk', 'Stories that matter'], ['Mind\nMatters', 'A show about ideas'], ['Cup of\nCode', 'Tech and coffee'], ['Real\nTalk', 'New episodes weekly'], ['Night\nOwls', 'Late hours, deep chats'], ['Startup\nStories', 'Founders share it all']]],
+  ['Menu', 1240, 1754, 'Playfair Display', 1, [['Our\nMenu', 'Fresh and made daily'], ['Brunch\nMenu', 'Served until 3 pm'], ['Pizza\nNight', 'Hot from the oven'], ['Sweet\nTreats', 'Cakes, tarts and more'], ['Coffee\nBar', 'Roasted with care'], ['Chef\nSpecial', 'Today only']]],
+  ['Email header', 1200, 400, 'Plus Jakarta Sans', 1, [['Big News', 'Open to see more'], ['New Season', 'Fresh picks inside'], ['Weekly Digest', 'Your top stories'], ['Welcome', 'Glad you joined'], ['Sale Starts', 'Save up to 40%'], ['Thank You', 'We appreciate you']]],
+  ['Product launch', 1080, 1080, 'Space Grotesk', 1, [['Meet\nAura', 'Smarter sound, all day'], ['Now\nLive', 'Our newest release'], ['Pre-order\nToday', 'Ships next week'], ['Just\nDropped', 'Limited first batch'], ['Say Hello\nto Nova', 'Built for creators'], ['Upgrade\nYour Day', 'Small tweak, big feel']], 1, 'NEW'],
+  ['Motivation quote', 1080, 1350, 'Playfair Display', 1, [['Be\nBrave', 'Fear is just a signal'], ['Do It\nNow', 'Later never comes'], ['Stay\nFocused', 'One goal at a time'], ['Grow\nDaily', '1% better every day'], ['Rise\nAgain', 'Every setback is a setup'], ['Trust\nYourself', 'You know more than you think']], 1, 'DAILY'],
+  ['Event announce', 1080, 1350, 'Plus Jakarta Sans', 1, [['Design\nMeetup', 'Sat 14 June, 5 pm'], ['Live\nConcert', 'Doors open at 7'], ['Startup\nPitch', 'Ten teams, one winner'], ['Charity\nRun', 'Run for a reason'], ['Open\nMic', 'Poems, songs, stories'], ['Tech\nTalks', 'Free entry for all']], 1, 'EVENT'],
+  ['Food promo', 1080, 1080, 'Bebas Neue', 1.3, [['Burger\nTime', 'Juicy, hot, fresh'], ['Pizza\nParty', 'Two for one tonight'], ['Sweet\nTooth', 'Fresh cakes daily'], ['Fresh\nBrew', 'Your cup is waiting'], ['Taste\nFiesta', 'Spice up your lunch'], ['Sushi\nNight', 'Rolls made to order']], 1, 'TASTY'],
+  ['Fitness', 1080, 1350, 'Bebas Neue', 1.3, [['No\nExcuses', 'Train like you mean it'], ['Get\nStrong', 'New classes this week'], ['Move\nMore', 'Thirty days, new you'], ['Sweat\nNow', 'Shine later'], ['Join\nToday', 'First week is free'], ['Level\nUp', 'Push past your limits']], 1, 'TRAIN'],
+  ['Real estate', 1080, 1080, 'Space Grotesk', 1, [['Dream\nHome', 'Three bedrooms, sunny'], ['Just\nListed', 'Open house this Sunday'], ['Sold\nFast', 'Your turn is next'], ['City\nLiving', 'Studios from low rent'], ['Modern\nVilla', 'Pool, garden, quiet'], ['New\nKeys', 'Welcome to your home']], 1, 'FOR SALE'],
+  ['Fashion sale', 1080, 1350, 'Playfair Display', 1, [['Style\nSale', 'Up to 60% off'], ['New\nSeason', 'Fresh looks just landed'], ['Summer\nEdit', 'Light, bold, easy'], ['Final\nCall', 'Last pieces, last chance'], ['Street\nWear', 'Made for the city'], ['Look\nBook', 'Your next favorite fit']], 1, 'STYLE'],
+  ['Tech and SaaS', 1080, 1080, 'Space Grotesk', 1, [['Ship\nFaster', 'Automate the boring work'], ['Meet\nBeta', 'Join the waitlist'], ['Build\nSmart', 'Tools for modern teams'], ['Zero\nCode', 'Launch in minutes'], ['AI\nInside', 'Work that does itself'], ['Go\nLive', 'Version 2.0 is here']], 1, 'BETA'],
+  ['Travel story', 1080, 1920, 'Caveat', 1.25, [['Go\nExplore', 'Hidden gems await'], ['Beach\nDays', 'Sun, sand and calm'], ['Road\nTrip', 'Pack light, go far'], ['Mountain\nCalling', 'Fresh air, big views'], ['Wander\nMore', 'Collect moments'], ['City\nBreak', 'Three days, endless sights']], 1, 'EXPLORE'],
+  ['Education tips', 1080, 1080, 'Plus Jakarta Sans', 1, [['Study\nTips', 'Learn faster, stress less'], ['Quick\nFacts', 'Did you know this?'], ['Learn\nCoding', 'Start with the basics'], ['Exam\nPrep', 'A simple weekly plan'], ['Read\nMore', 'Ten pages a day'], ['Brain\nBoost', 'Habits that help you']], 1, 'LEARN'],
+  ['Photo travel', 1080, 1350, 'Playfair Display', 1, 0, 2, 'EXPLORE', 28],
+  ['Photo food', 1080, 1080, 'Bebas Neue', 1.3, 0, 2, 'TASTY', 23],
+  ['Photo fashion', 1080, 1350, 'Playfair Display', 1, 0, 2, 'STYLE', 26],
+  ['Photo quote', 1080, 1080, 'Playfair Display', 1, 0, 2, 'DAILY', 21],
+  ['Photo event', 1080, 1350, 'Plus Jakarta Sans', 1, 0, 2, 'EVENT', 22],
+  ['Photo fitness', 1080, 1920, 'Bebas Neue', 1.3, 0, 2, 'TRAIN', 24],
+  ['Photo real estate', 1080, 1080, 'Space Grotesk', 1, 0, 2, 'FOR SALE', 25],
+  ['Photo sale', 1080, 1080, 'Bebas Neue', 1.3, 0, 2, 'SALE', 4],
+  ['Flyer', 1240, 1754, 'Space Grotesk', 1, [['Grand\nSale', 'Everything 40% off this week'], ['Open\nHouse', 'Sunday 2 to 5 pm'], ['Join\nUs', 'Weekly community meetup'], ['Now\nHiring', 'Apply today, start soon'], ['Fun\nRun', 'Register for free'], ['Bake\nSale', 'Cakes, cookies and more']], 1, 'FLYER'],
+  ['Logo', 1000, 1000, 'Plus Jakarta Sans', 1, [['Nova\nStudio', 'Design and branding'], ['Green\nLeaf', 'Fresh and organic'], ['Blue\nWave', 'Surf and sea'], ['Urban\nFit', 'Gym and wellness'], ['Moon\nCafe', 'Coffee and books'], ['Peak\nLabs', 'Tech and ideas']], 1, 'BRAND'],
+  ['Brochure', 1754, 1240, 'Playfair Display', 1, [['Our\nStory', 'Who we are and what we do'], ['Our\nServices', 'What we offer'], ['Annual\nGuide', 'Everything you need'], ['Welcome\nPack', 'Start your journey'], ['Product\nCatalog', 'Spring collection'], ['Travel\nGuide', 'Plan your next trip']], 1, 'INFO'],
+
+  /* Bangla & Marketing Categories (15 categories x 15 designs = 225) */
+  ['Bangla promo & sale', 1080, 1080, 'Hind Siliguri', 1.05, [['বিশেষ\nঅফার', 'সব পণ্যে ৫০% পর্যন্ত ছাড়'], ['ফ্ল্যাশ\nসেল', 'আজ রাত ১২টা পর্যন্ত'], ['নতুন\nকালেকশন', 'এখনই অর্ডার করুন'], ['ফ্রি\nডেলিভারি', 'নির্বাচিত পণ্যে বিশেষ সুবিধা'], ['মেগা\nডিসকাউন্ট', 'সীমিত সময়ের জন্য'], ['গ্র্যান্ড\nওপেনিং', 'আমাদের নতুন শোরুমে স্বাগতম']], 1, 'অফার'],
+  ['Bangla social & quote', 1080, 1350, 'Noto Sans Bengali', 1.05, [['স্বপ্ন\nদেখো', 'সাহস নিয়ে এগিয়ে চলো'], ['নতুন\nশুরু', 'আজ থেকেই বদলে যাক'], ['ধৈর্য ও\nপরিশ্রম', 'সফলতার মূল চাবিকাঠি'], ['ভালো\nথাকুন', 'হাসিমুখে কাটুক প্রতিটি দিন'], ['শিখুন\nপ্রতিদিন', 'ছোট পদক্ষেপে বড় পরিবর্তন'], ['কৃতজ্ঞতা', 'পাশে থাকার জন্য ধন্যবাদ']], 1, 'বাংলা'],
+  ['Bangla business & event', 1200, 630, 'Hind Siliguri', 1.05, [['আমাদের\nসেবাসমূহ', 'আধুনিক ও নির্ভরযোগ্য সমাধান'], ['ফ্রি\nওয়েবিনার', 'আজই আসন নিশ্চিত করুন'], ['টিম\nনিয়োগ', 'মেধাবী কর্মী আবশ্যক'], ['লাইভ\nসেশন', 'সন্ধ্যা ৮টায় যুক্ত হোন'], ['গ্রাহক\nসেবা', 'সপ্তাহে ৭ দিন ২৪ ঘণ্টা'], ['উদ্যোক্তা\nআড্ডা', 'নতুন ভাবনা ও অভিজ্ঞতা']], 1, 'ইভেন্ট'],
+  ['Retail & shop promo', 1080, 1080, 'Montserrat', 0.95, [['Shop\nLocal', 'Handcrafted goods daily'], ['Member\nPerks', 'Extra 20% off in store'], ['Bundle &\nSave', 'Two items, one smart price'], ['Flash\nDrop', 'Limited stock just arrived'], ['Weekend\nMarket', 'Fresh picks every Saturday'], ['VIP\nAccess', 'Early entry for members']], 1, 'SHOP'],
+  ['Cafe & bakery', 1080, 1080, 'Playfair Display', 1, [['Morning\nEspresso', 'Freshly roasted beans'], ['Warm\nCroissant', 'Baked every morning'], ['Matcha\nLatte', 'Creamy, smooth, iced'], ['Pastry\nBox', 'Share sweet moments'], ['Cafe\nLounge', 'Sip, read, unwind'], ['Cold\nBrew', 'Slow steeped for 18 hours']], 1, 'CAFE'],
+  ['Restaurant & dining', 1080, 1350, 'Playfair Display', 1, [['Chef\nTasting', 'Five courses tonight'], ['Woodfired\nPizza', 'Crisp crust, fresh herbs'], ['Sunday\nBrunch', 'Mimosa and pancakes'], ['Street\nTacos', 'Bold spices, fresh lime'], ['Dinner\nTable', 'Reserve your spot now'], ['Dessert\nBar', 'Sweet ending to your meal']], 1, 'DINE'],
+  ['Tech & AI product', 1080, 1080, 'Space Grotesk', 1, [['Smart\nWorkflow', 'Ship ideas twice as fast'], ['Cloud\nSync', 'Instant access anywhere'], ['AI\nCopilot', 'Built for modern builders'], ['API\nV2.0', 'Faster, cleaner, reliable'], ['Design\nSystem', 'Consistent UI at scale'], ['Zero\nDowntime', 'Always-on performance']], 1, 'AI'],
+  ['Startup & pitch', 1920, 1080, 'Space Grotesk', 1, [['The\nProblem', 'Why old tools slow teams down'], ['Our\nSolution', 'One clean platform for all'], ['Market\nSize', 'Growing fast across regions'], ['Traction\nReport', 'Key metrics and growth'], ['Business\nModel', 'Simple, scalable pricing'], ['Join Our\nMission', 'Building what comes next']], 1, 'PITCH'],
+  ['Music & concert', 1240, 1754, 'Anton', 1.25, [['Live\nIn Concert', 'Bass, lights and night energy'], ['Midnight\nSessions', 'DJ sets till late'], ['Indie\nShowcase', 'Fresh bands on stage'], ['Acoustic\nNight', 'Intimate live sound'], ['Album\nRelease', 'Out on all platforms now'], ['Festival\nPass', 'Two days of live music']], 1, 'LIVE'],
+  ['Wellness & spa', 1080, 1350, 'Playfair Display', 1, [['Deep\nCalm', 'Reset your mind and body'], ['Morning\nBreath', 'Gentle flow for clarity'], ['Spa\nRetreat', 'Quiet hours of renewal'], ['Mindful\nRest', 'Slow down this weekend'], ['Herbal\nGlow', 'Natural care ritual'], ['Inner\nBalance', 'Peace starts within']], 1, 'CALM'],
+  ['Sports & esports', 1280, 720, 'Bebas Neue', 1.3, [['Game\nDay', 'Championship finals live'], ['Clutch\nPlays', 'Top highlights of the week'], ['Pro\nRoster', 'Meet the starting lineup'], ['Watch\nParty', 'Cheer with the squad'], ['Match\nPreview', 'Stats, picks and predictions'], ['Victory\nRoyale', 'Road to the trophy']], 1, 'MATCH'],
+  ['E-commerce banner', 1640, 624, 'Poppins', 0.95, [['New Season\nArrivals', 'Fresh styles in stock now'], ['Free Shipping\nWeekend', 'On orders above $50'], ['Up to 45%\nOff Essentials', 'Limited time deal'], ['Best Sellers\nCollection', 'Customer favorites this month'], ['Gift Cards\nAvailable', 'Let them pick their favorite'], ['Member\nExclusive', 'Save more when you sign in']], 1, 'DEAL'],
+  ['Photo cafe & food', 1080, 1080, 'Bebas Neue', 1.3, 0, 2, 'CAFE', 45],
+  ['Photo nature & travel', 1080, 1350, 'Playfair Display', 1, 0, 2, 'NATURE', 28],
+  ['Photo workspace & tech', 1080, 1080, 'Space Grotesk', 1, 0, 2, 'STUDIO', 47],
+
+  /* 225+ New Online Photo Templates (15 new categories x 15 designs = 225) */
+  ['Online photo travel', 1080, 1350, 'Playfair Display', 1, 0, 2, 'TRAVEL', 28, 0],
+  ['Online photo food & cafe', 1080, 1080, 'Bebas Neue', 1.3, 0, 2, 'CAFE', 45, 10],
+  ['Online photo fashion', 1080, 1350, 'Playfair Display', 1, 0, 2, 'STYLE', 26, 15],
+  ['Online photo architecture', 1080, 1080, 'Space Grotesk', 1, 0, 2, 'ARCH', 25, 7],
+  ['Online photo nature', 1080, 1350, 'Playfair Display', 1, 0, 2, 'NATURE', 21, 3],
+  ['Online photo street & urban', 1080, 1080, 'Bebas Neue', 1.3, 0, 2, 'URBAN', 22, 2],
+  ['Online photo desk & tech', 1280, 720, 'Space Grotesk', 1, 0, 2, 'TECH', 27, 13],
+  ['Online photo shopping', 1080, 1080, 'Bebas Neue', 1.3, 0, 2, 'SHOP', 44, 16],
+  ['Online photo wellness', 1080, 1350, 'Playfair Display', 1, 0, 2, 'WELLNESS', 50, 18],
+  ['Online photo quotes', 1080, 1080, 'Playfair Display', 1, 0, 2, 'QUOTE', 21, 6],
+  ['Online photo stories', 1080, 1920, 'Plus Jakarta Sans', 1, 0, 2, 'STORY', 1, 1],
+  ['Online photo banners', 1640, 624, 'Space Grotesk', 1, 0, 2, 'BANNER', 52, 8],
+  ['Online photo bakery', 1080, 1080, 'Caveat', 1.25, 0, 2, 'BAKERY', 45, 19],
+  ['Online photo adventure', 1080, 1350, 'Bebas Neue', 1.3, 0, 2, 'WILD', 28, 4],
+  ['Online photo studio', 1920, 1080, 'Space Grotesk', 1, 0, 2, 'STUDIO', 48, 14],
+
+  /* 420+ Canva-Style Social Media & Collage Templates (28 categories x 15 designs = 420) */
+  ['Canva fashion lookbook', 1080, 1350, 'Playfair Display', 1, 0, 4, 'LOOKBOOK', 26, 20],
+  ['Canva collage grid', 1080, 1350, 'Space Grotesk', 1, 0, 4, 'COLLAGE', 26, 21],
+  ['Canva new arrival & sale', 1080, 1350, 'Bebas Neue', 1.3, 0, 4, '50% OFF', 4, 20],
+  ['Canva minimal quote', 1080, 1080, 'Playfair Display', 1, 0, 4, 'QUOTE', 21, 24],
+  ['Canva good morning post', 1200, 630, 'Playfair Display', 1, 0, 4, 'MORNING', 29, 22],
+  ['Canva skincare & beauty', 1080, 1080, 'Space Grotesk', 1, 0, 4, 'GLOW', 20, 23],
+  ['Canva outfit of the day', 1080, 1350, 'Montserrat', 0.95, 0, 4, 'OOTD', 26, 21],
+  ['Canva black friday & deal', 1080, 1080, 'Bebas Neue', 1.3, 0, 4, 'DEAL', 4, 2],
+  ['Canva cafe & morning brew', 1080, 1080, 'Playfair Display', 1, 0, 4, 'CAFE', 45, 10],
+  ['Canva food & dining post', 1080, 1080, 'Bebas Neue', 1.3, 0, 4, 'TASTY', 46, 11],
+  ['Canva travel & getaway', 1080, 1350, 'Space Grotesk', 1, 0, 4, 'EXPLORE', 28, 0],
+  ['Canva aesthetic story', 1080, 1920, 'Playfair Display', 1, 0, 4, 'STORY', 1, 15],
+  ['Canva social promo banner', 1200, 630, 'Space Grotesk', 1, 0, 4, 'PROMO', 52, 16],
+  ['Canva marketing agency', 1200, 630, 'Plus Jakarta Sans', 1, 0, 4, 'AGENCY', 43, 14],
+  ['Canva boutique & store', 1080, 1350, 'Playfair Display', 1, 0, 4, 'STORE', 44, 17],
+  ['Canva motivation card', 1080, 1080, 'Space Grotesk', 1, 0, 4, 'MINDSET', 21, 24],
+  ['Canva editorial magazine', 1080, 1350, 'Playfair Display', 1, 0, 4, 'ISSUE', 3, 21],
+  ['Canva summer & beach post', 1080, 1080, 'Space Grotesk', 1, 0, 4, 'SUMMER', 0, 1],
+  ['Canva wellness & yoga', 1080, 1350, 'Playfair Display', 1, 0, 4, 'CALM', 50, 18],
+  ['Canva workspace & tech', 1080, 1080, 'Space Grotesk', 1, 0, 4, 'WORK', 47, 13],
+  ['Canva bakery & dessert', 1080, 1080, 'Caveat', 1.25, 0, 4, 'SWEET', 45, 19],
+  ['Canva event & invite', 1080, 1350, 'Plus Jakarta Sans', 1, 0, 4, 'INVITE', 22, 6],
+  ['Canva city & night vibe', 1080, 1080, 'Bebas Neue', 1.3, 0, 4, 'NIGHT', 7, 2],
+  ['Canva nature & forest', 1080, 1350, 'Playfair Display', 1, 0, 4, 'NATURE', 54, 3],
+  ['Canva bangla social post', 1080, 1080, 'Hind Siliguri', 1.05, 0, 4, 'বাংলা', 42, 22],
+  ['Canva bangla offer card', 1080, 1350, 'Noto Sans Bengali', 1.05, 0, 4, 'অফার', 41, 16],
+  ['Canva creator announcement', 1080, 1080, 'Space Grotesk', 1, 0, 4, 'LIVE', 20, 7],
+  ['Canva weekend special', 1200, 630, 'Playfair Display', 1, 0, 4, 'WEEKEND', 8, 12],
+
+  /* 510+ Extra Picture Templates (34 new categories x 15 designs = 510) */
+  ['Photo lookbook split', 1080, 1350, 'Playfair Display', 1, 0, 5, 'LOOKBOOK', 26, 20],
+  ['Photo 4-grid collage', 1080, 1080, 'Space Grotesk', 1, 0, 5, 'COLLAGE', 0, 21],
+  ['Photo mega sale card', 1080, 1350, 'Bebas Neue', 1.3, 0, 5, 'SALE', 4, 26],
+  ['Photo new arrival grid', 1080, 1350, 'Montserrat', 0.95, 0, 5, 'NEW IN', 26, 25],
+  ['Photo minimal quote card', 1080, 1080, 'Playfair Display', 1, 0, 5, 'QUOTE', 5, 24],
+  ['Photo good morning card', 1200, 630, 'Playfair Display', 1, 0, 5, 'MORNING', 29, 22],
+  ['Photo skincare promo', 1080, 1080, 'Space Grotesk', 1, 0, 5, 'SKINCARE', 44, 23],
+  ['Photo cafe & espresso', 1080, 1080, 'Playfair Display', 1, 0, 5, 'CAFE', 45, 10],
+  ['Photo food feast collage', 1080, 1080, 'Bebas Neue', 1.3, 0, 5, 'FOODIE', 46, 25],
+  ['Photo pizza & dining', 1080, 1350, 'Bebas Neue', 1.3, 0, 5, 'DINE', 46, 25],
+  ['Photo bakery & sweet', 1080, 1080, 'Caveat', 1.25, 0, 5, 'BAKERY', 45, 19],
+  ['Photo travel diary', 1080, 1350, 'Space Grotesk', 1, 0, 5, 'TRAVEL', 28, 27],
+  ['Photo beach & summer', 1080, 1080, 'Space Grotesk', 1, 0, 5, 'SUMMER', 0, 27],
+  ['Photo mountain & trail', 1080, 1350, 'Bebas Neue', 1.3, 0, 5, 'HIKE', 28, 0],
+  ['Photo forest & meadow', 1080, 1350, 'Playfair Display', 1, 0, 5, 'NATURE', 54, 29],
+  ['Photo city night neon', 1080, 1080, 'Bebas Neue', 1.3, 0, 5, 'CITY', 7, 2],
+  ['Photo modern architecture', 1080, 1080, 'Space Grotesk', 1, 0, 5, 'ARCH', 25, 7],
+  ['Photo desk & coding', 1280, 720, 'Space Grotesk', 1, 0, 5, 'DEV', 27, 28],
+  ['Photo studio & team', 1920, 1080, 'Plus Jakarta Sans', 1, 0, 5, 'STUDIO', 48, 14],
+  ['Photo boutique & shop', 1080, 1350, 'Playfair Display', 1, 0, 5, 'BOUTIQUE', 44, 29],
+  ['Photo bag & accessories', 1080, 1080, 'Montserrat', 0.95, 0, 5, 'STYLE', 44, 29],
+  ['Photo fitness & workout', 1080, 1350, 'Bebas Neue', 1.3, 0, 5, 'FIT', 24, 18],
+  ['Photo yoga & wellness', 1080, 1350, 'Playfair Display', 1, 0, 5, 'ZEN', 50, 18],
+  ['Photo wedding & love', 1080, 1528, 'Caveat', 1.25, 0, 5, 'LOVE', 15, 24],
+  ['Photo birthday & party', 1080, 1350, 'Caveat', 1.25, 0, 5, 'PARTY', 6, 6],
+  ['Photo event & concert', 1080, 1350, 'Anton', 1.25, 0, 5, 'LIVE', 49, 2],
+  ['Photo podcast cover', 1400, 1400, 'Bebas Neue', 1.3, 0, 5, 'PODCAST', 17, 13],
+  ['Photo story vertical', 1080, 1920, 'Plus Jakarta Sans', 1, 0, 5, 'STORY', 1, 20],
+  ['Photo facebook cover', 1640, 624, 'Space Grotesk', 1, 0, 5, 'COVER', 9, 27],
+  ['Photo linkedin banner', 1584, 396, 'Plus Jakarta Sans', 1, 0, 5, 'CAREER', 10, 13],
+  ['Photo youtube thumb', 1280, 720, 'Bebas Neue', 1.3, 0, 5, 'WATCH', 7, 28],
+  ['Photo bangla offer', 1080, 1080, 'Hind Siliguri', 1.05, 0, 5, 'অফার', 41, 29],
+  ['Photo bangla quote', 1080, 1350, 'Noto Sans Bengali', 1.05, 0, 5, 'বাংলা', 42, 24],
+  ['Photo bangla event', 1200, 630, 'Hind Siliguri', 1.05, 0, 5, 'ইভেন্ট', 43, 22],
+
+  /* 540+ Canva-Style Photo Collage, Lookbook & Promo Designs (36 categories x 15 = 540) */
+  ['Canva photo polaroid grid', 1080, 1350, 'Caveat', 1.25, 0, 5, 'MEMORIES', 6, 20],
+  ['Canva photo split lookbook', 1080, 1350, 'Playfair Display', 1, 0, 5, 'NEW LOOK', 26, 21],
+  ['Canva photo sale spotlight', 1080, 1080, 'Bebas Neue', 1.3, 0, 5, '50% OFF', 4, 24],
+  ['Canva photo editorial duo', 1080, 1350, 'Playfair Display', 1, 0, 5, 'EDITORIAL', 2, 25],
+  ['Canva photo morning brew', 1080, 1080, 'Playfair Display', 1, 0, 5, 'COFFEE', 45, 10],
+  ['Canva photo feast collage', 1080, 1080, 'Bebas Neue', 1.3, 0, 5, 'TASTY', 46, 11],
+  ['Canva photo street fashion', 1080, 1350, 'Montserrat', 0.95, 0, 5, 'OOTD', 26, 26],
+  ['Canva photo skincare glow', 1080, 1080, 'Space Grotesk', 1, 0, 5, 'GLOW', 20, 23],
+  ['Canva photo travel journal', 1080, 1350, 'Space Grotesk', 1, 0, 5, 'EXPLORE', 28, 0],
+  ['Canva photo coastal vibe', 1080, 1080, 'Playfair Display', 1, 0, 5, 'SUMMER', 0, 1],
+  ['Canva photo forest calm', 1080, 1350, 'Playfair Display', 1, 0, 5, 'NATURE', 54, 3],
+  ['Canva photo city dusk', 1080, 1080, 'Space Grotesk', 1, 0, 5, 'URBAN', 22, 2],
+  ['Canva photo workspace edit', 1280, 720, 'Space Grotesk', 1, 0, 5, 'STUDIO', 47, 13],
+  ['Canva photo boutique drop', 1080, 1350, 'Playfair Display', 1, 0, 5, 'SHOP NOW', 44, 16],
+  ['Canva photo bag showcase', 1080, 1080, 'Montserrat', 0.95, 0, 5, 'LUXURY', 26, 29],
+  ['Canva photo pastry & cake', 1080, 1080, 'Caveat', 1.25, 0, 5, 'BAKERY', 45, 19],
+  ['Canva photo fitness flow', 1080, 1350, 'Bebas Neue', 1.3, 0, 5, 'ACTIVE', 24, 18],
+  ['Canva photo mindful yoga', 1080, 1350, 'Playfair Display', 1, 0, 5, 'SERENITY', 50, 22],
+  ['Canva photo quote card', 1080, 1080, 'Playfair Display', 1, 0, 5, 'QUOTE', 21, 24],
+  ['Canva photo good morning', 1200, 630, 'Playfair Display', 1, 0, 5, 'MORNING', 29, 22],
+  ['Canva photo event flyer', 1240, 1754, 'Space Grotesk', 1, 0, 5, 'EVENT', 22, 14],
+  ['Canva photo invite card', 1080, 1350, 'Caveat', 1.25, 0, 5, 'INVITE', 6, 6],
+  ['Canva photo podcast cover', 1400, 1400, 'Bebas Neue', 1.3, 0, 5, 'PODCAST', 17, 13],
+  ['Canva photo youtube thumb', 1280, 720, 'Bebas Neue', 1.3, 0, 5, 'WATCH', 7, 28],
+  ['Canva photo vertical story', 1080, 1920, 'Plus Jakarta Sans', 1, 0, 5, 'STORY', 1, 15],
+  ['Canva photo facebook cover', 1640, 624, 'Space Grotesk', 1, 0, 5, 'BANNER', 52, 7],
+  ['Canva photo linkedin header', 1584, 396, 'Plus Jakarta Sans', 1, 0, 5, 'CAREER', 10, 14],
+  ['Canva photo agency pitch', 1920, 1080, 'Space Grotesk', 1, 0, 5, 'AGENCY', 48, 13],
+  ['Canva photo menu special', 1240, 1754, 'Playfair Display', 1, 0, 5, 'CHEF', 18, 11],
+  ['Canva photo real estate', 1080, 1080, 'Space Grotesk', 1, 0, 5, 'HOME', 25, 7],
+  ['Canva photo music vibe', 1400, 1400, 'Anton', 1.25, 0, 5, 'LIVE', 49, 5],
+  ['Canva photo clearance deal', 1080, 1080, 'Bebas Neue', 1.3, 0, 5, 'SAVE 40%', 4, 17],
+  ['Canva photo valley view', 1080, 1350, 'Playfair Display', 1, 0, 5, 'SCENIC', 28, 30],
+  ['Canva photo night neon', 1080, 1080, 'Bebas Neue', 1.3, 0, 5, 'NIGHT', 49, 9],
+  ['Canva photo bangla offer', 1080, 1080, 'Hind Siliguri', 1.05, 0, 5, 'অফার', 41, 16],
+  ['Canva photo bangla quote', 1080, 1350, 'Noto Sans Bengali', 1.05, 0, 5, 'বাংলা', 42, 24]
+];
+
+function gen(ci, i) {
+  if (CATS[ci][6] === 5) return gen5(ci, i);
+  if (CATS[ci][6] === 4) return gen4(ci, i);
+  if (CATS[ci][6] === 2) return gen3(ci, i);
+  if (CATS[ci][6]) return gen2(ci, i);
+  const [nm, w, h, f, k, cp] = CATS[ci];
+  const P = PAL[(i % 5 + 2 * (i / 5 | 0) + ci) % 6];
+  const [hd, sb] = cp[i % 6];
+  const s = w / h > 2 ? h * 1.5 : Math.min(w, h), wide = w > h * 1.2;
+  const tw = Math.round(wide ? w * .5 : w * .84), lines = hd.split('\n').length;
+  const wt = (f === 'Bebas Neue' || f === 'Anton') ? 400 : 800, R = Math.round;
+  const H = (x, y, ww, fs, col, al) => N('text', { x: R(x), y: R(y), w: R(ww), text: hd, font: f, wt, fs: R(fs * k), col, al: al || 'left' });
+  const B = (x, y, ww, fs, col, al) => N('text', { x: R(x), y: R(y), w: R(ww), text: sb, fs: R(fs), wt: 600, col, al: al || 'left' });
+  const C = (x, y, c) => [N('rect', { x: R(x), y: R(y), w: R(s * .34), h: R(s * .08), rad: R(s * .04), fill: c }), N('text', { x: R(x), y: R(y + s * .04 - s * .018), w: R(s * .34), text: 'Learn more', fs: R(s * .03), wt: 700, al: 'center', col: fg(c) })];
+  const l = i % 5, d = s * .78, fs4 = s * .1 * k * 1.2 * lines / 2;
+  let els;
+  if (l === 0) els = [N('ell', { x: R(w * .5), y: R(-s * .25), w: R(s * .85), h: R(s * .85), g: 1, fill: P[2], fill2: P[3] }), N('ell', { x: R(-s * .12), y: R(h - s * .3), w: R(s * .4), h: R(s * .4), fill: P[3] }), H(w * .08, h * .28, tw, s * .12, P[1]), B(w * .08, h * .7, tw, s * .04, P[1]), ...C(w * .08, h * .8, P[2])];
+  else if (l === 1) els = [N('rect', { x: 0, y: 0, w: R(w * .46), h, fill: P[2] }), N('ell', { x: R(w * .54), y: R(h * .16), w: R(s * .4), h: R(s * .4), g: 1, fill: P[3], fill2: P[2] }), N('star', { x: R(w * .7), y: R(h * .6), w: R(s * .16), h: R(s * .16), fill: P[1], r: 15 }), H(w * .05, h * .28, w * .38, s * .07, fg(P[2])), B(w * .05, h * .7, w * .38, s * .03, fg(P[2]))];
+  else if (l === 2) els = [N('rect', { x: R(s * .05), y: R(s * .05), w: R(w - s * .1), h: R(h - s * .1), fill: P[2] }), N('rect', { x: R(s * .08), y: R(s * .08), w: R(w - s * .16), h: R(h - s * .16), fill: P[0] }), N('star', { x: R(s * .13), y: R(s * .13), w: R(s * .1), h: R(s * .1), fill: P[3] }), N('tri', { x: R(w - s * .23), y: R(h - s * .23), w: R(s * .1), h: R(s * .1), fill: P[2], r: 20 }), H((w - tw) / 2, h * .34, tw, s * .12, P[1], 'center'), B((w - tw) / 2, h * .7, tw, s * .04, P[1], 'center')];
+  else if (l === 3) els = [N('rect', { x: 0, y: R(h * .62), w, h: R(h * .38), g: 1, fill: P[2], fill2: P[3] }), N('ell', { x: R(w - s * .36), y: R(h * .62 - s * .18), w: R(s * .36), h: R(s * .36), fill: P[3] }), N('rect', { x: R(w * .08), y: R(h * .2), w: R(s * .14), h: R(s * .014), fill: P[3] }), H(w * .08, h * .24, tw, s * .13, P[1]), B(w * .08, h * .68, tw, s * .04, fg(P[2]))];
+  else els = [N('ell', { x: R((w - d) / 2), y: R((h - d) / 2), w: R(d), h: R(d), g: 1, fill: P[2], fill2: P[3] }), N('star', { x: R(s * .06), y: R(s * .06), w: R(s * .12), h: R(s * .12), fill: P[3] }), N('star', { x: R(w - s * .18), y: R(h - s * .18), w: R(s * .12), h: R(s * .12), fill: P[2], r: 20 }), H((w - d * .8) / 2, h / 2 - fs4 - s * .02, d * .8, s * .1, fg(P[2]), 'center'), B((w - d * .8) / 2, h / 2 + fs4, d * .8, s * .032, fg(P[2]), 'center')];
+  return { w, h, bg: P[0], els };
+}
+
+/* Modern social layouts (8 styles x 8 palettes) */
+function gen2(ci, i) {
+  const [nm, w, h, f, k, cp, , bd] = CATS[ci];
+  const P = PAL2[((i / 8 | 0) * 3 + i % 8 + ci) % 8];
+  const [hd, sb] = cp[i % 6];
+  const s = Math.min(w, h), R = Math.round, ln = hd.split('\n').length;
+  const wt = (f === 'Bebas Neue' || f === 'Anton') ? 400 : 800, l = i % 8, c1 = P[2], c2 = P[3], ink = P[1];
+  const X = (x, y, ww, t, fs, col, al, o) => N('text', { x: R(x), y: R(y), w: R(ww), text: t, fs: R(fs), col, al: al || 'left', ...o });
+  const H = (x, y, ww, fs, col, al) => X(x, y, ww, hd, fs * k, col, al, { font: f, wt });
+  const B = (x, y, ww, fs, col, al) => X(x, y, ww, sb, fs, col, al, { wt: 600 });
+  const T = (x, y, ww, fs, col, al) => X(x, y, ww, bd || 'NEW', fs, col, al, { wt: 800, ls: 3 });
+  const E = (t, x, y, a, b, o) => N(t, { x: R(x), y: R(y), w: R(a), h: R(b), ...o });
+  const hh = fs => fs * k * 1.2 * ln;
+  let els;
+  if (l === 0) els = [E('ell', w * .62, -s * .1, s * .5, s * .5, { fill: c2 }), E('rect', s * .08, s * .08, w - s * .16, h - s * .16, { fill: c1, rad: R(s * .06), sh: 1 }), E('rect', s * .14, s * .14, s * .3, s * .07, { fill: P[0], rad: R(s * .035) }), T(s * .14, s * .157, s * .3, s * .03, ink, 'center'), H(s * .14, h * .3, w - s * .28, s * .13, fg(c1)), B(s * .14, h * .3 + hh(s * .13) + s * .03, w - s * .28, s * .04, fg(c1)), E('star', w - s * .26, h - s * .26, s * .12, s * .12, { fill: c2, r: 15 })];
+  else if (l === 1) {
+    const bh = hh(s * .13) + s * .08, by = h * .3;
+    els = [E('ell', -s * .2, h * .45, s * .9, s * .9, { fill: c1 }), E('ell', w - s * .45, -s * .15, s * .6, s * .6, { fill: c2 }), E('rect', -s * .1, by, w + s * .2, bh, { fill: ink, r: -6 }), { ...H(w * .08, by + s * .04, w * .84, s * .13, P[0], 'center'), r: -6 }, B(w * .08, by + bh + s * .1, w * .84, s * .04, ink, 'center'), E('star', w * .7, h * .08, s * .2, s * .2, { fill: c2, r: 12 }), T(w * .08, h * .9, w * .84, s * .028, ink, 'center')];
+  } else if (l === 2) els = [E('rect', 0, h * .78, w, h * .22, { fill: c1 }), E('ell', w - s * .42, h * .78 - s * .21, s * .42, s * .42, { fill: c2 }), H(s * .07, s * .07, w - s * .14, s * .17, ink), B(s * .07, h * .84, w * .55, s * .04, fg(c1)), T(s * .07, h * .78 - s * .06, w * .5, s * .026, ink)];
+  else if (l === 3) {
+    const y3 = h * .5;
+    els = [E('ell', w * .45, -s * .25, s * .9, s * .9, { fill: c1, op: .25 }), E('ell', w * .55, -s * .15, s * .7, s * .7, { fill: c2, op: .5 }), E('ell', w * .65, -s * .05, s * .5, s * .5, { g: 1, fill: c1, fill2: c2 }), E('tri', s * .08, h * .1, s * .1, s * .1, { fill: c2, r: 25 }), T(s * .22, h * .1 + s * .03, w * .4, s * .028, ink), H(s * .08, y3, w - s * .16, s * .12, ink), B(s * .08, y3 + hh(s * .12) + s * .03, w - s * .16, s * .04, ink)];
+  } else if (l === 4) els = [E('rect', w * .5, -h * .2, w * .9, h * 1.5, { fill: c1, r: -18 }), E('ell', w * .6, h * .55, s * .38, s * .38, { fill: c2, sh: 1 }), E('star', w * .72, h * .12, s * .16, s * .16, { fill: ink }), E('tri', s * .07, h * .1, s * .09, s * .09, { fill: c2, r: 20 }), T(s * .19, h * .1 + s * .025, w * .3, s * .026, ink), H(s * .07, h * .5, w * .42, s * .09, ink), B(s * .07, h * .5 + hh(s * .09) + s * .03, w * .42, s * .032, ink)];
+  else if (l === 5) {
+    const y5 = h * .18 + hh(s * .13) + s * .05;
+    els = [E('ell', w - s * .25, h - s * .25, s * .4, s * .4, { g: 1, fill: c1, fill2: c2 }), T(s * .08, h * .08, w * .5, s * .028, ink), H(s * .08, h * .15, w - s * .16, s * .13, ink), E('rect', s * .08, y5, w * .6, s * .035, { fill: c1, rad: R(s * .018) }), E('rect', s * .08, y5 + s * .07, w * .4, s * .035, { fill: c2, rad: R(s * .018) }), E('rect', s * .08, y5 + s * .14, w * .2, s * .035, { fill: ink, op: .4, rad: R(s * .018) }), B(s * .08, y5 + s * .22, w - s * .16, s * .04, ink), E('star', w - s * .2, h * .04, s * .1, s * .1, { fill: c2, r: 10 })];
+  } else if (l === 6) {
+    const t6 = w * .84;
+    els = [E('ell', (w - s * .9) / 2, h * .5, s * .9, s * .9, { g: 1, fill: c1, fill2: c2, sh: 1 }), E('star', w * .1, h * .5, s * .08, s * .08, { fill: c2 }), E('star', w * .82, h * .42, s * .06, s * .06, { fill: ink }), H(w * .08, h * .1, t6, s * .12, ink, 'center'), B(w * .08, h * .1 + hh(s * .12) + s * .02, t6, s * .04, ink, 'center'), T(w * .2, h * .82, w * .6, s * .04, fg(c1), 'center')];
+  } else {
+    const x7 = s * .1, y7 = s * .1, cw = w - s * .2, ch = h - s * .2;
+    els = [E('rect', x7 + s * .025, y7 + s * .025, cw, ch, { fill: ink, rad: R(s * .03) }), E('rect', x7 - s * .008, y7 - s * .008, cw + s * .016, ch + s * .016, { fill: ink, rad: R(s * .035) }), E('rect', x7, y7, cw, ch, { fill: c1, rad: R(s * .03) }), E('ell', x7 + cw - s * .17, y7 - s * .07, s * .2, s * .2, { fill: c2 }), T(x7 + s * .06, y7 + s * .06, w * .5, s * .028, fg(c1)), H(x7 + s * .06, y7 + ch * .25, cw - s * .12, s * .11, fg(c1)), B(x7 + s * .06, y7 + ch * .25 + hh(s * .11) + s * .03, cw - s * .12, s * .038, fg(c1))];
+  }
+  return { w, h, bg: P[0], els };
+}
+
+/* Photo-backed layouts (6 styles) */
+function gen3(ci, i) {
+  const [nm, w, h, f, k, , , bd, srcIdx, photoSeed] = CATS[ci];
+  const srcCat = (typeof srcIdx === 'number' && CATS[srcIdx]) ? CATS[srcIdx] : CATS[0];
+  const cp = srcCat[5];
+  const P = PAL2[(i + ci) % 8];
+  const [hd, sb] = cp[i % 6];
+  const s = Math.min(w, h), R = Math.round, ln = hd.split('\n').length;
+  const wt = (f === 'Bebas Neue' || f === 'Anton') ? 400 : 800, l = i % 6;
+  const base = typeof photoSeed === 'number' ? photoSeed : (ci * 3 + i);
+  const im = STOCK[(base + i) % STOCK.length].src;
+  const c1 = P[2], c2 = P[3], ink = P[1], oy = (h - s) / 2;
+  const X = (x, y, ww, t, fs, col, al, o) => N('text', { x: R(x), y: R(y), w: R(ww), text: t, fs: R(fs), col, al: al || 'left', ...o });
+  const H = (x, y, ww, fs, col, al) => X(x, y, ww, hd, fs * k, col, al, { font: f, wt });
+  const B = (x, y, ww, fs, col, al) => X(x, y, ww, sb, fs, col, al, { wt: 600 });
+  const T = (x, y, ww, fs, col, al) => X(x, y, ww, bd || 'PHOTO', fs, col, al, { wt: 800, ls: 3 });
+  const E = (t, x, y, a, b, o) => N(t, { x: R(x), y: R(y), w: R(a), h: R(b), ...o });
+  const hh = fs => fs * k * 1.2 * ln;
+  let els;
+  if (l === 0) els = [E('img', 0, 0, w, h, { src: im }), E('rect', 0, 0, w, h, { fill: '#000000', op: .4 }), E('rect', s * .08, s * .08, s * .26, s * .07, { fill: c1, rad: R(s * .035) }), T(s * .08, s * .095, s * .26, s * .028, fg(c1), 'center'), H(s * .08, h - s * .14 - s * .03 - hh(s * .13), w - s * .16, s * .13, '#ffffff'), B(s * .08, h - s * .14, w - s * .16, s * .04, '#ffffff')];
+  else if (l === 1) els = [E('img', 0, 0, w, h * .58, { src: im }), E('ell', w - s * .3, h * .58 - s * .13, s * .26, s * .26, { fill: c1, sh: 1 }), T(w - s * .3, h * .58 - s * .025, s * .26, s * .04, fg(c1), 'center'), H(s * .08, h * .58 + s * .07, w * .62, s * .085, ink), B(s * .08, h * .58 + s * .07 + hh(s * .085) + s * .02, w * .8, s * .035, ink)];
+  else if (l === 2) {
+    const d = s * .5, y0 = oy + s * .08;
+    els = [E('ell', (w - d) / 2 - s * .05, y0 - s * .05, d + s * .1, d + s * .1, { fill: c1, op: .35 }), E('img', (w - d) / 2, y0, d, d, { src: im, rad: R(d) }), E('ell', w / 2 + d / 2 - s * .12, y0 + d - s * .2, s * .18, s * .18, { fill: c2 }), T(w * .2, oy + s * .03, w * .6, s * .026, ink, 'center'), H(w * .08, y0 + d + s * .05, w * .84, s * .085, ink, 'center'), B(w * .08, y0 + d + s * .07 + hh(s * .085), w * .84, s * .035, ink, 'center')];
+  } else if (l === 3) {
+    const cw = s * .72, ch = s * .86, cx = (w - cw) / 2, cy = (h - ch) / 2;
+    els = [E('rect', 0, 0, w, h, { fill: c1 }), E('ell', w - s * .3, -s * .1, s * .45, s * .45, { fill: c2, op: .6 }), E('rect', cx, cy, cw, ch, { fill: '#ffffff', rad: R(s * .015), sh: 1, r: -5 }), E('img', cx + s * .04, cy + s * .04, cw - s * .08, cw - s * .08, { src: im, r: -5 }), { ...X(cx + s * .04, cy + cw, cw - s * .08, hd.replace('\n', ' '), s * .06 * k, '#16182a', 'center', { font: f, wt }), r: -5 }];
+  } else if (l === 4) {
+    const ih = h * .5;
+    els = [E('rect', s * .13, s * .13, w - s * .2, ih, { fill: ink, rad: R(s * .05) }), E('img', s * .1, s * .1, w - s * .2, ih, { src: im, rad: R(s * .05) }), E('rect', w / 2 - s * .2, s * .1 + ih - s * .04, s * .4, s * .08, { fill: c1, rad: R(s * .04), sh: 1 }), T(w / 2 - s * .2, s * .1 + ih - s * .04 + s * .022, s * .4, s * .03, fg(c1), 'center'), H(s * .1, s * .1 + ih + s * .07, w - s * .2, s * .075, ink, 'center'), B(s * .1, s * .1 + ih + s * .09 + hh(s * .075), w - s * .2, s * .035, ink, 'center')];
+  } else {
+    els = [E('img', 0, 0, w * .46, h, { src: im }), E('rect', w * .46, 0, s * .025, h, { fill: c1 }), E('ell', w * .46 - s * .09, h * .5 - s * .09, s * .18, s * .18, { fill: c2, sh: 1 }), T(w * .52, h * .12, w * .42, s * .026, ink), H(w * .52, h * .3, w * .42, s * .075, ink), B(w * .52, h * .3 + hh(s * .075) + s * .03, w * .42, s * .03, ink), E('rect', w * .52, h * .82, s * .3, s * .07, { fill: c1, rad: R(s * .035) }), X(w * .52, h * .82 + s * .018, s * .3, 'Learn more', s * .03, fg(c1), 'center', { wt: 700 })];
+  }
+  return { w, h, bg: P[0], els };
+}
+
+/* Canva-style collage & lookbook layouts (6 styles) */
+function gen4(ci, i) {
+  const catEntry = CATS[ci] || CATS[0];
+  const [nm, w, h, f, k, rawCp, , bd, srcIdx, photoSeed] = catEntry;
+  const srcCat = (typeof srcIdx === 'number' && CATS[srcIdx]) ? CATS[srcIdx] : CATS[0];
+  const cp = Array.isArray(rawCp) && rawCp.length
+    ? rawCp
+    : (Array.isArray(srcCat?.[5]) && srcCat[5].length ? srcCat[5] : [['New\nLook', 'Fresh visual layout']]);
+  const P = PAL2[(i + ci) % 8];
+  const [hd, sb] = cp[i % cp.length];
+  const s = Math.min(w, h), R = Math.round, ln = hd.split('\n').length;
+  const wt = (f === 'Bebas Neue' || f === 'Anton') ? 400 : 800, l = i % 6;
+  const base = typeof photoSeed === 'number' ? photoSeed : (ci * 5 + i);
+  const p0 = STOCK[(base + i) % STOCK.length].src;
+  const p1 = STOCK[(base + i + 2) % STOCK.length].src;
+  const p2 = STOCK[(base + i + 4) % STOCK.length].src;
+  const p3 = STOCK[(base + i + 6) % STOCK.length].src;
+  const c1 = P[2], c2 = P[3], ink = P[1];
+  const X = (x, y, ww, t, fs, col, al, o) => N('text', { x: R(x), y: R(y), w: R(ww), text: t, fs: R(fs), col, al: al || 'left', ...o });
+  const H = (x, y, ww, fs, col, al) => X(x, y, ww, hd, fs * k, col, al, { font: f, wt });
+  const B = (x, y, ww, fs, col, al) => X(x, y, ww, sb, fs, col, al, { wt: 600 });
+  const T = (x, y, ww, fs, col, al) => X(x, y, ww, bd, fs, col, al, { wt: 800, ls: 2.5 });
+  const E = (t, x, y, a, b, o) => N(t, { x: R(x), y: R(y), w: R(a), h: R(b), ...o });
+  const hh = fs => fs * k * 1.18 * ln;
+  const pad = s * .05, gap = s * .02;
+  let els;
+  if (l === 0) {
+    const cw = (w - pad * 2 - gap) / 2, ch = h - pad * 2;
+    els = [
+      E('img', pad, pad, cw, ch, { src: p0, rad: R(s * .02) }),
+      E('img', pad + cw + gap, pad, cw, ch, { src: p1, rad: R(s * .02) }),
+      E('rect', w * .08, h * .64, w * .84, hh(s * .095) + s * .08, { fill: '#ffffff', rad: R(s * .03), sh: 1 }),
+      H(w * .11, h * .66, w * .78, s * .095, '#16182a', 'center'),
+      B(w * .11, h * .66 + hh(s * .095) + s * .01, w * .78, s * .03, c1, 'center')
+    ];
+  } else if (l === 1) {
+    const th = h * .46, mw = (w - pad * 2 - gap * 2) / 3, mh = h * .24;
+    els = [
+      E('img', pad, pad, w - pad * 2, th, { src: p0, rad: R(s * .02) }),
+      E('img', pad, pad + th + gap, mw, mh, { src: p1, rad: R(s * .016) }),
+      E('img', pad + mw + gap, pad + th + gap, mw, mh, { src: p2, rad: R(s * .016) }),
+      E('img', pad + (mw + gap) * 2, pad + th + gap, mw, mh, { src: p3, rad: R(s * .016) }),
+      E('rect', pad, h - pad - s * .14, w - pad * 2, s * .14, { fill: c1, rad: R(s * .02) }),
+      H(pad + s * .03, h - pad - s * .125, w * .58, s * .065, fg(c1)),
+      B(w * .6, h - pad - s * .1, w * .34, s * .03, fg(c1), 'right')
+    ];
+  } else if (l === 2) {
+    els = [
+      E('rect', pad, pad, w - pad * 2, h - pad * 2, { fill: c1, rad: R(s * .03) }),
+      E('img', pad * 1.8, pad * 1.8, w - pad * 3.6, h * .54, { src: p0, rad: R(s * .02), sh: 1 }),
+      E('rect', w - pad * 1.8 - s * .24, pad * 1.2, s * .24, s * .055, { fill: c2, rad: R(s * .028), sh: 1 }),
+      T(w - pad * 1.8 - s * .24, pad * 1.33, s * .24, s * .026, fg(c2), 'center'),
+      H(pad * 1.8, pad * 1.8 + h * .54 + s * .03, w - pad * 3.6, s * .09, fg(c1)),
+      B(pad * 1.8, Math.min(h - pad * 2 - s * .05, pad * 1.8 + h * .54 + s * .04 + hh(s * .09)), w - pad * 3.6, s * .032, fg(c1))
+    ];
+  } else if (l === 3) {
+    const lw = w * .48, rx = lw + gap, rw = w - rx - pad;
+    els = [
+      E('img', pad, pad, lw - pad, h - pad * 2, { src: p0, rad: R(s * .02) }),
+      E('img', rx, pad, rw, h * .34, { src: p1, rad: R(s * .02) }),
+      E('rect', rx, pad + h * .34 + gap, rw, h - pad * 2 - h * .34 - gap, { fill: c2, rad: R(s * .02) }),
+      T(rx + s * .03, pad + h * .34 + gap + s * .03, rw - s * .06, s * .026, fg(c2)),
+      H(rx + s * .03, pad + h * .34 + gap + s * .07, rw - s * .06, s * .075, fg(c2)),
+      B(rx + s * .03, Math.min(h - pad - s * .05, pad + h * .34 + gap + s * .08 + hh(s * .075)), rw - s * .06, s * .03, fg(c2))
+    ];
+  } else if (l === 4) {
+    els = [
+      E('img', 0, 0, w, h, { src: p0 }),
+      E('rect', 0, 0, w, h, { fill: '#0b0d17', op: .52 }),
+      E('rect', w * .34, h * .16, w * .32, s * .06, { fill: c1, rad: R(s * .03) }),
+      T(w * .34, h * .173, w * .32, s * .028, fg(c1), 'center'),
+      H(w * .08, h * .3, w * .84, s * .125, '#ffffff', 'center'),
+      B(w * .14, h * .3 + hh(s * .125) + s * .03, w * .72, s * .038, '#e2e8f0', 'center')
+    ];
+  } else {
+    els = [
+      E('img', 0, 0, w, h * .64, { src: p0 }),
+      E('rect', 0, h * .58, w, h * .42, { fill: P[0], rad: R(s * .04) }),
+      E('img', w - pad - s * .34, h * .44, s * .34, s * .34, { src: p1, rad: R(s * .03), sh: 1 }),
+      T(pad * 1.2, h * .63, w * .52, s * .028, c1),
+      H(pad * 1.2, h * .68, w * .56, s * .095, ink),
+      B(pad * 1.2, Math.min(h - pad - s * .05, h * .68 + hh(s * .095) + s * .015), w * .56, s * .032, ink)
+    ];
+  }
+  return { w, h, bg: P[0], els };
+}
+
+/* Extra photo & promo card layouts (6 styles) */
+function gen5(ci, i) {
+  const catEntry = CATS[ci] || CATS[0];
+  const [, w, h, f, k, rawCp, , bd, srcIdx, photoSeed] = catEntry;
+  const srcCat = (typeof srcIdx === 'number' && CATS[srcIdx]) ? CATS[srcIdx] : CATS[0];
+  const cp = Array.isArray(rawCp) && rawCp.length
+    ? rawCp
+    : (Array.isArray(srcCat?.[5]) && srcCat[5].length ? srcCat[5] : [['New\nEdit', 'Curated photo template']]);
+  const P = PAL2[(i * 2 + ci) % 8];
+  const [hd, sb] = cp[i % cp.length];
+  const s = Math.min(w, h), R = Math.round, ln = hd.split('\n').length;
+  const wt = (f === 'Bebas Neue' || f === 'Anton') ? 400 : 800, l = i % 6;
+  const base = typeof photoSeed === 'number' ? photoSeed : (ci * 7 + i);
+  const p0 = STOCK[(base + i) % STOCK.length].src;
+  const p1 = STOCK[(base + i + 1) % STOCK.length].src;
+  const p2 = STOCK[(base + i + 3) % STOCK.length].src;
+  const p3 = STOCK[(base + i + 5) % STOCK.length].src;
+  const c1 = P[2], c2 = P[3], ink = P[1];
+  const X = (x, y, ww, t, fs, col, al, o) => N('text', { x: R(x), y: R(y), w: R(ww), text: t, fs: R(fs), col, al: al || 'left', ...o });
+  const H = (x, y, ww, fs, col, al) => X(x, y, ww, hd, fs * k, col, al, { font: f, wt });
+  const B = (x, y, ww, fs, col, al) => X(x, y, ww, sb, fs, col, al, { wt: 600 });
+  const T = (x, y, ww, fs, col, al) => X(x, y, ww, bd || 'EDIT', fs, col, al, { wt: 800, ls: 2.5 });
+  const E = (t, x, y, a, b, o) => N(t, { x: R(x), y: R(y), w: R(a), h: R(b), ...o });
+  const hh = fs => fs * k * 1.16 * ln;
+  const pad = s * .05, gap = s * .02;
+  let els;
+  if (l === 0) {
+    const gw = (w - pad * 2 - gap) / 2, gh = h * .34;
+    els = [
+      E('img', pad, pad, gw, gh, { src: p0, rad: R(s * .02) }),
+      E('img', pad + gw + gap, pad, gw, gh, { src: p1, rad: R(s * .02) }),
+      E('img', pad, pad + gh + gap, gw, gh, { src: p2, rad: R(s * .02) }),
+      E('img', pad + gw + gap, pad + gh + gap, gw, gh, { src: p3, rad: R(s * .02) }),
+      E('rect', pad, h - pad - hh(s * .085) - s * .06, w - pad * 2, hh(s * .085) + s * .06, { fill: c1, rad: R(s * .025) }),
+      H(pad + s * .03, h - pad - hh(s * .085) - s * .04, w * .56, s * .085, fg(c1)),
+      B(w * .6, h - pad - s * .07, w * .34, s * .03, fg(c1), 'right')
+    ];
+  } else if (l === 1) {
+    els = [
+      E('img', pad, pad, w * .56, h - pad * 2, { src: p0, rad: R(s * .025) }),
+      E('img', pad + w * .56 + gap, pad, w - pad * 2 - w * .56 - gap, h * .42, { src: p1, rad: R(s * .025) }),
+      E('rect', pad + w * .56 + gap, pad + h * .42 + gap, w - pad * 2 - w * .56 - gap, h - pad * 2 - h * .42 - gap, { fill: c2, rad: R(s * .025) }),
+      T(pad + w * .58 + gap, pad + h * .44 + gap, w * .32, s * .026, fg(c2)),
+      H(pad + w * .58 + gap, pad + h * .49 + gap, w * .34, s * .075, fg(c2)),
+      B(pad + w * .58 + gap, Math.min(h - pad - s * .05, pad + h * .49 + gap + hh(s * .075) + s * .015), w * .34, s * .03, fg(c2))
+    ];
+  } else if (l === 2) {
+    els = [
+      E('img', 0, 0, w, h, { src: p0 }),
+      E('rect', w * .07, h * .56, w * .86, h * .36, { fill: P[0], rad: R(s * .035), sh: 1 }),
+      E('ell', w * .76, h * .48, s * .18, s * .18, { fill: c1, sh: 1 }),
+      T(w * .76, h * .55, s * .18, s * .028, fg(c1), 'center'),
+      H(w * .11, h * .61, w * .76, s * .095, ink),
+      B(w * .11, Math.min(h * .88, h * .61 + hh(s * .095) + s * .015), w * .76, s * .032, ink)
+    ];
+  } else if (l === 3) {
+    const bw = (w - pad * 2 - gap * 2) / 3, bh = h * .56;
+    els = [
+      E('img', pad, pad, bw, bh, { src: p0, rad: R(s * .02) }),
+      E('img', pad + bw + gap, pad, bw, bh, { src: p1, rad: R(s * .02) }),
+      E('img', pad + (bw + gap) * 2, pad, bw, bh, { src: p2, rad: R(s * .02) }),
+      T(pad, pad + bh + s * .03, w - pad * 2, s * .028, c1, 'center'),
+      H(pad, pad + bh + s * .07, w - pad * 2, s * .09, ink, 'center'),
+      B(pad, Math.min(h - pad - s * .05, pad + bh + s * .08 + hh(s * .09)), w - pad * 2, s * .032, ink, 'center')
+    ];
+  } else if (l === 4) {
+    els = [
+      E('rect', 0, 0, w, h, { g: 1, fill: c1, fill2: c2 }),
+      E('img', w * .12, h * .1, w * .76, h * .46, { src: p0, rad: R(s * .03), sh: 1 }),
+      E('rect', w * .12, h * .6, w * .76, h * .3, { fill: '#ffffff', rad: R(s * .03), sh: 1 }),
+      H(w * .16, h * .63, w * .68, s * .085, '#16182a', 'center'),
+      B(w * .16, Math.min(h * .86, h * .63 + hh(s * .085) + s * .015), w * .68, s * .032, '#334155', 'center')
+    ];
+  } else {
+    els = [
+      E('img', 0, 0, w * .52, h, { src: p0 }),
+      E('img', w * .52, 0, w * .48, h * .48, { src: p1 }),
+      E('rect', w * .52, h * .48, w * .48, h * .52, { fill: c1 }),
+      T(w * .56, h * .53, w * .4, s * .028, fg(c1)),
+      H(w * .56, h * .58, w * .4, s * .08, fg(c1)),
+      B(w * .56, Math.min(h - s * .06, h * .58 + hh(s * .08) + s * .02), w * .4, s * .032, fg(c1))
+    ];
+  }
+  return { w, h, bg: P[0], els };
+}
+
+function thumb(D, ci, i) {
+  const d = document.createElement('div');
+  d.className = 'th';
+  d.dataset.act = 'gen';
+  d.dataset.c = ci;
+  d.dataset.i = i;
+  d.style.aspectRatio = D.w + '/' + D.h;
+  d.style.background = D.bg;
+  D.els.forEach(e => {
+    const c = document.createElement('div');
+    c.style.cssText = `left:${e.x / D.w * 100}%;top:${e.y / D.h * 100}%;width:${e.w / D.w * 100}%;` + (e.type === 'text' ? '' : `height:${e.h / D.h * 100}%;`) + `transform:rotate(${e.r}deg)`;
+    vis(e, c);
+    if (e.type === 'text') { c.style.fontSize = e.fs / D.w * 100 + 'cqw'; c.style.letterSpacing = '0'; }
+    else if (e.type === 'rect') c.style.borderRadius = e.rad / D.w * 100 + 'cqw';
+    else if (e.type === 'img' && c.firstChild) c.firstChild.style.borderRadius = e.rad / D.w * 100 + 'cqw';
+    c.style.filter = '';
+    d.appendChild(c);
+  });
+  return d;
+}
+
+function showCat(ci) {
+  const g = $('#tgrid');
+  g.innerHTML = '';
+  const order = Array.from({ length: CATS.length }, (_, idx) => idx).sort((a, b) => {
+    if (a === ci) return -1;
+    if (b === ci) return 1;
+    return CATS[a][0].localeCompare(CATS[b][0], undefined, { sensitivity: 'base' });
+  });
+  order.forEach(cIdx => {
+    const hdr = document.createElement('div');
+    hdr.style.cssText = 'grid-column:1/-1;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--acc);padding:8px 2px 2px;border-top:1px solid var(--line);margin-top:4px;';
+    hdr.textContent = `${CATS[cIdx][0]} (15)`;
+    g.appendChild(hdr);
+    for (let i = 0; i < 15; i++) {
+      g.appendChild(thumb(gen(cIdx, i), cIdx, i));
+    }
+  });
+}
+
+$('#preset-h3').textContent = `Preset designs · ${CATS.length * 15}`;
+$('#cat').innerHTML = '<option value="all">A–Z All Categories (' + (CATS.length * 15) + ')</option>' +
+  [...CATS.keys()].sort((a, b) => CATS[a][0].localeCompare(CATS[b][0], undefined, { sensitivity: 'base' }))
+    .map(i => `<option value="${i}">${CATS[i][0]} (15)</option>`).join('');
+$('#cat').onchange = e => {
+  const v = e.target.value;
+  showCat(v === 'all' ? -1 : +v);
+};
+showCat(-1);
+
+(() => {
+  const L = $('#left');
+  if (!L) return;
+  let tab = 'de';
+  [...L.children].forEach(n => {
+    if (n.tagName === 'H3') {
+      const t = n.textContent;
+      tab = /Shapes/.test(t) ? 'el' : /^Text/.test(t) ? 'tx' : /Images/.test(t) ? 'ph' : /Background/.test(t) ? 'bg' : 'de';
+    }
+    n.dataset.tab = tab;
+  });
+  const bar = document.createElement('div');
+  bar.id = 'tabs';
+  bar.innerHTML = [['de', 'Designs'], ['el', 'Shapes'], ['tx', 'Text'], ['ph', 'Photos'], ['bg', 'Canvas']].map(t => `<button data-tab="${t[0]}">${t[1]}</button>`).join('');
+  L.prepend(bar);
+  const show = k => {
+    [...L.children].forEach(n => { if (n !== bar) n.style.display = n.dataset.tab === k ? '' : 'none'; });
+    bar.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.tab === k));
+  };
+  bar.onclick = e => { const b = e.target.closest('button'); if (b) show(b.dataset.tab); };
+  show('de');
+})();
+
+const stkCatsEl = $('#stk-cats');
+if (stkCatsEl) {
+  stkCatsEl.innerHTML = STK_CATS.map(([k, lbl]) =>
+    `<button type="button" class="stk-cat ${k === stkCat ? 'on' : ''}" data-stkcat="${k}">${lbl}</button>`
+  ).join('');
+  stkCatsEl.addEventListener('click', ev => {
+    const btn = ev.target.closest('[data-stkcat]');
+    if (!btn) return;
+    stkCat = btn.dataset.stkcat;
+    stkCatsEl.querySelectorAll('.stk-cat').forEach(b => b.classList.toggle('on', b.dataset.stkcat === stkCat));
+    renderStock();
+  });
+}
+$('#stk-q')?.addEventListener('input', ev => {
+  stkQ = ev.target.value || '';
+  renderStock();
+});
+renderStock();
+
+/* Actions & Events */
+function lg(x, w, h, deg, a, b) {
+  const r = deg * Math.PI / 180, dx = Math.sin(r), dy = -Math.cos(r);
+  const L = (Math.abs(w * dx) + Math.abs(h * dy)) / 2, cx = w / 2, cy = h / 2;
+  const g = x.createLinearGradient(cx - dx * L, cy - dy * L, cx + dx * L, cy + dy * L);
+  g.addColorStop(0, a); g.addColorStop(1, b);
+  return g;
+}
+
+function dl() {
+  const a = document.createElement('a');
+  a.href = $('#out').src;
+  a.download = 'frame-design.' + ($('#xf').value === 'jpeg' ? 'jpg' : $('#xf').value);
+  a.click();
+}
+
+document.addEventListener('click', ev => {
+  const b = ev.target.closest('[data-act]');
+  if (!b) {
+    const l = ev.target.closest('.ly');
+    if (l) select_(+l.dataset.id);
+    return;
+  }
+  const a = b.dataset.act, e = cur();
+  if (a === 'undo') undo();
+  else if (a === 'redo') redo();
+  else if (a === 'zin') setZ(z * 1.2);
+  else if (a === 'zout') setZ(z / 1.2);
+  else if (a === 'fit') fit();
+  else if (a === 'home') showHome();
+  else if (a === 'z100') setZ(1);
+  else if (a === 'keys') $('#kmodal').classList.toggle('on');
+  else if (a === 'grid') clip.classList.toggle('grid');
+  else if (a === 'theme') {
+    const r = document.documentElement;
+    const d = r.dataset.theme === 'dark';
+    r.dataset.theme = d ? 'light' : 'dark';
+  } else if (a === 'export') exportPNG();
+  else if (a === 'dl') dl();
+  else if (a === 'close') $('#modal').classList.remove('on');
+  else if (a.startsWith('add-')) {
+    const t = a.slice(4);
+    if (t === 'h1') addText({ text: 'Add a heading', fs: 110, wt: 800, font: 'Space Grotesk' });
+    else if (t === 'h2') addText({ text: 'Add a subheading', fs: 56, wt: 600 });
+    else if (t === 'p') addText({ text: 'Add a little bit of body text', fs: 34, wt: 400 });
+    else if (t === 's') addText({ text: 'Handwritten note', fs: 90, wt: 700, font: 'Caveat' });
+    else if (t === 'neon') addText({ text: 'NEON NIGHTS', fs: 110, wt: 800, font: 'Space Grotesk', col: '#ffffff', sh: 1, shc: '#22d3ee', shb: 24, shy: 0, al: 'center' });
+    else if (t === 'outline') addText({ text: 'OUTLINE', fs: 150, wt: 800, font: 'Space Grotesk', col: '#00000000', stw: 4, stc: '#16182a', al: 'center' });
+    else if (t === 'retro') addText({ text: 'Retro Vibes', fs: 120, wt: 800, font: 'Playfair Display', col: '#ffd23f', sh: 1, shc: '#ff5fa2', shb: 0, shy: 10, al: 'center' });
+    else if (t === 'bn') addText({ text: 'আপনার শিরোনাম', fs: 100, wt: 700, font: 'Hind Siliguri' });
+    else addShape(t);
+  } else if (a === 'upload') $('#file').click();
+  else if (a === 'add-url') {
+    const inpUrl = $('#imgurl');
+    if (inpUrl) { addImgFromUrl(inpUrl.value, 'add'); inpUrl.value = ''; }
+  } else if (a === 'replace-url') {
+    const inpUrl = $('#rep-img-url');
+    if (inpUrl) { addImgFromUrl(inpUrl.value, 'replace'); inpUrl.value = ''; }
+  } else if (a === 'picset-url') {
+    const inpUrl = $('#shape-pic-url');
+    if (inpUrl) { addImgFromUrl(inpUrl.value, 'shape'); inpUrl.value = ''; }
+  } else if (a === 'stock') {
+    const item = STOCK[+b.dataset.i];
+    if (item) {
+      if (e && e.type !== 'text' && e.type !== 'img') {
+        snap(); e.pic = item.src; e.pox = 50; e.poy = 50; e.pz = 100; render(); props(); save();
+      } else {
+        const d = Math.round(Math.min(S.w, S.h) * .6);
+        add(N('img', { src: item.src, w: d, h: d, ...mid(d, d) }));
+      }
+    }
+  } else if (a === 'edit-text' && e && e.type === 'text') {
+    const el = clip.querySelector(`[data-id="${e.id}"]`);
+    if (el) startTextEdit(el, e);
+  } else if (a === 'fillc' && e) {
+    snap();
+    e.x = 0; e.y = 0; e.w = S.w; e.h = S.h; e.r = 0; e.rad = 0;
+    S.els = [e].concat(S.els.filter(x => x !== e));
+    render(); props(); save();
+  } else if (a === 'tpl') {
+    snap();
+    S = TPL[+b.dataset.i][2]();
+    sel = null; ms.clear();
+    render(); fit(); props(); save();
+    $('#preset').selectedIndex = -1;
+  } else if (a === 'gen') {
+    snap();
+    S = gen(+b.dataset.c, +b.dataset.i);
+    sel = null; ms.clear();
+    render(); fit(); props(); save();
+    $('#preset').selectedIndex = -1;
+  } else if (a === 'bg') {
+    snap(); S.bg = b.dataset.c; S.g2 = 0; render(); props(); save();
+  } else if (a === 'bgg') {
+    snap(); S.bg = b.dataset.a; S.bg2 = b.dataset.b; S.g2 = 1; S.bga = 135; render(); props(); save();
+  } else if (/^sc-\d+$/.test(a) && e) {
+    snap(); scaleEl(e, +a.slice(3) / 100); render(); props(); save();
+  } else if (a === 'fitc' && e) {
+    snap(); scaleEl(e, Math.min(S.w / e.w, S.h / e.h));
+    e.x = Math.round((S.w - e.w) / 2); e.y = Math.round((S.h - e.h) / 2);
+    render(); props(); save();
+  } else if (a === 'cut' && e) {
+    clipb = JSON.stringify(e); snap();
+    S.els = S.els.filter(x => x !== e); sel = null; ms.clear();
+    render(); props(); save();
+  } else if (a === 'eyed') {
+    if (window.EyeDropper) {
+      new EyeDropper().open().then(r => {
+        snap();
+        const c = cur();
+        if (c) { if (c.type === 'text') c.col = r.sRGBHex; else c.fill = r.sRGBHex; }
+        else S.bg = r.sRGBHex;
+        render(); props(); save();
+      }).catch(() => {});
+    }
+  } else if (a === 'replace' && e && e.type === 'img') {
+    repl = 1; $('#file').click();
+  } else if (a === 'picset' && e && e.type !== 'text' && e.type !== 'img') {
+    repl = 2; $('#file').click();
+  } else if (a === 'picdel' && e) {
+    snap(); delete e.pic; render(); props(); save();
+  } else if (a === 'picstock' && e) {
+    const item = STOCK[+b.dataset.i];
+    if (item) { snap(); e.pic = item.src; e.pox = 50; e.poy = 50; e.pz = 100; render(); props(); save(); }
+  } else if (a === 'cropstart' && e && e.type === 'img') {
+    const im = new Image();
+    im.onload = () => {
+      snap();
+      const ia = im.width / im.height, fw = Math.min(e.w, e.h * ia), fh = fw / ia;
+      e.x = Math.round(e.x + (e.w - fw) / 2); e.y = Math.round(e.y + (e.h - fh) / 2);
+      e.w = Math.round(fw); e.h = Math.round(fh);
+      e.crp = 1; e.cl = e.cr = e.ct = e.cb = 0;
+      render(); props(); save();
+    };
+    im.src = e.src;
+  } else if (a === 'cropreset' && e && e.crp) {
+    snap(); applyCrop(e, 0, 0, 0, 0); render(); props(); save();
+  } else if ((a === 'cutv' || a === 'cuth') && e && e.crp) {
+    snap();
+    const v = a === 'cutv', m = v ? (e.cl + 1 - e.cr) / 2 : (e.ct + 1 - e.cb) / 2;
+    const B = { ...e, id: uid++ };
+    if (v) { applyCrop(e, e.cl, 1 - m, e.ct, e.cb); applyCrop(B, m, B.cr, B.ct, B.cb); e.x -= 12; B.x += 12; }
+    else { applyCrop(e, e.cl, e.cr, e.ct, 1 - m); applyCrop(B, B.cl, B.cr, m, B.cb); e.y -= 12; B.y += 12; }
+    S.els.push(B); render(); props(); save();
+  } else if (a.startsWith('fx-') && e && e.type === 'img') {
+    snap();
+    const PR = { original: {}, vivid: { con: 112, sat: 160 }, bw: { gry: 100 }, sepia: { sep: 80 }, fade: { con: 85, bri: 112, sat: 80 }, cool: { hue: 20, sat: 110, bri: 104 } };
+    Object.assign(e, { bri: 100, con: 100, sat: 100, blur: 0, gry: 0, sep: 0, hue: 0 }, PR[a.slice(3)] || {});
+    render(); props(); save();
+  } else if (a === 'mresize') {
+    const [w, h] = $('#mrz').value.split(',').map(Number);
+    snap();
+    const k = Math.min(w / S.w, h / S.h), ox = (w - S.w * k) / 2, oy = (h - S.h * k) / 2;
+    S.els.forEach(item => {
+      if (item.x <= 0 && item.y <= 0 && item.w >= S.w - 1 && item.h >= S.h - 1) { item.x = 0; item.y = 0; item.w = w; item.h = h; return; }
+      item.x = Math.round(ox + item.x * k); item.y = Math.round(oy + item.y * k);
+      item.w = Math.round(item.w * k); item.h = Math.round(item.h * k);
+      if (item.type === 'text') item.fs = item.fs * k;
+      if (item.rad) item.rad = Math.round(item.rad * k);
+    });
+    S.w = w; S.h = h; render(); fit(); props(); save();
+  } else if (/^(mgroup|mungroup|mdup|mdel|mal-.|mdh|mdv)$/.test(a)) {
+    multiAct(a);
+  } else if (a === 'lyup' || a === 'lydn') {
+    const x = byId(+b.dataset.id), j = S.els.indexOf(x), n = j + (a === 'lyup' ? 1 : -1);
+    if (n >= 0 && n < S.els.length) { snap(); S.els.splice(j, 1); S.els.splice(n, 0, x); render(); save(); }
+  } else if (a === 'lylock') {
+    const x = byId(+b.dataset.id); snap(); x.lock = x.lock ? 0 : 1; render(); props(); save();
+  } else if (a === 'eye') {
+    const x = byId(+b.dataset.id); snap(); x.hide = x.hide ? 0 : 1; if (x.id === sel) sel = null; render(); props(); save(); ev.stopPropagation();
+  } else if (e) {
+    snap();
+    if (a === 'del') { S.els = S.els.filter(x => x.id !== e.id); sel = null; }
+    else if (a === 'dup') { const c = { ...e, id: uid++, x: e.x + 30, y: e.y + 30 }; S.els.push(c); sel = c.id; }
+    else if (a === 'flipx') e.fx = e.fx ? 0 : 1;
+    else if (a === 'flipy') e.fy = e.fy ? 0 : 1;
+    else if (a === 'lock') e.lock = e.lock ? 0 : 1;
+    else if (a === 'front') { S.els = S.els.filter(x => x !== e).concat(e); }
+    else if (a === 'back') { S.els = [e].concat(S.els.filter(x => x !== e)); }
+    else if (a === 'al-l') e.x = 0;
+    else if (a === 'al-r') e.x = S.w - e.w;
+    else if (a === 'al-c') e.x = (S.w - e.w) / 2;
+    else if (a === 'al-t') e.y = 0;
+    else if (a === 'al-b') e.y = S.h - e.h;
+    else if (a === 'al-m') e.y = (S.h - e.h) / 2;
+    render(); props(); save();
+  }
+});
+
+const PT = ev => { const r = st.getBoundingClientRect(); return [(ev.clientX - r.left) / z, (ev.clientY - r.top) / z]; };
+const rot = (x, y, d) => { const a = d * Math.PI / 180, c = Math.cos(a), s = Math.sin(a); return [x * c - y * s, x * s + y * c]; };
+function startDrag(k, ev) {
+  snap();
+  const e = cur(), [px, py] = PT(ev);
+  drag = {
+    k, e, px, py, x: e.x, y: e.y, w: e.w, h: e.h, r: e.r, fs: e.fs,
+    m: (k === 'move' && ms.size > 1 && ms.has(e.id)) ? [...ms].map(id => { const o = byId(id); return [o, o.x, o.y]; }) : null
+  };
+  ev.preventDefault();
+}
+
+st.addEventListener('pointerdown', ev => {
+  const h = ev.target.closest('.h');
+  if (h && sel) { startDrag(h.dataset.k, ev); return; }
+  const el = ev.target.closest('.el');
+  if (el) {
+    if (el.isContentEditable) return;
+    const id = +el.dataset.id;
+    if (ev.shiftKey) {
+      if (!ms.size && sel != null) grpOf(sel).forEach(x => ms.add(x));
+      const g = grpOf(id), has = ms.has(id);
+      g.forEach(x => has ? ms.delete(x) : ms.add(x));
+      if (ms.size < 2) { sel = ms.size ? [...ms][0] : null; ms.clear(); }
+      else sel = ms.has(id) ? id : [...ms][0];
+      msMark(); updSel(); layers(); props(); return;
+    }
+    if (ms.has(id)) { sel = id; updSel(); layers(); } else select_(id);
+    if (!byId(id).lock) startDrag('move', ev);
+    return;
+  }
+  sel = null; ms.clear(); msMark(); updSel(); layers(); props(); startMq(ev);
+});
+$('#view').addEventListener('pointerdown', ev => {
+  if (ev.target.id === 'view' || ev.target.id === 'wrap') { sel = null; ms.clear(); msMark(); updSel(); layers(); props(); }
+});
+window.addEventListener('pointermove', ev => {
+  if (mq) {
+    const [mx, my] = PT(ev), qx = Math.min(mx, mq.x), qy = Math.min(my, mq.y), qw = Math.abs(mx - mq.x), qh = Math.abs(my - mq.y);
+    Object.assign(mq.b.style, { left: qx + 'px', top: qy + 'px', width: qw + 'px', height: qh + 'px' });
+    mq.r = [qx, qy, qw, qh];
+    return;
+  }
+  if (!drag) return;
+  const e = drag.e, [px, py] = PT(ev), d = drag;
+  if (d.k === 'move') {
+    if (Math.abs(px - d.px) < 2 / z && Math.abs(py - d.py) < 2 / z) return;
+    let nx = d.x + px - d.px, ny = d.y + py - d.py, tol = 8 / z;
+    const cx = nx + e.w / 2, cy = ny + e.h / 2;
+    const xs = [0, S.w / 2, S.w], ys = [0, S.h / 2, S.h];
+    S.els.forEach(o => {
+      if (o !== e && !o.hide && !(d.m && d.m.some(q => q[0] === o))) {
+        xs.push(o.x, o.x + o.w / 2, o.x + o.w);
+        ys.push(o.y, o.y + o.h / 2, o.y + o.h);
+      }
+    });
+    let bdx = null, bdy = null, gx = 0, gy = 0;
+    for (const c of xs) for (const p of [nx, cx, nx + e.w]) { const dd = c - p; if (Math.abs(dd) < tol && (bdx === null || Math.abs(dd) < Math.abs(bdx))) { bdx = dd; gx = c; } }
+    for (const c of ys) for (const p of [ny, cy, ny + e.h]) { const dd = c - p; if (Math.abs(dd) < tol && (bdy === null || Math.abs(dd) < Math.abs(bdy))) { bdy = dd; gy = c; } }
+    if (bdx !== null) nx += bdx;
+    if (bdy !== null) ny += bdy;
+    $('#gv').style.left = gx + 'px'; $('#gh').style.top = gy + 'px';
+    $('#gv').style.display = bdx !== null ? 'block' : 'none';
+    $('#gh').style.display = bdy !== null ? 'block' : 'none';
+    e.x = Math.round(nx); e.y = Math.round(ny);
+    if (d.m) d.m.forEach(([o, ox, oy]) => { if (o !== e) { o.x = ox + (e.x - d.x); o.y = oy + (e.y - d.y); place(o); } });
+  } else if (d.k === 'rot') {
+    const cx = d.x + d.w / 2, cy = d.y + d.h / 2;
+    let a = Math.atan2(py - cy, px - cx) * 180 / Math.PI + 90;
+    if (ev.shiftKey) a = Math.round(a / 15) * 15;
+    e.r = Math.round(a);
+  } else {
+    const sx = d.k[1] === 'e' ? 1 : -1, sy = d.k[0] === 's' ? 1 : -1, cx = d.x + d.w / 2, cy = d.y + d.h / 2;
+    const [ox, oy] = rot(-sx * d.w / 2, -sy * d.h / 2, d.r), O = [cx + ox, cy + oy], [lx, ly] = rot(px - O[0], py - O[1], -d.r);
+    let nw = Math.max(24, lx * sx), nh = Math.max(24, ly * sy);
+    if (e.type === 'text') { e.fs = Math.max(8, d.fs * nw / d.w); nh = d.h * nw / d.w; }
+    else if (ev.shiftKey || e.type === 'img') { const k = Math.max(nw / d.w, nh / d.h); nw = d.w * k; nh = d.h * k; }
+    const [dx, dy] = rot(sx * nw / 2, sy * nh / 2, d.r);
+    e.w = Math.round(nw); e.h = Math.round(nh); e.x = Math.round(O[0] + dx - nw / 2); e.y = Math.round(O[1] + dy - nh / 2);
+    if (e.type === 'text') { const el = clip.querySelector(`[data-id="${e.id}"]`); if (el) el.style.fontSize = e.fs + 'px'; }
+  }
+  place(e); updSel();
+});
+window.addEventListener('pointerup', () => {
+  if (mq) {
+    const r = mq.r; mq.b.remove(); mq = null;
+    if (r && r[2] + r[3] > 6) {
+      ms = new Set(S.els.filter(e => !e.hide && e.x < r[0] + r[2] && e.x + e.w > r[0] && e.y < r[1] + r[3] && e.y + e.h > r[1]).flatMap(e => grpOf(e.id)));
+      if (ms.size < 2) { sel = ms.size ? [...ms][0] : null; ms.clear(); } else sel = [...ms][0];
+      msMark(); updSel(); layers(); props();
+    }
+    return;
+  }
+  if (!drag) return;
+  drag = null; $('#gv').style.display = $('#gh').style.display = 'none'; props(); save();
+});
+
+function startTextEdit(el, e) {
+  if (e.lock) return;
+  drag = null;
+  sb.style.display = 'none';
+  el.contentEditable = 'true';
+  el.style.cursor = 'text';
+  el.focus();
+  try {
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    const s = window.getSelection();
+    s.removeAllRanges();
+    s.addRange(range);
+  } catch (err) {}
+  const finish = () => {
+    el.removeEventListener('blur', finish);
+    el.removeEventListener('keydown', onKey);
+    snap();
+    e.text = el.innerText;
+    el.contentEditable = 'false';
+    render();
+    select_(e.id);
+    save();
+  };
+  const onKey = ev => {
+    if (ev.key === 'Escape') { ev.preventDefault(); el.blur(); }
+  };
+  el.addEventListener('blur', finish);
+  el.addEventListener('keydown', onKey);
+}
+
+st.addEventListener('dblclick', ev => {
+  const el = ev.target.closest('.el.text');
+  if (!el) return;
+  ev.stopPropagation();
+  const e = byId(+el.dataset.id);
+  if (e) startTextEdit(el, e);
+});
+
+document.addEventListener('keydown', ev => {
+  const t = ev.target; if (t.closest('input,textarea,select') || t.isContentEditable) return;
+  const k = ev.key, m = ev.ctrlKey || ev.metaKey, e = cur();
+  if (m && k.toLowerCase() === 'z') { ev.preventDefault(); ev.shiftKey ? redo() : undo(); }
+  else if (m && k.toLowerCase() === 'y') { ev.preventDefault(); redo(); }
+  else if (m && k.toLowerCase() === 'g' && ms.size > 1) { ev.preventDefault(); multiAct(ev.shiftKey ? 'mungroup' : 'mgroup'); }
+  else if (m && k.toLowerCase() === 'a') {
+    ev.preventDefault();
+    ms = new Set(S.els.filter(x => !x.hide).map(x => x.id));
+    if (ms.size < 2) { sel = ms.size ? [...ms][0] : null; ms.clear(); } else sel = [...ms][0];
+    msMark(); updSel(); layers(); props();
+  }
+  else if (k === '?') { $('#kmodal').classList.toggle('on'); }
+  else if (k === 'Escape') { $('#kmodal').classList.remove('on'); $('#ctx').style.display = 'none'; }
+  else if (m && k.toLowerCase() === 'c' && e) { clipb = JSON.stringify(e); }
+  else if (m && k.toLowerCase() === 'x' && e) { clipb = JSON.stringify(e); snap(); S.els = S.els.filter(x => x !== e); sel = null; render(); props(); save(); }
+  else if (m && k.toLowerCase() === 'v' && clipb) { ev.preventDefault(); snap(); const c = { ...JSON.parse(clipb), id: uid++ }; c.x += 30; c.y += 30; S.els.push(c); render(); select_(c.id); save(); }
+  else if (m && k.toLowerCase() === 'd' && e) { ev.preventDefault(); snap(); const c = { ...e, id: uid++, x: e.x + 30, y: e.y + 30 }; S.els.push(c); render(); select_(c.id); save(); }
+  else if ((k === 'Delete' || k === 'Backspace') && ms.size > 1) { multiAct('mdel'); }
+  else if ((k === 'Delete' || k === 'Backspace') && e) { snap(); S.els = S.els.filter(x => x !== e); sel = null; render(); props(); save(); }
+  else if (k.startsWith('Arrow') && e) {
+    ev.preventDefault(); snap(); const s = ev.shiftKey ? 10 : 1;
+    if (k === 'ArrowLeft') e.x -= s; if (k === 'ArrowRight') e.x += s;
+    if (k === 'ArrowUp') e.y -= s; if (k === 'ArrowDown') e.y += s;
+    place(e); updSel(); save();
+  }
+});
+
+$('#file').onchange = e => {
+  const f = e.target.files[0];
+  if (f) {
+    if (repl === 2 && cur()) loadImg(f, src => { snap(); const c = cur(); c.pic = src; c.pox = 50; c.poy = 50; c.pz = 100; render(); props(); save(); });
+    else if (repl && cur() && cur().type === 'img') loadImg(f, src => { snap(); cur().src = src; render(); save(); });
+    else addImg(f);
+  }
+  repl = 0; e.target.value = '';
+};
+$('#view').addEventListener('dragover', e => e.preventDefault());
+$('#view').addEventListener('drop', e => {
+  e.preventDefault();
+  const f = [...e.dataTransfer.files].find(x => x.type.startsWith('image/'));
+  const el = e.target.closest('.el'), sh = el && byId(+el.dataset.id);
+  if (f) {
+    if (sh && sh.type !== 'text' && sh.type !== 'img') loadImg(f, src => { snap(); sh.pic = src; sh.pox = 50; sh.poy = 50; sh.pz = 100; render(); select_(sh.id); save(); });
+    else addImg(f);
+  }
+});
+document.addEventListener('paste', e => {
+  if (e.target.closest('input,textarea')) return;
+  const it = [...(e.clipboardData?.items || [])].find(x => x.type.startsWith('image/'));
+  if (it) { e.preventDefault(); addImg(it.getAsFile()); return; }
+  const txt = e.clipboardData?.getData('text/plain') || '';
+  if (/^(https?:\/\/|data:image\/)/i.test(txt.trim())) {
+    e.preventDefault();
+    addImgFromUrl(txt.trim(), 'add');
+  }
+});
+
+$('#imgurl')?.addEventListener('keydown', e => {
+  if (e.key === 'Enter') { e.preventDefault(); addImgFromUrl(e.target.value, 'add'); e.target.value = ''; }
+});
+$('#props').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && e.target.id === 'rep-img-url') {
+    e.preventDefault(); addImgFromUrl(e.target.value, 'replace'); e.target.value = '';
+  } else if (e.key === 'Enter' && e.target.id === 'shape-pic-url') {
+    e.preventDefault(); addImgFromUrl(e.target.value, 'shape'); e.target.value = '';
+  }
+});
+
+$('#view').addEventListener('wheel', ev => {
+  if (ev.ctrlKey || ev.metaKey) { ev.preventDefault(); setZ(z * (ev.deltaY < 0 ? 1.08 : .92)); }
+}, { passive: false });
+window.addEventListener('resize', fit);
+
+/* export with safe image fallback */
+function loadCanvasImage(src, useCors = true) {
+  return new Promise(r => {
+    const i = new Image();
+    if (useCors && /^https?:\/\//i.test(src)) i.crossOrigin = 'anonymous';
+    i.onload = () => r(i);
+    i.onerror = () => {
+      if (useCors && /^https?:\/\//i.test(src)) {
+        loadCanvasImage(src, false).then(r);
+        return;
+      }
+      const fb = new Image();
+      fb.onload = () => r(fb);
+      fb.onerror = () => r(null);
+      fb.src = fallbackFor(src);
+    };
+    i.src = src;
+  });
+}
+
+async function renderExportCanvas(fmt, sc, useCors) {
+  const c = document.createElement('canvas');
+  c.width = S.w * sc; c.height = S.h * sc;
+  const x = c.getContext('2d');
+  x.scale(sc, sc);
+  if (!(fmt === 'png' && $('#xt').checked)) {
+    x.fillStyle = S.g2 ? lg(x, S.w, S.h, S.bga ?? 135, S.bg, S.bg2 || '#ffffff') : S.bg;
+    x.fillRect(0, 0, S.w, S.h);
+  }
+  for (const e of S.els) {
+    if (e.hide) continue;
+    let im = null;
+    if (e.type === 'img' || e.pic) im = await loadCanvasImage(e.pic || e.src, useCors);
+    x.save();
+    x.translate(e.x + e.w / 2, e.y + e.h / 2);
+    x.rotate(e.r * Math.PI / 180);
+    x.scale(e.fx ? -1 : 1, e.fy ? -1 : 1);
+    x.globalCompositeOperation = (e.bm && e.bm !== 'normal') ? e.bm : 'source-over';
+    x.globalAlpha = e.op;
+    if (e.sh) { x.shadowColor = (e.shc || '#000000') + '99'; x.shadowBlur = (e.shb ?? 18) * 1.5; x.shadowOffsetY = e.shy ?? 12; }
+    x.translate(-e.w / 2, -e.h / 2);
+    if (e.type === 'text') {
+      x.font = `${e.it ? 'italic ' : ''}${e.wt} ${e.fs}px "${e.font}",sans-serif`;
+      x.fillStyle = e.col; x.textBaseline = 'top';
+      if ('letterSpacing' in x) x.letterSpacing = e.ls + 'px';
+      const lh = e.fs * (e.lh || 1.2);
+      let y = 0;
+      for (const para of (e.up ? e.text.toUpperCase() : e.text).split('\n')) {
+        let line = '';
+        const words = para.split(' '), out = [];
+        for (const w of words) { const t = line ? line + ' ' + w : w; if (x.measureText(t).width > e.w && line) { out.push(line); line = w; } else line = t; }
+        out.push(line);
+        for (const l of out) {
+          const tw = x.measureText(l).width;
+          const px = e.al === 'center' ? (e.w - tw) / 2 : e.al === 'right' ? e.w - tw : 0, py = y + (lh - e.fs) / 2;
+          x.fillText(l, px, py);
+          if (e.stw) { x.lineWidth = e.stw; x.strokeStyle = e.stc || '#000000'; x.lineJoin = 'round'; x.strokeText(l, px, py); }
+          if (e.ul) x.fillRect(px, py + e.fs * 1.02, tw, Math.max(2, e.fs / 16));
+          y += lh;
+        }
+      }
+    } else if (e.type === 'img' && im) {
+      x.beginPath();
+      if (e.mask === 'ell') x.ellipse(e.w / 2, e.h / 2, e.w / 2, e.h / 2, 0, 0, Math.PI * 2);
+      else if (POLY[e.mask]) pts(e.mask).forEach((p, i) => i ? x.lineTo(p[0] * e.w, p[1] * e.h) : x.moveTo(p[0] * e.w, p[1] * e.h));
+      else x.roundRect(0, 0, e.w, e.h, e.rad);
+      x.closePath(); x.clip();
+      if ('filter' in x) x.filter = imgFx(e);
+      if (e.crp) {
+        const fw = e.w / (1 - e.cl - e.cr), fh = e.h / (1 - e.ct - e.cb);
+        x.drawImage(im, -e.cl * fw, -e.ct * fh, fw, fh);
+      } else {
+        const k = Math.max(e.w / im.width, e.h / im.height), w = im.width * k, h = im.height * k;
+        x.drawImage(im, (e.w - w) / 2, (e.h - h) / 2, w, h);
+      }
+    } else if (e.type !== 'img') {
+      x.fillStyle = e.g ? lg(x, e.w, e.h, e.ga ?? 135, e.fill, e.fill2) : e.fill;
+      x.beginPath();
+      if (e.type === 'rect') x.roundRect(0, 0, e.w, e.h, e.rad);
+      else if (e.type === 'ell') x.ellipse(e.w / 2, e.h / 2, e.w / 2, e.h / 2, 0, 0, Math.PI * 2);
+      else pts(e.type).forEach((p, i) => i ? x.lineTo(p[0] * e.w, p[1] * e.h) : x.moveTo(p[0] * e.w, p[1] * e.h));
+      x.closePath();
+      if (e.pic && im) {
+        x.save(); x.clip();
+        const k = Math.max(e.w / im.width, e.h / im.height), W = im.width * k, H = im.height * k;
+        const px = (e.pox ?? 50) / 100, py = (e.poy ?? 50) / 100, zm = (e.pz || 100) / 100;
+        const ax = e.w * px, ay = e.h * py;
+        x.translate(ax, ay); x.scale(zm, zm); x.translate(-ax, -ay);
+        x.drawImage(im, (e.w - W) * px, (e.h - H) * py, W, H);
+        x.restore();
+      } else x.fill();
+      if (e.bw && (e.type === 'rect' || e.type === 'ell')) {
+        x.save(); x.clip(); x.lineWidth = e.bw * 2; x.strokeStyle = e.bc || '#000000'; x.stroke(); x.restore();
+      }
+    }
+    x.restore();
+  }
+  return c.toDataURL(fmt === 'png' ? 'image/png' : 'image/' + fmt, .92);
+}
+
+async function exportPNG() {
+  const fmt = $('#xf').value, sc = +$('#xs').value;
+  try {
+    await document.fonts.ready;
+    await Promise.all(FONTS.slice(0, -2).map(f => document.fonts.load(`700 40px "${f}"`, 'Aa অআকখ')));
+  } catch (e) {}
+  try {
+    $('#out').src = await renderExportCanvas(fmt, sc, true);
+  } catch (err) {
+    try {
+      $('#out').src = await renderExportCanvas(fmt, sc, false);
+    } catch (err2) {
+      $('#out').src = FALLBACK_SVG[0];
+    }
+  }
+  $('#modal').classList.add('on');
+}
+
+/* projects + shortcuts + context menu */
+function projs() { try { return JSON.parse(localStorage.getItem('frame-projects') || '[]'); } catch (e) { return []; } }
+function saveProj() {
+  try {
+    const L = projs(), t = S.els.find(e => e.type === 'text');
+    let p = L.find(x => x.id === curP);
+    if (!p) { p = { id: curP }; L.unshift(p); }
+    p.name = t ? t.text.replace(/\n/g, ' ').slice(0, 26) : 'Untitled design';
+    p.t = Date.now(); p.doc = snapJ();
+    localStorage.setItem('frame-projects', JSON.stringify(L.slice(0, 24)));
+  } catch (e) {}
+}
+function renderProjs() {
+  const el = $('#hprojs'); if (!el) return;
+  const L = projs();
+  if (!L.length) { el.style.display = 'none'; return; }
+  el.style.display = '';
+  el.innerHTML = "<h2>Your projects</h2><div id='pgrid'></div>";
+  const g = $('#pgrid');
+  L.forEach(p => {
+    let D; try { D = JSON.parse(p.doc); } catch (e) { return; }
+    const c = document.createElement('div'); c.className = 'pj'; c.dataset.id = p.id;
+    const t = thumb(D, 0, 0); delete t.dataset.act; c.appendChild(t);
+    const m = document.createElement('div'); m.className = 'pm';
+    m.innerHTML = `<div><b>${esc(p.name)}</b><small>${new Date(p.t).toLocaleDateString()}</small></div><button data-del='${p.id}'>Delete</button>`;
+    c.appendChild(m); g.appendChild(c);
+  });
+}
+function openProj(id) {
+  const p = projs().find(x => x.id === id); if (!p) return;
+  curP = id; S = JSON.parse(p.doc); uid = Math.max(0, ...S.els.map(e => e.id)) + 1;
+  sel = null; ms.clear(); hist = []; fut = [];
+  render(); props(); hideHome(); fit(); $('#preset').selectedIndex = -1;
+}
+function delProj(id) {
+  try { localStorage.setItem('frame-projects', JSON.stringify(projs().filter(p => p.id !== id))); } catch (e) {}
+  if (id === curP) curP = null;
+  renderProjs();
+}
+
+const km = document.createElement('div'); km.id = 'kmodal';
+km.innerHTML = `<div><h3 style='margin-top:0'>Keyboard shortcuts</h3><div class='kk'>${[['Ctrl+Z / Ctrl+Y', 'Undo / Redo'], ['Ctrl+C / X / V', 'Copy, cut, paste'], ['Ctrl+D', 'Duplicate'], ['Ctrl+A', 'Select all'], ['Ctrl+G', 'Group'], ['Ctrl+Shift+G', 'Ungroup'], ['Delete', 'Delete selected'], ['Arrow keys', 'Nudge (Shift = 10px)'], ['Shift + click', 'Add or remove from selection'], ['Drag on empty canvas', 'Box select'], ['Double-click text', 'Edit text on canvas'], ['Right-click', 'Context menu'], ['Ctrl + wheel', 'Zoom'], ['?', 'Show or hide this list']].map(r => `<kbd>${r[0]}</kbd><span>${r[1]}</span>`).join('')}</div><div style='margin-top:14px'><button class='btn pri' data-act='keys'>Close</button></div></div>`;
+document.body.appendChild(km);
+km.addEventListener('click', e => { if (e.target === km) km.classList.remove('on'); });
+
+const ctx = document.createElement('div'); ctx.id = 'ctx'; document.body.appendChild(ctx);
+st.addEventListener('contextmenu', ev => {
+  const el = ev.target.closest('.el'); if (!el) return; ev.preventDefault();
+  const id = +el.dataset.id; if (!ms.has(id)) select_(id); const e = cur();
+  ctx.innerHTML = ms.size > 1
+    ? `<button data-act='mgroup'>Group</button><button data-act='mungroup'>Ungroup</button><button data-act='mdup'>Duplicate</button><button data-act='mdel'>Delete</button>`
+    : `<button data-act='dup'>Duplicate</button><button data-act='front'>Bring to front</button><button data-act='back'>Send to back</button><button data-act='lock'>${e && e.lock ? 'Unlock' : 'Lock'}</button><button data-act='del'>Delete</button>`;
+  ctx.style.display = 'block';
+  ctx.style.left = Math.min(ev.clientX, innerWidth - 190) + 'px';
+  ctx.style.top = Math.min(ev.clientY, innerHeight - 230) + 'px';
+});
+document.addEventListener('click', () => { ctx.style.display = 'none'; });
+
+/* Home Page */
+const ico = d => `<svg viewBox='0 0 24 24' width='24' height='24' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='${d}'/></svg>`;
+const IC = {
+  home: 'M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z',
+  proj: 'M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z',
+  tpl: 'M4 4h7v9H4zM13 4h7v5h-7zM13 11h7v9h-7zM4 15h7v5H4z',
+  ph: 'M4 5h16v14H4zM4 16l5-5 4 4 3-3 4 4',
+  txt: 'M5 6V4h14v2M12 4v16M9 20h6',
+  search: 'M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM21 21l-5-5'
+};
+const HM = $('#home'), ciOf = n => CATS.findIndex(c => c[0] === n);
+const TINT = [
+  ['#ffe3d6', '#ffc8b0'], ['#f3dcff', '#e0c3ff'], ['#ffdcec', '#ffc2dc'],
+  ['#e6dcff', '#d3c4ff'], ['#ffe9c9', '#ffd59a'], ['#d8ecff', '#bcd9ff'],
+  ['#ffd9d9', '#ffbcbc'], ['#d9f5ea', '#b9ead6'], ['#fbe0f5', '#f2c2e8'],
+  ['#dfe3ff', '#c5ccff']
+];
+const HC = [
+  ['Presentation', 'Presentation'], ['Instagram post', 'Instagram<br>Post'],
+  ['Poster', 'Poster'], ['YouTube thumbnail', 'YouTube<br>Thumbnail'],
+  ['Story', 'Story'], ['Facebook post', 'Facebook<br>Post'],
+  ['Canva fashion lookbook', 'Canva<br>Lookbook'], ['Canva collage grid', 'Canva<br>Collage'],
+  ['Bangla promo & sale', 'Bangla<br>Promo'], ['Canva new arrival & sale', 'New Arrival<br>& Sale']
+].map(([n, l]) => ({ ci: ciOf(n), l })).filter(c => c.ci >= 0);
+const DISC = Array.from({ length: 18 }, (_, k) => [(k * 5 + 68) % CATS.length, (k * 3) % 15]);
+const th2 = (ci, i) => { const t = thumb(gen(ci, i), ci, i); delete t.dataset.act; return t; };
+
+function showHome() { HM.style.display = 'flex'; renderProjs(); $('#cmenu').classList.remove('on'); $('#hmain').scrollTop = 0; }
+function hideHome() { HM.style.display = 'none'; }
+function openEd(ci, i) {
+  curP = String(Date.now()); snap(); S = gen(ci, i); sel = null;
+  render(); props(); hideHome(); $('#preset').selectedIndex = -1;
+  $('#cat').value = ci; showCat(ci); fit(); save();
+}
+function blank(w, h) {
+  curP = String(Date.now()); snap(); S = { w, h, bg: '#ffffff', els: [] }; sel = null;
+  render(); props(); hideHome(); fit(); save();
+}
+function setRail(k) { HM.querySelectorAll('.rb').forEach(b => b.classList.toggle('on', b.dataset.h === k)); }
+function disc(list, title) {
+  $('#hdt').innerHTML = title + (title === 'Discover Frame' ? '' : " <button id='hclr'>Clear</button>");
+  $('#hdisc').replaceChildren(...list.map(([c, i]) => th2(c, i)));
+}
+function doSearch(q) {
+  q = q.trim().toLowerCase();
+  if (!q) { disc(DISC, 'Discover Frame'); return; }
+  const r = [];
+  CATS.forEach((c, ci) => {
+    const srcCat = (typeof c[8] === 'number' && CATS[c[8]]) ? CATS[c[8]] : CATS[0];
+    const cp = (c[6] === 2 || c[6] === 4 || c[6] === 5) ? srcCat[5] : c[5];
+    if (!Array.isArray(cp) || !cp.length) return;
+    for (let i = 0; i < 15; i++) {
+      const t = (c[0] + ' ' + cp[i % cp.length].join(' ') + ' ' + (c[7] || '')).toLowerCase().replace(/\n/g, ' ');
+      if (t.includes(q)) r.push([ci, i]);
+    }
+  });
+  disc(r.slice(0, 24), r.length ? `Results for “${q}” (${r.length})` : `No templates found for “${q}”`);
+}
+
+const CHIP = {
+  biz: [/business|linkedin|presentation|certificate|email|tech|real estate|product|startup|bangla business|arch|desk|agency|work/i, 'Business templates'],
+  video: [/youtube|story|podcast|music/i, 'Video and cover templates'],
+  social: [/instagram|facebook|pinterest|carousel|twitter|quote|fashion|food|travel|bangla|cafe|restaurant|retail|e-commerce|photo|wellness|shop|bakery|canva|lookbook|collage|arrival|morning|skincare|ootd|deal/i, 'Social media & Canva templates']
+};
+
+const FL = [
+  [68, 0, 'left:0;top:70px;width:36%;transform:rotate(-8deg)'],
+  [69, 1, 'left:27%;top:0;width:44%;transform:rotate(3deg);z-index:2'],
+  [70, 2, 'right:0;top:120px;width:34%;transform:rotate(8deg)']
+];
+
+HM.innerHTML = `<div id='hmain'>
+<section id='hero'>
+<header id='hnav'>
+  <div class='hlogo' data-h='home'><i></i>Frame</div>
+  <button class='rb on' data-h='home'>${ico(IC.home)}Home</button>
+  <button class='rb' data-h='tpl'>${ico(IC.tpl)}Templates</button>
+  <button class='rb' data-h='ph'>${ico(IC.ph)}Photos</button>
+  <button class='rb' data-h='txt'>${ico(IC.txt)}Text</button>
+  <button class='rb' data-h='proj'>${ico(IC.proj)}Projects</button>
+  <button class='rb' data-act='theme'>Theme</button>
+  <button class='rb mk' data-h='create'><i>+</i>New design</button>
+</header>
+<div class='hgrid'>
+  <div class='hl'>
+    <span class='htag'>${CATS.length * 15} ready-made designs · ${STOCK.length} curated photos</span>
+    <h1 id='hh'>Make it <em>yours</em>,<br>in minutes.</h1>
+    <p class='hsubp'>Pick a template, swap the words and photos, then export. Works offline with instant image fallback.</p>
+    <label id='hsearch'>${ico(IC.search)}<input id='hq' type='text' placeholder='Try: sale, bangla, photo, cafe, travel, quote'><button type='button' id='hgo'>Search</button></label>
+    <div id='hchips'>
+      <span class='hlab'>Browse</span>
+      <button class='chip' data-k='biz'><i style='background:#14b8a6'></i>Business</button>
+      <button class='chip' data-k='video'><i style='background:#8b5cf6'></i>Video</button>
+      <button class='chip' data-k='social'><i style='background:#ef4444'></i>Social &amp; Photo</button>
+    </div>
+    <button class='hlink' id='hcont'>Continue editing &rarr;</button>
+  </div>
+  <div id='hfloat'></div>
+</div>
+</section>
+<section class='hsec' id='hprojs'></section>
+<section class='hsec'><h2 id='hex'>Start with a size</h2><p class='hsub'>Every category comes with 15 ready designs (${CATS.length * 15} templates total).</p><div id='hcards'></div></section>
+<section class='hsec'><h2 id='hdt'>Discover Frame</h2><div id='hdisc'></div></section>
+</div>
+<div id='cmenu'>${[...$('#preset').options].map(o => { const [n, z2] = o.textContent.split(' · '); return `<button data-wh='${o.value}'><span>${n}</span><small>${z2}</small></button>`; }).join('')}</div>`;
+
+$('#hfloat').replaceChildren(...FL.map(([c, i, st]) => { const d = document.createElement('div'); d.className = 'fc'; d.style.cssText = st; d.appendChild(th2(c, i)); return d; }));
+$('#hcards').replaceChildren(...HC.map((c, k) => {
+  const b = document.createElement('button'); b.className = 'hc'; b.dataset.ci = c.ci; b.dataset.i = k % 5;
+  b.style.background = `linear-gradient(135deg,${TINT[k][0]},${TINT[k][1]})`;
+  b.innerHTML = `<b>${c.l}</b><div class='pv'></div>`;
+  b.querySelector('.pv').appendChild(th2(c.ci, k % 5));
+  return b;
+}));
+disc(DISC, 'Discover Frame');
+
+const goS = () => { doSearch($('#hq').value); $('#hdt').scrollIntoView({ behavior: 'smooth' }); };
+$('#hq').oninput = e => doSearch(e.target.value);
+$('#hq').onkeydown = e => { if (e.key === 'Enter') goS(); };
+$('#hgo').onclick = goS;
+$('#hcont').onclick = hideHome;
+
+HM.addEventListener('click', ev => {
+  const t = ev.target, hc = t.closest('.hc');
+  if (!t.closest('#cmenu') && !t.closest('.rb.mk')) $('#cmenu').classList.remove('on');
+  if (hc) {
+    const ci = +hc.dataset.ci;
+    const list = [];
+    const sorted = [...CATS.keys()].sort((a, b) => {
+      if (a === ci) return -1;
+      if (b === ci) return 1;
+      return CATS[a][0].localeCompare(CATS[b][0], undefined, { sensitivity: 'base' });
+    });
+    sorted.forEach(cIdx => { for (let i = 0; i < 15; i++) list.push([cIdx, i]); });
+    disc(list, `${CATS[ci][0]} + A–Z All Categories (${list.length})`);
+    $('#hdt').scrollIntoView({ behavior: 'smooth' });
+    return;
+  }
+  const pj = t.closest('.pj');
+  if (pj) {
+    if (t.closest('[data-del]')) { delProj(t.closest('[data-del]').dataset.del); return; }
+    openProj(pj.dataset.id); return;
+  }
+  const th = t.closest('.th');
+  if (th) { openEd(+th.dataset.c, +th.dataset.i); return; }
+  const cm = t.closest('#cmenu button');
+  if (cm) { const [w, h] = cm.dataset.wh.split(',').map(Number); blank(w, h); return; }
+  if (t.closest('#hclr')) { $('#hq').value = ''; disc(DISC, 'Discover Frame'); return; }
+  const ch = t.closest('.chip');
+  if (ch) {
+    const [re, title] = CHIP[ch.dataset.k], l = [], rest = [];
+    const sorted = [...CATS.keys()].sort((a, b) => CATS[a][0].localeCompare(CATS[b][0], undefined, { sensitivity: 'base' }));
+    sorted.forEach(cIdx => {
+      for (let i = 0; i < 15; i++) {
+        if (re.test(CATS[cIdx][0])) l.push([cIdx, i]);
+        else rest.push([cIdx, i]);
+      }
+    });
+    disc([...l, ...rest], `${title} + A–Z All (${l.length + rest.length})`);
+    $('#hdt').scrollIntoView({ behavior: 'smooth' });
+    return;
+  }
+  const hb = t.closest('[data-h]');
+  if (!hb) return;
+  const k = hb.dataset.h;
+  if (k === 'create') { $('#cmenu').classList.toggle('on'); return; }
+  if (k === 'home') { $('#hmain').scrollTo({ top: 0, behavior: 'smooth' }); setRail('home'); return; }
+  if (k === 'tpl') { $('#hex').scrollIntoView({ behavior: 'smooth' }); setRail('tpl'); return; }
+  if (k === 'proj') {
+    renderProjs();
+    const pe = $('#hprojs');
+    (pe.style.display === 'none' ? $('#hex') : pe).scrollIntoView({ behavior: 'smooth' });
+    setRail('proj');
+    return;
+  }
+  hideHome();
+  if (k === 'ph' || k === 'txt') document.querySelector(`#tabs [data-tab='${k === 'ph' ? 'ph' : 'tx'}']`).click();
+});
+
+/* Parallax + scroll reveal */
+(() => {
+  const hero = $('#hero'), f = $('#hfloat');
+  hero.addEventListener('pointermove', e => {
+    const r = hero.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+    f.style.setProperty('--px', x * -28 + 'px');
+    f.style.setProperty('--py', y * -20 + 'px');
+    f.style.setProperty('--pr', x * -2 + 'deg');
+  });
+  hero.addEventListener('pointerleave', () => {
+    f.style.setProperty('--px', '0px'); f.style.setProperty('--py', '0px'); f.style.setProperty('--pr', '0deg');
+  });
+  const io = new IntersectionObserver(es => es.forEach(x => {
+    if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); }
+  }), { root: $('#hmain'), threshold: .05 });
+  const watch = (n, k) => { n.style.transitionDelay = (k % 4) * 70 + 'ms'; n.classList.add('rv'); io.observe(n); };
+  $('#hcards').querySelectorAll('.hc').forEach(watch);
+  $('#hdisc').querySelectorAll('.th').forEach(watch);
+  new MutationObserver(ms => ms.forEach(m => m.addedNodes.forEach((n, k) => { if (n.nodeType === 1) watch(n, k); }))).observe($('#hdisc'), { childList: true });
+})();
+
+/* Boot */
+try {
+  const j = localStorage.getItem('frame-doc');
+  if (j) { const d = JSON.parse(j); if (d && d.els) { S = d; uid = Math.max(0, ...S.els.map(e => e.id)) + 1; } }
+} catch (e) {}
+if (!S.els.length) { S = TPL[0][2](); }
+render(); fit(); props(); renderProjs();
+</script>
+</body>
+</html>
