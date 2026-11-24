@@ -4,7 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Frame – Design Studio</title>
-<script>try{if(new URLSearchParams(location.search).get("frame")==="templates")document.documentElement.dataset.frameRoute="templates";}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:wght@400;700;800&family=Space+Grotesk:wght@400;600;700&family=Bebas+Neue&family=Caveat:wght@500;700&family=Poppins:wght@400;600;800&family=Montserrat:wght@400;700;900&family=Oswald:wght@500;700&family=Pacifico&family=Anton&family=Dancing+Script:wght@600;700&family=Hind+Siliguri:wght@400;600;700&family=Noto+Sans+Bengali:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
@@ -654,19 +653,8 @@ input[type=range] { width: 100%; accent-color: var(--acc); }
 .hinc{color:var(--mute);font-size:12.5px;margin:-4px 0 16px}
 .hn{display:block;font-weight:500;font-size:11px;opacity:.7;margin-top:3px}
 
-
-/* Category browser: searchable, image-led category cards */
-#hcatq{background:var(--field);border:1px solid var(--line);border-radius:999px;padding:11px 16px;color:var(--ink);font:600 13px 'Plus Jakarta Sans',sans-serif}
-#hcatq:focus{outline:2px solid var(--acc);outline-offset:1px}
-#hgt{margin:8px 0 16px}
-#hcats .cc{min-width:0}
-#hcats .cpv{height:148px}
-#hcats .cc .cpv .th{max-height:132px}
-#hcats .cc small{line-height:1.4}
-
 /* ===== templates page ===== */
 #hcats{display:grid;columns:auto;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:16px}
-html[data-frame-route="templates"] #home{display:none!important}
 #tpage{position:fixed;inset:0;z-index:31;display:none;flex-direction:column;background:var(--panel);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-sizing:border-box}
 #tpage.on{display:flex;animation:tpIn .28s cubic-bezier(.2,.8,.2,1)}
 @keyframes tpIn{from{opacity:0;translate:0 18px}to{opacity:1;translate:0 0}}
@@ -1051,12 +1039,6 @@ function vis(e, d) {
     d.style.overflow = 'hidden';
     d.style.clipPath = POLY[e.mask] ? poly(e.mask) : '';
     d.innerHTML = `<img src="${esc(e.src)}" draggable="false" style="${imgBox(e)}display:block;pointer-events:none;user-select:none;border-radius:${e.mask === 'ell' ? '50%' : e.rad + 'px'};filter:${imgFx(e)}">`;
-    const imageNode = d.querySelector('img');
-    imageNode.addEventListener('error', () => {
-      imageNode.onerror = null;
-      const fallback = FALLBACK_MAP.get(e.src) || FALLBACK_SVG[0];
-      if (imageNode.src !== fallback) imageNode.src = fallback;
-    }, { once: true });
   } else {
     d.style.background = e.g ? `linear-gradient(${e.ga ?? 135}deg,${e.fill},${e.fill2})` : e.fill;
     d.style.boxShadow = e.bw ? `inset 0 0 0 ${e.bw}px ${e.bc || '#000000'}` : '';
@@ -1469,7 +1451,7 @@ $('#preset').onchange = e => {
   render(); fit(); props(); save();
 };
 
-/* Expanded category library; template totals are computed from TEMPLATE_COUNTS below. */
+/* 150 categories x 15 designs = 2,250 templates */
 const fg = c => {
   const n = parseInt(c.slice(1), 16);
   return (.3 * (n >> 16) + .59 * (n >> 8 & 255) + .11 * (n & 255)) > 150 ? '#16182a' : '#ffffff';
@@ -1674,12 +1656,6 @@ const CATS = [
   ['Canva photo bangla offer', 1080, 1080, 'Hind Siliguri', 1.05, 0, 5, 'অফার', 41, 16],
   ['Canva photo bangla quote', 1080, 1350, 'Noto Sans Bengali', 1.05, 0, 5, 'বাংলা', 42, 24]
 ];
-
-/* Every category starts with 15 templates. Add exactly 200 extra variations:
-   2 extra templates for the first 31 categories, and 1 for each remaining category. */
-const TEMPLATE_COUNTS = CATS.map((_, ci) => 15 + (ci < 31 ? 2 : 1));
-const TOTAL_TEMPLATE_COUNT = TEMPLATE_COUNTS.reduce((sum, n) => sum + n, 0);
-const templateCountFor = ci => TEMPLATE_COUNTS[ci] || 15;
 
 function gen(ci, i) {
   if (CATS[ci][6] === 5) return gen5(ci, i);
@@ -1973,7 +1949,7 @@ function thumb(D, ci, i) {
 function showCat(ci) {
   const g = $('#tgrid');
   g.innerHTML = '';
-  for (let i = 0; i < templateCountFor(ci); i++) { try { g.appendChild(thumb(gen(ci, i), ci, i)); } catch (e) {} }
+  for (let i = 0; i < 15; i++) { try { g.appendChild(thumb(gen(ci, i), ci, i)); } catch (e) {} }
   catSel = ci;
   buildCatSelect($('#catq').value);
 }
@@ -2001,14 +1977,14 @@ function buildCatSelect(q) {
   const sel = $('#cat'); let h = '';
   GROUPS.slice(1).forEach(g => {
     const o = CATS.map((c, i) => [c, i]).filter(([c, i]) => catGroup(c) === g && (!q || c[0].toLowerCase().includes(q) || i === catSel))
-      .map(([c, i]) => `<option value="${i}">${esc(c[0])} (${templateCountFor(i)})</option>`).join('');
+      .map(([c, i]) => `<option value="${i}">${esc(c[0])} (15)</option>`).join('');
     if (o) h += `<optgroup label="${g}">${o}</optgroup>`;
   });
   sel.innerHTML = h || '<option value="">No category found</option>';
   sel.value = String(catSel);
   $('#catinfo').textContent = `${catSel + 1} / ${CATS.length}`;
 }
-$('#preset-h3').textContent = `Preset designs · ${TOTAL_TEMPLATE_COUNT.toLocaleString()}`;
+$('#preset-h3').textContent = `Preset designs · ${CATS.length * 15}`;
 $('#cat').onchange = e => { if (e.target.value !== '') showCat(+e.target.value); };
 $('#catq').oninput = e => {
   const q = e.target.value.trim().toLowerCase();
@@ -2653,13 +2629,13 @@ const HC = [
   ['LinkedIn banner', 'LinkedIn<br>Banner'], ['Facebook cover', 'Facebook<br>Cover']
 ].map(([n, l]) => ({ ci: ciOf(n), l })).filter(c => c.ci >= 0);
 const ALLT = [];
-for (let ci = 0; ci < CATS.length; ci++) for (let i = 0; i < templateCountFor(ci); i++) ALLT.push([ci, i]);
+for (let i = 0; i < 15; i++) for (let ci = 0; ci < CATS.length; ci++) ALLT.push([ci, i]);
 const DISC = ALLT;
 let curList = ALLT, curTitle = 'Discover Frame', pageN = 48, shown = 0;
 const th2 = (ci, i) => { const t = thumb(gen(ci, i), ci, i); delete t.dataset.act; return t; };
 
-function showHome() { TP.classList.remove('on'); HM.style.display = 'flex'; try { const u = new URL(location.href); if (u.searchParams.has('frame')) { u.searchParams.delete('frame'); history.replaceState(null, '', u); } sessionStorage.removeItem('frameStudioTemplatesState'); } catch (e) {} renderProjs(); $('#cmenu').classList.remove('on'); $('#hmain').scrollTop = 0; }
-function hideHome() { HM.style.display = 'none'; TP.classList.remove('on'); try { const u = new URL(location.href); if (u.searchParams.has('frame')) { u.searchParams.delete('frame'); history.replaceState(null, '', u); } sessionStorage.removeItem('frameStudioTemplatesState'); } catch (e) {} }
+function showHome() { if (typeof closeTP === 'function') closeTP(); HM.style.display = 'flex'; renderProjs(); $('#cmenu').classList.remove('on'); $('#hmain').scrollTop = 0; }
+function hideHome() { HM.style.display = 'none'; if (typeof closeTP === 'function') closeTP(); }
 function openEd(ci, i) {
   curP = String(Date.now()); snap(); S = gen(ci, i); sel = null;
   render(); props(); hideHome(); $('#preset').selectedIndex = -1;
@@ -2689,7 +2665,7 @@ function doSearch(q) {
   const r = [];
   CATS.forEach((c, ci) => {
     const cp = copyOf(ci);
-    for (let i = 0; i < templateCountFor(ci); i++) {
+    for (let i = 0; i < 15; i++) {
       const t = (c[0] + ' ' + cp[i % cp.length].join(' ') + ' ' + (c[7] || '')).toLowerCase().replace(/\n/g, ' ');
       if (t.includes(q)) r.push([ci, i]);
     }
@@ -2723,7 +2699,7 @@ HM.innerHTML = `<div id='hmain'>
 </header>
 <div class='hgrid'>
   <div class='hl'>
-    <span class='htag'>${TOTAL_TEMPLATE_COUNT.toLocaleString()} ready-made designs · ${STOCK.length} curated photos</span>
+    <span class='htag'>${CATS.length * 15} ready-made designs · ${STOCK.length} curated photos</span>
     <h1 id='hh'>Make it <em>yours</em>,<br>in minutes.</h1>
     <p class='hsubp'>Pick a template, swap the words and photos, then export. Works offline with instant image fallback.</p>
     <label id='hsearch'>${ico(IC.search)}<input id='hq' type='text' placeholder='Try: sale, bangla, photo, cafe, travel, quote'><button type='button' id='hgo'>Search</button></label>
@@ -2733,19 +2709,14 @@ HM.innerHTML = `<div id='hmain'>
       <button class='chip' data-k='video'><i style='background:#8b5cf6'></i>Video</button>
       <button class='chip' data-k='social'><i style='background:#ef4444'></i>Social &amp; Photo</button>
     </div>
-    <button class='hlink' id='hcont'>Continue editing &rarr;</button> <button class='hlink' id='hall'>Browse all ${TOTAL_TEMPLATE_COUNT.toLocaleString()} templates &darr;</button>
+    <button class='hlink' id='hcont'>Continue editing &rarr;</button> <button class='hlink' id='hall'>Browse all ${CATS.length * 15} templates &darr;</button>
   </div>
   <div id='hfloat'></div>
 </div>
 </section>
 <section class='hsec' id='hprojs'></section>
 <section class='hsec'><h2 id='hex'>Start with a size</h2><p class='hsub'>Pick a size to see every template that fits it, from all categories.</p><div id='hcards'></div></section>
-<section class='hsec' id='hbrowse'>
-<h2>Browse categories <small class='hcnt' id='hbc'></small></h2>
-<p class='hsub'>Choose a category to see its templates. Search or filter by design type.</p>
-<input id='hcatq' type='search' placeholder='Search all categories (e.g. food, Bangla, business, travel)' aria-label='Search categories' style='max-width:420px;margin:0 0 10px'>
-<div id='hgt'></div><div id='hcats'></div>
-</section>
+<section class='hsec' id='hbrowse'><h2>Browse all categories <small class='hcnt' id='hbc'></small></h2><p class='hsub'>Click a category to open all its templates on a new page.</p><div id='hcats'></div></section>
 <section class='hsec'><h2 id='hdt'>Discover Frame</h2><div id='hdisc'></div><div id='hmore'></div></section>
 </div>
 <div id='cmenu'>${[...$('#preset').options].map(o => { const [n, z2] = o.textContent.split(' · '); return `<button data-wh='${o.value}'><span>${n}</span><small>${z2}</small></button>`; }).join('')}</div>`;
@@ -2758,67 +2729,22 @@ $('#hcards').replaceChildren(...HC.map((c, k) => {
   b.querySelector('.pv').appendChild(th2(c.ci, k % 5));
   return b;
 }));
-function groupList(g) { const l = []; CATS.forEach((c, ci) => { if (catGroup(c) === g) for (let i = 0; i < templateCountFor(ci); i++) l.push([ci, i]); }); return l; }
+function groupList(g) { const l = []; for (let i = 0; i < 15; i++) CATS.forEach((c, ci) => { if (catGroup(c) === g) l.push([ci, i]); }); return l; }
 function fitThumb(t, maxH) {
   const [a, b] = t.style.aspectRatio.split('/').map(Number);
   if (a / b > 1.05) { t.style.width = '90%'; t.style.height = 'auto'; } else { t.style.height = maxH + 'px'; t.style.width = 'auto'; }
 }
-let activeCatGroup = 'All';
-let activeCatQuery = '';
 function renderCats() {
-  const counts = {};
-  CATS.forEach(c => { const g = catGroup(c); counts[g] = (counts[g] || 0) + 1; });
-  $('#hbc').textContent = `${CATS.length} categories · ${TOTAL_TEMPLATE_COUNT.toLocaleString()} templates`;
-  const groupBox = $('#hgt');
-  groupBox.replaceChildren(...GROUPS.map(g => {
-    const b = document.createElement('button');
-    b.className = 'gtab' + (g === activeCatGroup ? ' on' : '');
-    b.dataset.group = g;
-    const n = g === 'All' ? CATS.length : (counts[g] || 0);
-    b.innerHTML = `${esc(g)} <small>${n}</small>`;
+  const cnt = {}; CATS.forEach(c => { const g = catGroup(c); cnt[g] = (cnt[g] || 0) + 1; });
+  $('#hbc').textContent = `${GROUPS.length - 1} categories · ${CATS.length * 15} designs`;
+  $('#hcats').replaceChildren(...GROUPS.slice(1).map(g => {
+    const l = groupList(g), b = document.createElement('button');
+    b.className = 'cc gc'; b.dataset.g = g;
+    b.innerHTML = `<span class='cpv'></span><b>${esc(g)}</b><small>${l.length} templates · ${cnt[g]} types</small>`;
+    try { const t = th2(l[Math.min(3, l.length - 1)][0], l[Math.min(3, l.length - 1)][1]); b.querySelector('.cpv').appendChild(t); fitThumb(t, 104); } catch (e) {}
     return b;
   }));
-  const q = activeCatQuery.trim().toLowerCase();
-  const list = CATS.map((c, ci) => ({ c, ci }))
-    .filter(({ c }) => (activeCatGroup === 'All' || catGroup(c) === activeCatGroup) &&
-      (!q || c[0].toLowerCase().includes(q) || catGroup(c).toLowerCase().includes(q)));
-  $('#hcats').replaceChildren(...list.map(({ c, ci }, k) => {
-    const b = document.createElement('button');
-    b.className = 'cc gc';
-    b.dataset.ci = ci;
-    const sample = Math.min(15 + (ci < 31 ? 1 : 0), templateCountFor(ci) - 1);
-    b.innerHTML = `<span class='cpv'></span><b>${esc(c[0])}</b><small>${templateCountFor(ci)} templates · ${esc(catGroup(c))} · ${c[1]}×${c[2]}</small>`;
-    const preview = b.querySelector('.cpv');
-    preview.dataset.previewCi = ci;
-    preview.dataset.previewI = sample;
-    return b;
-  }));
-  if (!list.length) $('#hcats').innerHTML = `<p class='tpempty'>No categories match “${esc(activeCatQuery)}”.</p>`;
 }
-const categoryPreviewObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
-    const node = entry.target;
-    categoryPreviewObserver.unobserve(node);
-    try {
-      const ci = Number(node.dataset.previewCi), i = Number(node.dataset.previewI);
-      const t = th2(ci, i);
-      node.appendChild(t);
-      fitThumb(t, 132);
-    } catch (e) { node.textContent = 'Preview'; }
-  });
-}, { rootMargin: '240px' });
-const observeCategoryPreviews = () => document.querySelectorAll('#hcats .cpv[data-preview-ci]').forEach(n => categoryPreviewObserver.observe(n));
-const categoryListObserver = new MutationObserver(observeCategoryPreviews);
-categoryListObserver.observe($('#hcats'), { childList: true, subtree: true });
-$('#hcatq').addEventListener('input', e => { activeCatQuery = e.target.value; renderCats(); });
-$('#hgt').addEventListener('click', e => {
-  const b = e.target.closest('[data-group]');
-  if (!b) return;
-  activeCatGroup = b.dataset.group;
-  renderCats();
-});
-
 
 /* ===== Templates page (opens when a size or category is clicked) ===== */
 const TP = document.createElement('div');
@@ -2834,49 +2760,17 @@ TP.innerHTML = `<header class='tphead'>
 <div id='tpbody'><div class='tpin'><div id='tpgrid'></div><div id='tpmore'></div></div></div>`;
 document.body.appendChild(TP);
 let tpAll = [], tpCi = null, tpText = '', tpN = 48, tpShown = 0, tpMeta = {};
-function openTP(o, addHistory = true) {
-  // A real same-tab page navigation: save the selected template list, then load this HTML as a page route.
-  if (addHistory) {
-    try {
-      sessionStorage.setItem('frameStudioTemplatesState', JSON.stringify(o));
-      const u = new URL(location.href);
-      u.searchParams.set('frame', 'templates');
-      location.assign(u.toString());
-    } catch (e) {
-      console.error('Could not open templates page:', e);
-    }
-    return;
-  }
-  tpAll = Array.isArray(o.list) ? o.list : []; tpMeta = o; tpCi = null; tpText = ''; $('#tpq').value = '';
-  $('#tptitle').textContent = o.title || 'Templates';
+function openTP(o) {
+  tpAll = o.list; tpMeta = o; tpCi = null; tpText = ''; $('#tpq').value = '';
+  $('#tptitle').textContent = o.title;
   $('#tpnew').style.display = o.blank ? '' : 'none';
   const m = new Map(); o.list.forEach(([ci]) => m.set(ci, (m.get(ci) || 0) + 1));
   $('#tpchips').innerHTML = `<button class='tpc on' data-ci=''>All <small>${o.list.length}</small></button>` +
     [...m].map(([ci, n]) => `<button class='tpc' data-ci='${ci}'>${esc(CATS[ci][0])} <small>${n}</small></button>`).join('');
   renderTP(false);
-  HM.style.display = 'none';
   TP.classList.add('on');
   $('#tpbody').scrollTop = 0;
 }
-// Reliable capture-phase navigation for size and category cards.
-// This prevents unrelated parent handlers from swallowing the click.
-document.addEventListener('click', ev => {
-  const sizeCard = ev.target.closest('#hcards .hc');
-  if (sizeCard) {
-    const ci = Number(sizeCard.dataset.ci);
-    if (!Number.isInteger(ci) || !CATS[ci]) return;
-    ev.preventDefault(); ev.stopImmediatePropagation();
-    openTP({ title: sizeCard.dataset.l || CATS[ci][0], sub: `${CATS[ci][1]}×${CATS[ci][2]} px`, list: sizeList(ci), blank: [CATS[ci][1], CATS[ci][2]] });
-    return;
-  }
-  const categoryCard = ev.target.closest('#hcats .gc');
-  if (categoryCard) {
-    const ci = Number(categoryCard.dataset.ci);
-    if (!Number.isInteger(ci) || !CATS[ci]) return;
-    ev.preventDefault(); ev.stopImmediatePropagation();
-    openTP({ title: CATS[ci][0], sub: `${catGroup(CATS[ci])} · ${CATS[ci][1]}×${CATS[ci][2]} px`, list: Array.from({length: templateCountFor(ci)}, (_, i) => [ci, i]) });
-  }
-}, true);
 function tpFiltered() {
   return tpAll.filter(([ci, i]) => {
     if (tpCi !== null && ci !== tpCi) return false;
@@ -2885,44 +2779,17 @@ function tpFiltered() {
     return (CATS[ci][0] + ' ' + cp[i % cp.length].join(' ')).toLowerCase().replace(/\n/g, ' ').includes(tpText);
   });
 }
-let tpRenderToken = 0;
 function renderTP(append) {
-  const token = ++tpRenderToken;
   const list = tpFiltered(), box = $('#tpgrid');
   if (!append) { tpN = 48; tpShown = 0; box.replaceChildren(); }
   const end = Math.min(tpN, list.length);
+  for (let k = tpShown; k < end; k++) { try { box.appendChild(th2(list[k][0], list[k][1])); } catch (e) {} }
+  tpShown = end;
+  const left = list.length - tpShown;
   $('#tpsub').textContent = `${list.length} templates` + (tpMeta.sub ? ` · ${tpMeta.sub}` : '');
-  $('#tpmore').innerHTML = end < list.length ? `<span class='tpempty'>Loading templates…</span>` : (list.length ? '' : "<p class='tpempty'>No templates match your search.</p>");
-  // Render in small batches so a large category does not freeze the page.
-  const batch = () => {
-    if (token !== tpRenderToken || !TP.classList.contains('on')) return;
-    const stop = Math.min(tpShown + 4, end);
-    for (let k = tpShown; k < stop; k++) {
-      try { box.appendChild(th2(list[k][0], list[k][1])); } catch (e) { /* skip a broken individual preview */ }
-    }
-    tpShown = stop;
-    if (tpShown < end) requestAnimationFrame(batch);
-    else {
-      const left = list.length - tpShown;
-      $('#tpmore').innerHTML = left > 0 ? `<button class='hmorebtn' id='tpmorebtn' type='button'>Show ${Math.min(48, left)} more · ${left} left</button>` : '';
-    }
-  };
-  requestAnimationFrame(batch);
+  $('#tpmore').innerHTML = left > 0 ? `<button class='hmorebtn' id='tpmorebtn' type='button'>Show ${Math.min(48, left)} more &middot; ${left} left</button>` : (list.length ? '' : "<p class='tpempty'>No templates match your search.</p>");
 }
-function closeTP() {
-  const u = new URL(location.href);
-  if (u.searchParams.get('frame') === 'templates') {
-    let sameOriginReferrer = false;
-    try { sameOriginReferrer = !!document.referrer && new URL(document.referrer).origin === location.origin; } catch (e) {}
-    if (sameOriginReferrer) { history.back(); return; }
-    u.searchParams.delete('frame');
-    sessionStorage.removeItem('frameStudioTemplatesState');
-    location.assign(u.toString());
-    return;
-  }
-  TP.classList.remove('on');
-  HM.style.display = 'flex';
-}
+function closeTP() { TP.classList.remove('on'); }
 TP.addEventListener('click', ev => {
   const t = ev.target;
   if (t.closest('#tpback') || t.closest('#tplogo')) { closeTP(); return; }
@@ -2941,7 +2808,6 @@ $('#tpq').oninput = e => { tpText = e.target.value.trim().toLowerCase(); renderT
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && TP.classList.contains('on')) closeTP(); });
 disc(DISC, 'Discover Frame');
 renderCats();
-observeCategoryPreviews();
 
 const goS = () => { doSearch($('#hq').value); $('#hdt').scrollIntoView({ behavior: 'smooth' }); };
 $('#hq').oninput = e => doSearch(e.target.value);
@@ -2959,11 +2825,7 @@ HM.addEventListener('click', ev => {
   }
   if (t.closest('#hmorebtn')) { pageN += 48; renderDisc(true); return; }
   const gc = t.closest('.gc');
-  if (gc) {
-    const ci = +gc.dataset.ci;
-    openTP({ title: CATS[ci][0], sub: `${catGroup(CATS[ci])} · ${CATS[ci][1]}×${CATS[ci][2]} px`, list: Array.from({length: templateCountFor(ci)}, (_, i) => [ci, i]) });
-    return;
-  }
+  if (gc) { const g = gc.dataset.g; openTP({ title: g, sub: `${CATS.filter(c => catGroup(c) === g).length} types`, list: groupList(g) }); return; }
   if (t.closest('#hall')) { $('#hbrowse').scrollIntoView({ behavior: 'smooth' }); return; }
   const pj = t.closest('.pj');
   if (pj) {
@@ -2978,7 +2840,7 @@ HM.addEventListener('click', ev => {
   const ch = t.closest('.chip');
   if (ch) {
     const [re, title] = CHIP[ch.dataset.k], l = [];
-    CATS.forEach((c, ci) => { if (re.test(c[0])) for (let i = 0; i < templateCountFor(ci); i++) l.push([ci, i]); });
+    CATS.forEach((c, ci) => { if (re.test(c[0])) for (let i = 0; i < 15; i++) l.push([ci, i]); });
     l.sort((a, b) => a[1] - b[1] || a[0] - b[0]);
     openTP({ title, list: l });
     return;
@@ -3029,19 +2891,6 @@ try {
 } catch (e) {}
 if (!S.els.length) { S = TPL[0][2](); }
 render(); fit(); props(); renderProjs();
-try {
-  const route = new URL(location.href).searchParams.get('frame');
-  if (route === 'templates') {
-    const saved = sessionStorage.getItem('frameStudioTemplatesState');
-    if (saved) {
-      const page = JSON.parse(saved);
-      if (page && Array.isArray(page.list)) { HM.style.display = 'none'; openTP(page, false); }
-      else { const u = new URL(location.href); u.searchParams.delete('frame'); location.replace(u.toString()); }
-    } else {
-      const u = new URL(location.href); u.searchParams.delete('frame'); location.replace(u.toString());
-    }
-  }
-} catch (e) { console.error('Template page restore failed:', e); }
 $('#sw').insertAdjacentHTML('afterbegin',['#2b6777','#c8d8e4','#ffffff','#f2f2f2','#52ab98'].map(c=>`<button data-act='bg' data-c='${c}' style='background:${c}' aria-label='Brand color ${c}' title='${c}'></button>`).join(''));
 </script>
 </body>
