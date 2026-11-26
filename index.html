@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Frame – Design Studio</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2040%2040%27%3E%3Cdefs%3E%3ClinearGradient%20id%3D%27g%27%20x1%3D%270%27%20y1%3D%270%27%20x2%3D%271%27%20y2%3D%271%27%3E%3Cstop%20offset%3D%270%27%20stop-color%3D%27%232b6777%27/%3E%3Cstop%20offset%3D%271%27%20stop-color%3D%27%2352ab98%27/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width%3D%2740%27%20height%3D%2740%27%20rx%3D%2711%27%20fill%3D%27url%28%23g%29%27/%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%23fff%27%20stroke-width%3D%272.6%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M11%2017v-3a3%203%200%200%201%203-3h3M23%2011h3a3%203%200%200%201%203%203v3M29%2023v3a3%203%200%200%201-3%203h-3M17%2029h-3a3%203%200%200%201-3-3v-3%27/%3E%3C/g%3E%3Ccircle%20cx%3D%2720%27%20cy%3D%2720%27%20r%3D%273.2%27%20fill%3D%27%23fff%27/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:wght@400;700;800&family=Space+Grotesk:wght@400;600;700&family=Bebas+Neue&family=Caveat:wght@500;700&family=Poppins:wght@400;600;800&family=Montserrat:wght@400;700;900&family=Oswald:wght@500;700&family=Pacifico&family=Anton&family=Dancing+Script:wght@600;700&family=Hind+Siliguri:wght@400;600;700&family=Noto+Sans+Bengali:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
@@ -682,12 +683,75 @@ input[type=range] { width: 100%; accent-color: var(--acc); }
 #tpmore{text-align:center;margin:10px 0}
 .tpempty{color:var(--mute);text-align:center;padding:40px 0}
 @media (max-width:700px){.tphead{padding:12px 14px;gap:10px}.tplogo{display:none}.tpsearch input{width:100%}.tpsearch{flex:1 1 100%}#tpchips,#tpbody{padding-left:14px;padding-right:14px}}
+.tphead{height:auto;margin:0;border:0;border-bottom:1px solid var(--line);border-radius:0;box-shadow:none}
+
+.chip i{width:26px;height:26px;border-radius:9px;display:grid;place-items:center;color:#fff;transition:transform .2s}
+.chip i svg{width:15px;height:15px}
+.chip:hover i{transform:rotate(-8deg) scale(1.12)}
+.chip:nth-of-type(3) i{background:#3b8a86!important}
+
+/* ===== Frame logo mark ===== */
+.logo i,.hlogo i,.tplogo i{display:grid;place-items:center;border-radius:11px;background:linear-gradient(135deg,#2b6777,#52ab98);box-shadow:0 4px 12px rgba(43,103,119,.35);transition:transform .25s}
+.logo i:after{display:none}
+.logo i{width:30px;height:30px}.hlogo i{width:38px;height:38px;border-radius:12px}.tplogo i{width:30px;height:30px}
+.logo i svg,.tplogo i svg{width:19px;height:19px}.hlogo i svg{width:24px;height:24px}
+.logo:hover i,.hlogo:hover i,.tplogo:hover i{transform:rotate(-8deg) scale(1.08)}
+.hlogo{gap:11px;font-size:23px}
+
+/* ===== loaders ===== */
+#topbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:400;pointer-events:none}
+#topbar b{display:block;height:100%;width:0;opacity:0;background:linear-gradient(90deg,#2b6777,#52ab98);border-radius:0 3px 3px 0}
+#loader,#splash{position:fixed;inset:0;z-index:300;display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:color-mix(in srgb,var(--panel) 78%,transparent);backdrop-filter:blur(6px);color:var(--ink);font:700 15px 'Plus Jakarta Sans',sans-serif}
+#loader.on{display:flex;animation:ldIn .2s ease}
+#splash{display:flex;background:var(--panel);z-index:500;transition:opacity .45s ease}
+#splash.out{opacity:0;pointer-events:none}
+#splash>span{font-size:22px;letter-spacing:-.02em}
+.lbox{position:relative;width:76px;height:76px;display:grid;place-items:center}
+.lbox i{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#2b6777,#52ab98);box-shadow:0 6px 18px rgba(43,103,119,.4);animation:lpulse 1.1s ease-in-out infinite}
+.lbox i svg{width:26px;height:26px}
+.lring{position:absolute;inset:0;border-radius:50%;border:4px solid var(--line);border-top-color:var(--acc);animation:lspin .8s linear infinite}
+@keyframes lspin{to{transform:rotate(360deg)}}
+@keyframes lpulse{0%,100%{transform:scale(1)}50%{transform:scale(.88)}}
+@keyframes ldIn{from{opacity:0}to{opacity:1}}
+@keyframes pgIn{from{opacity:0;translate:0 14px}to{opacity:1;translate:0 0}}
+#app.fx,#home.fx{animation:pgIn .45s cubic-bezier(.2,.8,.2,1)}
+.sk{break-inside:avoid;margin-bottom:18px;border-radius:12px;background:linear-gradient(100deg,var(--field) 30%,color-mix(in srgb,var(--field) 55%,var(--panel)) 50%,var(--field) 70%);background-size:220% 100%;animation:skm 1.2s linear infinite}
+@keyframes skm{from{background-position:120% 0}to{background-position:-120% 0}}
+@media (prefers-reduced-motion:reduce){.lring,.lbox i,.sk{animation:none!important}}
+
+/* ===== page strip ===== */
+#pages{position:fixed;left:324px;right:324px;bottom:16px;z-index:25;display:flex;align-items:center;gap:14px;padding:8px 12px;background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--sh);overflow-x:auto;scrollbar-width:thin}
+#view{padding-bottom:104px}
+.pglist{display:flex;gap:10px;align-items:center}
+.pgi{position:relative;flex:none;border:2px solid transparent;background:var(--field);border-radius:10px;padding:4px;cursor:pointer;transition:.15s}
+.pgi:hover{border-color:var(--line)}
+.pgi.on{border-color:var(--acc);box-shadow:0 4px 12px color-mix(in srgb,var(--acc) 30%,transparent)}
+.pgi .th{width:auto;height:54px;border:0;border-radius:4px;display:block;pointer-events:none}
+.pgi span{position:absolute;left:6px;top:6px;min-width:18px;height:18px;padding:0 4px;border-radius:9px;background:var(--acc);color:#fff;font:700 11px/18px 'Plus Jakarta Sans',sans-serif;text-align:center}
+.pgact{display:flex;gap:6px;margin-left:auto;flex:none}
+.pgact button{border:0;background:var(--field);color:var(--ink);border-radius:10px;padding:8px 12px;font-weight:600;cursor:pointer;white-space:nowrap}
+.pgact button:hover:not(:disabled){background:var(--accs)}
+.pgact button:disabled{opacity:.4;cursor:default}
+.pgact .pri{background:var(--acc);color:#fff}
+#pgmodal{position:fixed;inset:0;background:rgba(10,10,25,.55);display:none;place-items:center;z-index:350;padding:20px;backdrop-filter:blur(6px)}
+#pgmodal.on{display:grid}
+#pgmodal>div{background:var(--panel);border-radius:20px;padding:20px;max-width:900px;width:100%;max-height:100%;overflow:auto}
+.pgm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.pgm-grid figure{margin:0}.pgm-grid img{width:100%;border-radius:8px;border:1px solid var(--line);display:block}
+.pgm-grid figcaption{text-align:center;color:var(--mute);font-weight:600;font-size:12px;margin-top:4px}
+:root[data-theme=dark] .pgact .pri{color:#0b1f26}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .pgact .pri{color:#0b1f26}}
+@media (max-width:960px){#pages{left:10px;right:10px;bottom:10px}}
 </style>
 </head>
 <body>
+<div id='topbar'><b></b></div>
+<div id='splash'><div class='lbox'><div class='lring'></div><i><svg viewBox='6.5 6.5 27 27' fill='none' stroke='#fff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='M11 17v-3a3 3 0 0 1 3-3h3M23 11h3a3 3 0 0 1 3 3v3M29 23v3a3 3 0 0 1-3 3h-3M17 29h-3a3 3 0 0 1-3-3v-3'/><circle cx='20' cy='20' r='3.2' fill='#fff' stroke='none'/></svg></i></div><span>Frame</span></div>
+<div id='loader'><div class='lbox'><div class='lring'></div><i><svg viewBox='6.5 6.5 27 27' fill='none' stroke='#fff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='M11 17v-3a3 3 0 0 1 3-3h3M23 11h3a3 3 0 0 1 3 3v3M29 23v3a3 3 0 0 1-3 3h-3M17 29h-3a3 3 0 0 1-3-3v-3'/><circle cx='20' cy='20' r='3.2' fill='#fff' stroke='none'/></svg></i></div><span id='ltxt'>Loading…</span></div>
+
 <div id="app">
 <header>
-  <div class="logo" data-act="home" role="button" title="Home" style="cursor:pointer"><i></i>Frame</div>
+  <div class="logo" data-act="home" role="button" title="Home" style="cursor:pointer"><i><svg viewBox='6.5 6.5 27 27' fill='none' stroke='#fff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='M11 17v-3a3 3 0 0 1 3-3h3M23 11h3a3 3 0 0 1 3 3v3M29 23v3a3 3 0 0 1-3 3h-3M17 29h-3a3 3 0 0 1-3-3v-3'/><circle cx='20' cy='20' r='3.2' fill='#fff' stroke='none'/></svg></i>Frame</div>
   <button class="btn" data-act="undo" title="Undo (Ctrl+Z)">Undo</button>
   <button class="btn" data-act="redo" title="Redo (Ctrl+Y)">Redo</button>
   <div class="sp"></div>
@@ -979,7 +1043,12 @@ document.addEventListener('error', ev => {
 }, true);
 
 /* history + storage */
-const snapJ = () => JSON.stringify(S);
+function capPage() { return { els: S.els, bg: S.bg, bg2: S.bg2, g2: S.g2, bga: S.bga }; }
+const snapJ = () => {
+  if (!S.pgs) return JSON.stringify(S);
+  const keep = S.pgs[S.pi]; S.pgs[S.pi] = null;
+  const j = JSON.stringify(S); S.pgs[S.pi] = keep; return j;
+};
 function snap() {
   const j = snapJ();
   if (hist[hist.length - 1] === j) return;
@@ -1109,7 +1178,7 @@ function zoomApply() {
 }
 function fit() {
   const v = $('#view');
-  z = Math.max(.05, Math.min((v.clientWidth - 72) / S.w, (v.clientHeight - 72) / S.h, 1));
+  z = Math.max(.05, Math.min((v.clientWidth - 72) / S.w, (v.clientHeight - 150) / S.h, 1));
   zoomApply();
 }
 function setZ(v) { z = Math.min(3, Math.max(.05, v)); zoomApply(); }
@@ -1451,7 +1520,7 @@ $('#preset').onchange = e => {
   render(); fit(); props(); save();
 };
 
-/* 150 categories x 15 designs = 2,250 templates */
+/* Base catalog before premium signature collection: 301 categories x 15 designs = 4,515 templates. */
 const fg = c => {
   const n = parseInt(c.slice(1), 16);
   return (.3 * (n >> 16) + .59 * (n >> 8 & 255) + .11 * (n & 255)) > 150 ? '#16182a' : '#ffffff';
@@ -1654,10 +1723,260 @@ const CATS = [
   ['Canva photo valley view', 1080, 1350, 'Playfair Display', 1, 0, 5, 'SCENIC', 28, 30],
   ['Canva photo night neon', 1080, 1080, 'Bebas Neue', 1.3, 0, 5, 'NIGHT', 49, 9],
   ['Canva photo bangla offer', 1080, 1080, 'Hind Siliguri', 1.05, 0, 5, 'অফার', 41, 16],
-  ['Canva photo bangla quote', 1080, 1350, 'Noto Sans Bengali', 1.05, 0, 5, 'বাংলা', 42, 24]
+  ['Canva photo bangla quote', 1080, 1350, 'Noto Sans Bengali', 1.05, 0, 5, 'বাংলা', 42, 24],
+
+  /* 300 additional Canva-style presets: 20 categories x 15 variations */
+  ['Resume & CV', 1240, 1754, 'Plus Jakarta Sans', 0.9, [['Creative\nResume', 'Showcase your skills and experience'], ['Modern\nCV', 'A clean professional profile'], ['My\nExperience', 'Make your next move'], ['Career\nProfile', 'Skills, results and ambition'], ['Portfolio\nResume', 'A visual story of your work'], ['Professional\nSummary', 'Your next chapter starts here']], 1, 'PROFILE'],
+  ['Restaurant menu', 1240, 1754, 'Playfair Display', 1, [['Today’s\nMenu', 'Freshly prepared with care'], ['Cafe\nMenu', 'Coffee, bites and good times'], ['Chef’s\nSpecial', 'A taste worth remembering'], ['Food &\nDrinks', 'Made fresh, served with love'], ['Weekend\nBrunch', 'Gather around the table'], ['Dessert\nMenu', 'A little sweetness for today']], 1, 'MENU'],
+  ['Newsletter', 1240, 1754, 'Plus Jakarta Sans', 0.95, [['The Weekly\nEdit', 'Ideas and updates in your inbox'], ['Studio\nNews', 'What’s new this month'], ['Community\nUpdate', 'Stories from our people'], ['Monthly\nDigest', 'The highlights at a glance'], ['Fresh\nPerspectives', 'Notes, news and inspiration'], ['The Daily\nBrief', 'A smarter start to your day']], 1, 'ISSUE 01'],
+  ['Infographic', 1080, 1920, 'Space Grotesk', 0.9, [['The Big\nPicture', 'Key facts made easy to explore'], ['5 Simple\nSteps', 'A quick visual guide'], ['Did You\nKnow?', 'Surprising facts and figures'], ['From Idea\nto Impact', 'See how it all connects'], ['The Data\nStory', 'Numbers with a clear message'], ['Quick\nExplainer', 'Understand it in a minute']], 1, 'INFOGRAPHIC'],
+  ['Event flyer', 1240, 1754, 'Bebas Neue', 1.25, [['Save the\nDate', 'An event you will not want to miss'], ['Live\nTonight', 'Doors open at 7 PM'], ['Join the\nWorkshop', 'Learn, connect and create'], ['Annual\nMeetup', 'Let’s make something happen'], ['Open Day', 'Everyone is welcome'], ['Festival\nWeekend', 'Music, food and good people']], 1, 'YOU’RE INVITED'],
+  ['Weekly planner', 1080, 1350, 'Plus Jakarta Sans', 0.9, [['Plan Your\nWeek', 'Make room for what matters'], ['Weekly\nFocus', 'One step at a time'], ['My Week\nAhead', 'Plan it, do it, celebrate it'], ['Goals &\nTasks', 'A little progress every day'], ['Simple\nSchedule', 'Stay clear and organized'], ['The Week\nReset', 'Start fresh this Monday']], 1, 'WEEKLY PLAN'],
+  ['Checklist', 1080, 1350, 'Space Grotesk', 0.95, [['The Must-Do\nList', 'Small tasks, big momentum'], ['Launch\nChecklist', 'Ready, set, go'], ['Travel\nEssentials', 'Pack smart and travel light'], ['Daily\nHabits', 'Build a better routine'], ['Project\nSteps', 'Keep every detail on track'], ['Moving\nDay List', 'A smoother move starts here']], 1, 'CHECKLIST'],
+  ['Ebook cover', 1600, 2560, 'Playfair Display', 1, [['The Art of\nFocus', 'A practical guide to doing better'], ['Build Your\nBrand', 'A modern guide for creators'], ['The Simple\nLife', 'Make space for what matters'], ['Creative\nThinking', 'Fresh ideas start here'], ['Better\nBusiness', 'Lessons for your next chapter'], ['A Guide to\nGrowth', 'Learn something new every day']], 1, 'A DIGITAL GUIDE'],
+  ['Product catalog', 1240, 1754, 'Montserrat', 0.9, [['New Season\nCollection', 'Discover pieces made for you'], ['Product\nHighlights', 'Quality in every detail'], ['The Edit', 'Our latest favorites'], ['Shop the\nCollection', 'Find your next favorite'], ['Designed for\nEveryday', 'Simple, useful and beautiful'], ['Catalog\n2026', 'Explore what’s new']], 1, 'COLLECTION'],
+  ['Real estate flyer', 1080, 1350, 'Montserrat', 0.9, [['Find Your\nNew Home', 'A place to call your own'], ['Modern\nLiving', 'Space, comfort and style'], ['Property\nShowcase', 'Your next address awaits'], ['Open\nHouse', 'Come take a look'], ['Dream\nProperty', 'Discover a better way to live'], ['For Sale', 'A home worth seeing']], 1, 'PROPERTY'],
+  ['Beauty & salon promo', 1080, 1350, 'Playfair Display', 1, [['A Little\nGlow', 'Feel fresh, feel beautiful'], ['Beauty\nRitual', 'Make time for yourself'], ['New Look,\nNew You', 'Your moment to shine'], ['Salon\nSpecial', 'Book your appointment today'], ['Glow\nSeason', 'Healthy hair, happy you'], ['Self-Care\nSunday', 'You deserve this pause']], 1, 'BEAUTY STUDIO'],
+  ['Fitness & gym promo', 1080, 1350, 'Anton', 1.2, [['Stronger\nEvery Day', 'Show up for your goals'], ['Train\nHard', 'Your next level starts now'], ['Fitness\nChallenge', 'Join the 30-day challenge'], ['Move More,\nFeel Better', 'Build strength at your pace'], ['New Member\nOffer', 'Start your fitness journey'], ['No Excuses', 'One workout at a time']], 1, 'FITNESS CLUB'],
+  ['Ramadan & Eid Bangla', 1080, 1350, 'Hind Siliguri', 1.05, [['রমজানের\nশুভেচ্ছা', 'পবিত্র মাস হোক শান্তি ও বরকতে ভরা'], ['ঈদ মোবারক', 'সবার জীবনে আসুক আনন্দ ও ভালোবাসা'], ['ইফতার\nআয়োজন', 'পরিবারের সঙ্গে সুন্দর এক সন্ধ্যা'], ['ঈদ\nস্পেশাল', 'প্রিয়জনের জন্য বিশেষ আয়োজন'], ['পবিত্র\nরমজান', 'সংযম, সহমর্মিতা ও ভালোবাসা'], ['ঈদের\nআমন্ত্রণ', 'আনন্দ ভাগ করে নিতে চলে আসুন']], 1, 'ঈদ মোবারক'],
+  ['Pohela Boishakh Bangla', 1080, 1350, 'Noto Sans Bengali', 1.05, [['শুভ নববর্ষ', 'নতুন বছর শুরু হোক নতুন আশায়'], ['বৈশাখী\nউৎসব', 'রঙে রঙে আনন্দের আয়োজন'], ['এসো হে\nবৈশাখ', 'নতুন দিনের নতুন প্রত্যয়'], ['বাংলার\nঐতিহ্য', 'সংস্কৃতি আর ভালোবাসার বন্ধন'], ['নববর্ষের\nশুভেচ্ছা', 'সবার জন্য আনন্দময় হোক'], ['বৈশাখী\nমেলা', 'উৎসবে মাতুক বাংলার প্রাণ']], 1, 'শুভ নববর্ষ'],
+  ['Job hiring post', 1080, 1080, 'Space Grotesk', 0.95, [['We’re\nHiring', 'Come build the future with us'], ['Join Our\nTeam', 'Your next opportunity starts here'], ['Now Open\nPositions', 'Apply today and grow with us'], ['Work With\nUs', 'Bring your talent to our team'], ['Career\nOpportunity', 'Make an impact together'], ['Find Your\nRole', 'Let’s do great work together']], 1, 'CAREERS'],
+  ['Online course promo', 1080, 1350, 'Plus Jakarta Sans', 0.95, [['Learn a New\nSkill', 'Build your future one lesson at a time'], ['Master the\nBasics', 'A practical course for beginners'], ['Learn From\nExperts', 'Take your skills to the next level'], ['Your Next\nCourse', 'Start learning today'], ['Skills That\nMatter', 'Knowledge for real-world work'], ['Enroll\nToday', 'Limited seats available']], 1, 'ONLINE COURSE'],
+  ['App & tech promo', 1080, 1350, 'Space Grotesk', 0.95, [['Meet Your\nNew App', 'Simple tools for everyday life'], ['Work\nSmarter', 'Less effort, more progress'], ['The Future\nis Here', 'Technology made useful'], ['One App,\nMore Possibilities', 'Everything in one place'], ['Big Update', 'See what’s new inside'], ['Download\nToday', 'Your next favorite tool']], 1, 'NEW APP'],
+  ['Brand guidelines', 1920, 1080, 'Montserrat', 0.9, [['Brand\nGuidelines', 'A consistent look, everywhere'], ['Our Visual\nIdentity', 'The elements behind our brand'], ['Color &\nType', 'A system built with purpose'], ['Brand\nEssentials', 'The details that make us us'], ['Design\nSystem', 'Clear rules, creative freedom'], ['The Brand\nBook', 'One voice, one visual story']], 1, 'BRAND BOOK'],
+  ['Thank you card', 1080, 1350, 'Caveat', 1.2, [['Thank\nYou!', 'Your support means the world'], ['With\nGratitude', 'A little note from us to you'], ['So Much\nAppreciation', 'Thanks for being here'], ['Made With\nLove', 'And a big thank you'], ['You’re The\nBest', 'We could not do it without you'], ['Thanks for\nChoosing Us', 'We appreciate your trust']], 1, 'WITH THANKS'],
+  ['Photo portfolio', 1600, 1200, 'Playfair Display', 0.95, [['Selected\nWorks', 'A collection of recent projects'], ['Visual\nStories', 'Moments captured with purpose'], ['My Creative\nPortfolio', 'Ideas brought to life'], ['The Best\nof 2026', 'A year in photographs'], ['Behind the\nLens', 'A personal visual journey'], ['Work &\nWonder', 'Selected projects and experiments']], 1, 'PORTFOLIO'],
+
 ];
 
+
+/* 1,680 additional photo-backed presets: 112 focused categories x 15 variations, including 510 unique-photo presets */
+const PHOTO_CATS = [
+  ["Travel photo journal", 1080, 1350, "Playfair Display", 1, [["Explore More", "Stories from places worth remembering"], ["Explore More\nEDIT", "A fresh perspective for your next design"], ["Explore More\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "TRAVEL", 0, 6],
+  ["Beach & summer photography", 1080, 1350, "Playfair Display", 1, [["Chase the Sun", "Bright days and endless blue skies"], ["Chase the Sun\nEDIT", "A fresh perspective for your next design"], ["Chase the Sun\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "SUMMER", 0, 9],
+  ["Mountain adventure photos", 1080, 1350, "Bebas Neue", 1, [["Find Your Wild", "Take the scenic route"], ["Find Your Wild\nEDIT", "A fresh perspective for your next design"], ["Find Your Wild\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "ADVENTURE", 0, 12],
+  ["City street photography", 1080, 1350, "Space Grotesk", 1, [["City Stories", "Every corner has a story"], ["City Stories\nEDIT", "A fresh perspective for your next design"], ["City Stories\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "URBAN", 0, 15],
+  ["Nature landscape photos", 1080, 1350, "Playfair Display", 1, [["Into the Wild", "A little closer to the natural world"], ["Into the Wild\nEDIT", "A fresh perspective for your next design"], ["Into the Wild\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "NATURE", 0, 18],
+  ["Forest & botanical photos", 1080, 1350, "Playfair Display", 1, [["Stay Rooted", "Bring a little green into your day"], ["Stay Rooted\nEDIT", "A fresh perspective for your next design"], ["Stay Rooted\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "BOTANICAL", 0, 21],
+  ["Sunset & sunrise photos", 1080, 1350, "Caveat", 1, [["Golden Moments", "Chasing light and quiet moments"], ["Golden Moments\nEDIT", "A fresh perspective for your next design"], ["Golden Moments\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "GOLDEN HOUR", 0, 24],
+  ["Architecture photography", 1080, 1350, "Montserrat", 1, [["Form & Space", "Lines shapes and modern living"], ["Form & Space\nEDIT", "A fresh perspective for your next design"], ["Form & Space\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "ARCHITECTURE", 0, 27],
+  ["Interior design photos", 1080, 1350, "Playfair Display", 1, [["Room to Grow", "Thoughtful spaces for better living"], ["Room to Grow\nEDIT", "A fresh perspective for your next design"], ["Room to Grow\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "INTERIORS", 0, 30],
+  ["Cafe & coffee photography", 1080, 1080, "Playfair Display", 1, [["Brewed Slowly", "Make time for a good cup"], ["Brewed Slowly\nEDIT", "A fresh perspective for your next design"], ["Brewed Slowly\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "COFFEE", 0, 33],
+  ["Restaurant food photos", 1080, 1080, "Bebas Neue", 1, [["Made to Share", "Good food brings us together"], ["Made to Share\nEDIT", "A fresh perspective for your next design"], ["Made to Share\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "FOOD", 0, 36],
+  ["Bakery & dessert photos", 1080, 1080, "Caveat", 1, [["Freshly Baked", "A little sweetness every day"], ["Freshly Baked\nEDIT", "A fresh perspective for your next design"], ["Freshly Baked\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "BAKERY", 0, 39],
+  ["Healthy food photography", 1080, 1080, "Space Grotesk", 1, [["Eat Well", "Fresh choices feel good"], ["Eat Well\nEDIT", "A fresh perspective for your next design"], ["Eat Well\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "FRESH", 0, 42],
+  ["Pizza & fast food photos", 1080, 1080, "Anton", 1, [["Crave More", "Big flavor for every mood"], ["Crave More\nEDIT", "A fresh perspective for your next design"], ["Crave More\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "TASTY", 0, 45],
+  ["Fashion editorial photos", 1080, 1350, "Playfair Display", 1, [["The New Edit", "Style made personal"], ["The New Edit\nEDIT", "A fresh perspective for your next design"], ["The New Edit\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "EDITORIAL", 0, 48],
+  ["Streetwear photography", 1080, 1350, "Bebas Neue", 1, [["Own Your Style", "Everyday looks with attitude"], ["Own Your Style\nEDIT", "A fresh perspective for your next design"], ["Own Your Style\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "STREET STYLE", 0, 51],
+  ["Beauty & skincare photos", 1080, 1350, "Playfair Display", 1, [["Glow Naturally", "Your daily moment of care"], ["Glow Naturally\nEDIT", "A fresh perspective for your next design"], ["Glow Naturally\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "BEAUTY", 0, 54],
+  ["Hair salon photography", 1080, 1350, "Montserrat", 1, [["A Fresh Look", "Feel good from every angle"], ["A Fresh Look\nEDIT", "A fresh perspective for your next design"], ["A Fresh Look\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "SALON", 0, 57],
+  ["Jewelry product photos", 1080, 1080, "Playfair Display", 1, [["Little Details", "Made to make a statement"], ["Little Details\nEDIT", "A fresh perspective for your next design"], ["Little Details\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "JEWELRY", 0, 60],
+  ["Watch product photography", 1080, 1080, "Montserrat", 1, [["Every Second", "Precision meets timeless style"], ["Every Second\nEDIT", "A fresh perspective for your next design"], ["Every Second\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "TIMEPIECE", 0, 63],
+  ["Handbag product photos", 1080, 1080, "Playfair Display", 1, [["Carry Your Story", "The finishing touch to every look"], ["Carry Your Story\nEDIT", "A fresh perspective for your next design"], ["Carry Your Story\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "ACCESSORIES", 0, 66],
+  ["Sneaker photography", 1080, 1080, "Anton", 1, [["Move Different", "Step into something new"], ["Move Different\nEDIT", "A fresh perspective for your next design"], ["Move Different\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "SNEAKERS", 0, 69],
+  ["Tech gadget photography", 1080, 1080, "Space Grotesk", 1, [["Made for Tomorrow", "Smart design for everyday life"], ["Made for Tomorrow\nEDIT", "A fresh perspective for your next design"], ["Made for Tomorrow\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "TECH", 0, 72],
+  ["Laptop & workspace photos", 1280, 720, "Space Grotesk", 1, [["Create Better", "A space for ideas to happen"], ["Create Better\nEDIT", "A fresh perspective for your next design"], ["Create Better\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "WORKSPACE", 0, 75],
+  ["Mobile phone product photos", 1080, 1080, "Space Grotesk", 1, [["Simply Connected", "A closer look at what is next"], ["Simply Connected\nEDIT", "A fresh perspective for your next design"], ["Simply Connected\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "MOBILE", 0, 78],
+  ["Real estate home photos", 1080, 1350, "Montserrat", 1, [["Find Your Place", "A home for every new beginning"], ["Find Your Place\nEDIT", "A fresh perspective for your next design"], ["Find Your Place\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "PROPERTY", 0, 81],
+  ["Luxury hotel photography", 1080, 1350, "Playfair Display", 1, [["Stay Somewhere Special", "Make every stay memorable"], ["Stay Somewhere Special\nEDIT", "A fresh perspective for your next design"], ["Stay Somewhere Special\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "HOSPITALITY", 0, 84],
+  ["Wedding photography", 1080, 1350, "Dancing Script", 1, [["A Day to Remember", "Two stories becoming one"], ["A Day to Remember\nEDIT", "A fresh perspective for your next design"], ["A Day to Remember\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "WEDDING", 0, 87],
+  ["Engagement photo cards", 1080, 1350, "Dancing Script", 1, [["Forever Starts Here", "Celebrate your next chapter"], ["Forever Starts Here\nEDIT", "A fresh perspective for your next design"], ["Forever Starts Here\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "ENGAGEMENT", 0, 90],
+  ["Baby & family photos", 1080, 1350, "Caveat", 1, [["Little Moments", "Memories made with love"], ["Little Moments\nEDIT", "A fresh perspective for your next design"], ["Little Moments\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "FAMILY", 0, 93],
+  ["Pet photography", 1080, 1350, "Caveat", 1, [["Paws & Play", "Life is better with a best friend"], ["Paws & Play\nEDIT", "A fresh perspective for your next design"], ["Paws & Play\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "PETS", 0, 96],
+  ["Fitness workout photos", 1080, 1350, "Anton", 1, [["Stronger Every Day", "Show up for yourself"], ["Stronger Every Day\nEDIT", "A fresh perspective for your next design"], ["Stronger Every Day\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "FITNESS", 0, 99],
+  ["Yoga & wellness photos", 1080, 1350, "Playfair Display", 1, [["Find Your Balance", "Breathe in calm and confidence"], ["Find Your Balance\nEDIT", "A fresh perspective for your next design"], ["Find Your Balance\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "WELLNESS", 0, 102],
+  ["Sports action photography", 1080, 1350, "Bebas Neue", 1, [["Play to Win", "The energy starts here"], ["Play to Win\nEDIT", "A fresh perspective for your next design"], ["Play to Win\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "SPORTS", 0, 105],
+  ["Travel luggage product photos", 1080, 1350, "Space Grotesk", 1, [["Pack Your Dreams", "Ready when you are"], ["Pack Your Dreams\nEDIT", "A fresh perspective for your next design"], ["Pack Your Dreams\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "GETAWAY", 0, 108],
+  ["Camping & outdoor photos", 1080, 1350, "Bebas Neue", 1, [["Sleep Under Stars", "Take a break outside"], ["Sleep Under Stars\nEDIT", "A fresh perspective for your next design"], ["Sleep Under Stars\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "OUTDOORS", 0, 111],
+  ["Ocean & underwater photos", 1080, 1350, "Playfair Display", 1, [["Deep Blue", "Discover a world below"], ["Deep Blue\nEDIT", "A fresh perspective for your next design"], ["Deep Blue\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "OCEAN", 0, 114],
+  ["Flowers & floral photos", 1080, 1350, "Dancing Script", 1, [["Bloom Beautifully", "A fresh note of color"], ["Bloom Beautifully\nEDIT", "A fresh perspective for your next design"], ["Bloom Beautifully\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "FLORAL", 0, 117],
+  ["Plant shop photography", 1080, 1350, "Playfair Display", 1, [["Grow Something Good", "Bring nature a little closer"], ["Grow Something Good\nEDIT", "A fresh perspective for your next design"], ["Grow Something Good\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "PLANT LIFE", 0, 120],
+  ["Car automotive photos", 1080, 1080, "Anton", 1, [["Drive the Feeling", "Designed for the journey"], ["Drive the Feeling\nEDIT", "A fresh perspective for your next design"], ["Drive the Feeling\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "AUTOMOTIVE", 0, 123],
+  ["Motorcycle photography", 1080, 1350, "Bebas Neue", 1, [["Ride Your Way", "Freedom starts on the road"], ["Ride Your Way\nEDIT", "A fresh perspective for your next design"], ["Ride Your Way\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "MOTORCYCLE", 0, 126],
+  ["Bicycle cycling photos", 1080, 1350, "Space Grotesk", 1, [["Keep Moving", "Find your own pace"], ["Keep Moving\nEDIT", "A fresh perspective for your next design"], ["Keep Moving\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "CYCLING", 0, 129],
+  ["Book & reading photos", 1080, 1350, "Playfair Display", 1, [["Turn the Page", "A quiet place for big ideas"], ["Turn the Page\nEDIT", "A fresh perspective for your next design"], ["Turn the Page\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "READING", 0, 132],
+  ["Art gallery photography", 1080, 1350, "Playfair Display", 1, [["See It Differently", "A collection of creative moments"], ["See It Differently\nEDIT", "A fresh perspective for your next design"], ["See It Differently\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "ART", 0, 135],
+  ["Music concert photos", 1080, 1350, "Bebas Neue", 1, [["Feel the Sound", "Moments that move you"], ["Feel the Sound\nEDIT", "A fresh perspective for your next design"], ["Feel the Sound\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "LIVE MUSIC", 0, 138],
+  ["Podcast studio photos", 1400, 1400, "Space Grotesk", 1, [["Press Play", "Ideas worth listening to"], ["Press Play\nEDIT", "A fresh perspective for your next design"], ["Press Play\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "PODCAST", 0, 141],
+  ["Creator portrait photos", 1080, 1350, "Montserrat", 1, [["Meet the Maker", "Create share inspire"], ["Meet the Maker\nEDIT", "A fresh perspective for your next design"], ["Meet the Maker\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "CREATOR", 0, 144],
+  ["Professional headshot photos", 1080, 1350, "Montserrat", 1, [["Your Best Profile", "A confident first impression"], ["Your Best Profile\nEDIT", "A fresh perspective for your next design"], ["Your Best Profile\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "PROFILE", 0, 147],
+  ["Graduation photography", 1080, 1350, "Playfair Display", 1, [["The Next Chapter", "The work was worth it"], ["The Next Chapter\nEDIT", "A fresh perspective for your next design"], ["The Next Chapter\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "GRADUATION", 0, 150],
+  ["Education campus photos", 1080, 1350, "Space Grotesk", 1, [["Learn Without Limits", "A place to grow and discover"], ["Learn Without Limits\nEDIT", "A fresh perspective for your next design"], ["Learn Without Limits\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "CAMPUS", 0, 153],
+  ["Office team photography", 1080, 1350, "Space Grotesk", 1, [["Better Together", "People make the difference"], ["Better Together\nEDIT", "A fresh perspective for your next design"], ["Better Together\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "OUR TEAM", 0, 156],
+  ["Small business photos", 1080, 1350, "Montserrat", 1, [["Built with Purpose", "Good work starts with a big idea"], ["Built with Purpose\nEDIT", "A fresh perspective for your next design"], ["Built with Purpose\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "SMALL BUSINESS", 0, 159],
+  ["Product packaging photos", 1080, 1350, "Montserrat", 1, [["Details Matter", "Thoughtful from every side"], ["Details Matter\nEDIT", "A fresh perspective for your next design"], ["Details Matter\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "PACKAGING", 0, 162],
+  ["Skincare product photos", 1080, 1080, "Playfair Display", 1, [["The Daily Ritual", "Simple care beautiful results"], ["The Daily Ritual\nEDIT", "A fresh perspective for your next design"], ["The Daily Ritual\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "SKINCARE", 0, 165],
+  ["Perfume product photos", 1080, 1080, "Playfair Display", 1, [["A Scent to Remember", "Make an impression"], ["A Scent to Remember\nEDIT", "A fresh perspective for your next design"], ["A Scent to Remember\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "FRAGRANCE", 0, 168],
+  ["Home decor photography", 1080, 1350, "Playfair Display", 1, [["Make It Home", "Small details big difference"], ["Make It Home\nEDIT", "A fresh perspective for your next design"], ["Make It Home\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "HOME DECOR", 0, 171],
+  ["Furniture photography", 1080, 1350, "Montserrat", 1, [["Designed for Living", "Comfort meets character"], ["Designed for Living\nEDIT", "A fresh perspective for your next design"], ["Designed for Living\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "FURNITURE", 0, 174],
+  ["Kitchen & dining photos", 1080, 1350, "Caveat", 1, [["Gather Around", "Everyday moments taste better"], ["Gather Around\nEDIT", "A fresh perspective for your next design"], ["Gather Around\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "KITCHEN", 0, 177],
+  ["Seasonal autumn photos", 1080, 1350, "Playfair Display", 1, [["Hello Autumn", "Warm tones and slower days"], ["Hello Autumn\nEDIT", "A fresh perspective for your next design"], ["Hello Autumn\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "AUTUMN", 0, 180],
+  ["Winter cozy photography", 1080, 1350, "Playfair Display", 1, [["Stay Cozy", "A season for soft moments"], ["Stay Cozy\nEDIT", "A fresh perspective for your next design"], ["Stay Cozy\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "WINTER", 0, 183],
+  ["Spring flower photos", 1080, 1350, "Dancing Script", 1, [["A New Bloom", "Fresh starts are everywhere"], ["A New Bloom\nEDIT", "A fresh perspective for your next design"], ["A New Bloom\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "SPRING", 0, 186],
+  ["Ramadan lifestyle photos", 1080, 1350, "Hind Siliguri", 1, [["Moments of Blessing", "Peace reflection and togetherness"], ["Moments of Blessing\nEDIT", "A fresh perspective for your next design"], ["Moments of Blessing\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "RAMADAN", 0, 189],
+  ["Eid celebration photos", 1080, 1350, "Hind Siliguri", 1, [["ঈদের আনন্দ", "পরিবারে ছড়িয়ে পড়ুক ভালোবাসা"], ["ঈদের আনন্দ\nEDIT", "A fresh perspective for your next design"], ["ঈদের আনন্দ\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "EID MUBARAK", 0, 192],
+  ["Bangladesh travel photos", 1080, 1350, "Noto Sans Bengali", 1, [["আমার বাংলাদেশ", "প্রকৃতি ঐতিহ্য আর সৌন্দর্য"], ["আমার বাংলাদেশ\nEDIT", "A fresh perspective for your next design"], ["আমার বাংলাদেশ\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "BANGLADESH", 0, 195],
+  ["Bangla food photography", 1080, 1080, "Hind Siliguri", 1, [["দেশি খাবার", "প্রতিটি স্বাদে আপন গল্প"], ["দেশি খাবার\nEDIT", "A fresh perspective for your next design"], ["দেশি খাবার\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "বাংলার স্বাদ", 0, 198],
+  ["Pohela Boishakh photos", 1080, 1350, "Noto Sans Bengali", 1, [["এসো হে বৈশাখ", "নতুন আলোয় নতুন পথচলা"], ["এসো হে বৈশাখ\nEDIT", "A fresh perspective for your next design"], ["এসো হে বৈশাখ\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "শুভ নববর্ষ", 0, 201],
+  ["Victory Day photo cards", 1080, 1350, "Hind Siliguri", 1, [["লাল সবুজের গর্ব", "শ্রদ্ধা আর ভালোবাসায় বাংলাদেশ"], ["লাল সবুজের গর্ব\nEDIT", "A fresh perspective for your next design"], ["লাল সবুজের গর্ব\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "বিজয় দিবস", 0, 204],
+  ["Independence Day photos", 1080, 1350, "Hind Siliguri", 1, [["আমার অহংকার", "স্বাধীনতার চেতনায় এগিয়ে চলি"], ["আমার অহংকার\nEDIT", "A fresh perspective for your next design"], ["আমার অহংকার\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "স্বাধীনতা", 0, 207],
+  ["Birthday photo collage", 1080, 1350, "Caveat", 1, [["Make a Wish", "A little more joy a lot more memories"], ["Make a Wish\nEDIT", "A fresh perspective for your next design"], ["Make a Wish\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "BIRTHDAY", 0, 210],
+  ["Vacation photo collage", 1080, 1350, "Space Grotesk", 1, [["Out of Office", "Collect moments not things"], ["Out of Office\nEDIT", "A fresh perspective for your next design"], ["Out of Office\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "VACATION", 0, 213],
+  ["Best friends photo collage", 1080, 1350, "Caveat", 1, [["Better as Friends", "The best days are shared"], ["Better as Friends\nEDIT", "A fresh perspective for your next design"], ["Better as Friends\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "BESTIES", 0, 216],
+  ["Couple photo collage", 1080, 1350, "Dancing Script", 1, [["You & Me", "Our favorite story"], ["You & Me\nEDIT", "A fresh perspective for your next design"], ["You & Me\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "TOGETHER", 0, 219],
+  ["Minimal product photography", 1080, 1080, "Montserrat", 1, [["Less but Better", "A clean look at the essentials"], ["Less but Better\nEDIT", "A fresh perspective for your next design"], ["Less but Better\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "MINIMAL", 0, 222],
+  ["Luxury brand photography", 1080, 1350, "Playfair Display", 1, [["Quiet Luxury", "Understated by design"], ["Quiet Luxury\nEDIT", "A fresh perspective for your next design"], ["Quiet Luxury\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "LUXURY", 0, 225],
+  ["Abstract background photos", 1080, 1350, "Space Grotesk", 1, [["Color in Motion", "Shapes textures and ideas"], ["Color in Motion\nEDIT", "A fresh perspective for your next design"], ["Color in Motion\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "ABSTRACT", 0, 228],
+  ["Texture & pattern photos", 1080, 1350, "Montserrat", 1, [["Touch of Detail", "Layers that make a difference"], ["Touch of Detail\nEDIT", "A fresh perspective for your next design"], ["Touch of Detail\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "TEXTURE", 0, 231],
+  ["Photography portfolio cover", 1600, 1200, "Playfair Display", 1, [["Selected Frames", "A visual collection of moments"], ["Selected Frames\nEDIT", "A fresh perspective for your next design"], ["Selected Frames\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "PORTFOLIO", 0, 234],
+  ["Photo contact sheet", 1080, 1350, "Space Grotesk", 1, [["A Day in Frames", "Many moments one story"], ["A Day in Frames\nEDIT", "A fresh perspective for your next design"], ["A Day in Frames\nSTORY", "Designed to showcase your favorite moments"], ["NEW\nCOLLECTION", "A visual story made for sharing"], ["YOUR\nMOMENT", "Make this layout your own"], ["PHOTO\nJOURNAL", "A beautiful frame for every memory"]], 5, "PHOTO STORY", 0, 237],
+]
+/* 510 new templates: 34 categories x 15 variations. Each design uses its own four seeded photos. */
+const UNIQUE_PHOTO_CATS = [
+  ['Wildlife', 'Into the Wild', 'A closer look at the natural world', 'WILDLIFE', 'Playfair Display'],
+  ['Pets & Dogs', 'Best Friends', 'Little moments with our favorite companions', 'PET LOVE', 'Caveat'],
+  ['Cats & Kittens', 'Purrfect Days', 'Small paws, big personality', 'CATS', 'Montserrat'],
+  ['Bird Photography', 'Wings of Wonder', 'A world of color above us', 'BIRDS', 'Playfair Display'],
+  ['Ocean & Marine Life', 'Blue Planet', 'Discover the beauty beneath the waves', 'OCEAN', 'Space Grotesk'],
+  ['Waterfalls & Rivers', 'Follow the Flow', 'Find calm in moving water', 'WATER', 'Playfair Display'],
+  ['Desert & Dunes', 'Into the Dunes', 'Sculpted by wind and light', 'DESERT', 'Bebas Neue'],
+  ['Snow & Winter Scenes', 'Winter Light', 'Quiet moments in a frozen world', 'WINTER', 'Playfair Display'],
+  ['Flowers & Gardens', 'In Full Bloom', 'Fresh colors from the garden', 'BLOOM', 'Dancing Script'],
+  ['Fruit & Fresh Produce', 'Fresh Pick', 'Colorful ingredients, naturally', 'FRESH', 'Montserrat'],
+  ['Coffee & Tea Moments', 'Slow Mornings', 'A little ritual worth keeping', 'COFFEE', 'Playfair Display'],
+  ['Dessert & Chocolate', 'Sweet Escape', 'A visual treat for every craving', 'SWEET', 'Caveat'],
+  ['Home & Living', 'Feel at Home', 'Spaces made for everyday living', 'HOME', 'Montserrat'],
+  ['Modern Kitchens', 'The Kitchen Edit', 'Beautiful details for better cooking', 'KITCHEN', 'Space Grotesk'],
+  ['Bedroom Inspiration', 'Rest & Reset', 'Create a softer place to land', 'BEDROOM', 'Playfair Display'],
+  ['Office Interiors', 'Work in Style', 'Thoughtful spaces for big ideas', 'WORKSPACE', 'Montserrat'],
+  ['Cars & Supercars', 'Built to Move', 'Design, speed and automotive culture', 'AUTOMOTIVE', 'Bebas Neue'],
+  ['Motorcycles & Rides', 'Ride Your Way', 'Open roads and two-wheel freedom', 'MOTORCYCLE', 'Oswald'],
+  ['Bicycles & Cycling', 'Keep Moving', 'Find your pace, enjoy the ride', 'CYCLING', 'Space Grotesk'],
+  ['Sports & Stadiums', 'Game On', 'The energy of the big moment', 'SPORTS', 'Anton'],
+  ['Fitness & Training', 'Stronger Every Day', 'Make progress one session at a time', 'FITNESS', 'Oswald'],
+  ['Yoga & Mindfulness', 'Breathe In', 'A calmer moment starts here', 'MINDFUL', 'Dancing Script'],
+  ['People & Portraits', 'Faces & Stories', 'Every portrait has a point of view', 'PORTRAITS', 'Playfair Display'],
+  ['Street Photography', 'Street Notes', 'Unexpected stories from everyday life', 'STREET', 'Space Grotesk'],
+  ['Travel Hotels', 'Stay Somewhere', 'A beautiful place to pause', 'HOSPITALITY', 'Playfair Display'],
+  ['Airports & Journeys', 'On the Way', 'The journey is part of the story', 'JOURNEY', 'Bebas Neue'],
+  ['Books & Reading', 'Between the Pages', 'Make room for another story', 'READING', 'Playfair Display'],
+  ['Art & Museums', 'Look Closer', 'Ideas, objects and creative spaces', 'ART & CULTURE', 'Montserrat'],
+  ['Music & Instruments', 'Find Your Rhythm', 'A visual celebration of sound', 'MUSIC', 'Oswald'],
+  ['Concert & Festival', 'Feel the Sound', 'Moments made for the crowd', 'LIVE', 'Anton'],
+  ['Graduation & Campus', 'The Next Chapter', 'Celebrate every step forward', 'GRADUATION', 'Montserrat'],
+  ['Wedding Details', 'Made for Two', 'A day of details and memories', 'WEDDING', 'Dancing Script'],
+  ['Baby & Family Moments', 'Little Wonders', 'Keep the moments that matter', 'FAMILY', 'Caveat'],
+  ['Product & Packaging', 'The Product Edit', 'Make every detail stand out', 'PRODUCT', 'Montserrat']
+];
+const UNIQUE_PHOTO_PRESETS = UNIQUE_PHOTO_CATS.map((x, n) => {
+  const [name, headline, sub, badge, font] = x;
+  return [`Photo ${name}`, 1080, 1350, font, 1,
+    [[headline, sub], [`${headline}\nEDIT`, 'A fresh perspective for your next design'], [`${headline}\nSTORY`, 'Designed to showcase your favorite moments'], ['NEW\nCOLLECTION', 'A visual story made for sharing'], ['YOUR\nMOMENT', 'Make this layout your own'], ['PHOTO\nJOURNAL', 'A beautiful frame for every memory']],
+    5, badge.toUpperCase(), 0, 10000 + n];
+});
+PHOTO_CATS.push(...UNIQUE_PHOTO_PRESETS);
+
+const SIGNATURE_PHOTO_CATS = [
+  ["Luxury Hotel & Resorts", "Stay Somewhere Special", "A refined escape, thoughtfully designed", "HOSPITALITY", "Playfair Display"],
+  ["Modern Architecture", "Designed to Inspire", "A study in form, light and proportion", "ARCHITECTURE", "Montserrat"],
+  ["Interior Styling", "Spaces with Soul", "Details that make a house feel like home", "INTERIORS", "Playfair Display"],
+  ["Luxury Real Estate", "A Better Way to Live", "Discover a place made for your next chapter", "PROPERTY", "Montserrat"],
+  ["Coastal Living", "Life by the Water", "Slow days and salt air", "COASTAL", "Playfair Display"],
+  ["Island Escapes", "Find Your Island", "A little further from the everyday", "ISLAND", "Caveat"],
+  ["Mountain Retreats", "Above the Ordinary", "Fresh air, open trails and wide horizons", "RETREAT", "Bebas Neue"],
+  ["Wildlife Conservation", "Keep the Wild Alive", "A visual story about the natural world", "WILDLIFE", "Montserrat"],
+  ["Botanical Editorial", "The Green Edit", "Bring nature into focus", "BOTANICAL", "Playfair Display"],
+  ["Floral Studio", "Flowers in Focus", "A fresh arrangement for every occasion", "FLORAL", "Dancing Script"],
+  ["Garden Lifestyle", "Grow Something Beautiful", "Small rituals, greener days", "GARDEN", "Caveat"],
+  ["Fine Art Photography", "Beyond the Ordinary", "A curated collection of visual moments", "FINE ART", "Playfair Display"],
+  ["Film Photography", "Frames from the Roll", "Grain, light and stories in between", "ANALOG", "Space Grotesk"],
+  ["Black & White Portraits", "The Art of Contrast", "Honest expressions, timeless frames", "MONOCHROME", "Playfair Display"],
+  ["Street Style Editorial", "Style on the Streets", "A point of view in every frame", "STREET STYLE", "Bebas Neue"],
+  ["Runway Fashion", "The Front Row Edit", "New silhouettes, fresh perspectives", "RUNWAY", "Montserrat"],
+  ["Minimal Wardrobe", "Less, But Better", "Pieces you will wear on repeat", "ESSENTIALS", "Space Grotesk"],
+  ["Luxury Accessories", "The Finishing Touch", "Considered details, lasting impressions", "ACCESSORIES", "Playfair Display"],
+  ["Fine Jewelry Campaign", "Made to Be Remembered", "A little brilliance goes a long way", "FINE JEWELRY", "Playfair Display"],
+  ["Beauty Campaign", "Your Glow, Your Way", "A fresh take on everyday beauty", "BEAUTY", "Montserrat"],
+  ["Skincare Routine", "The Daily Ritual", "Simple care, beautiful results", "SKINCARE", "Playfair Display"],
+  ["Perfume & Fragrance", "Scent of a Story", "An unforgettable impression", "FRAGRANCE", "Cormorant Garamond"],
+  ["Barber & Grooming", "The Grooming Edit", "Sharp details, confident style", "GROOMING", "Oswald"],
+  ["Coffee Brand Identity", "Brewed with Intention", "Good coffee, considered design", "COFFEE", "Playfair Display"],
+  ["Specialty Tea", "A Moment to Steep", "Make room for a slower moment", "TEA", "Dancing Script"],
+  ["Fine Dining Menu", "A Table Worth Sharing", "Seasonal plates, memorable evenings", "DINING", "Playfair Display"],
+  ["Artisan Bakery", "Made Fresh Today", "A little craft in every bite", "BAKERY", "Caveat"],
+  ["Dessert Boutique", "A Sweet Kind of Detail", "Beautiful treats for lovely moments", "DESSERT", "Dancing Script"],
+  ["Healthy Food Brand", "Feel Good Food", "Fresh ingredients, vibrant living", "NOURISH", "Montserrat"],
+  ["Farmers Market", "Fresh from the Farm", "Local produce, naturally better", "FARM FRESH", "Space Grotesk"],
+  ["Restaurant Launch", "Now Serving Something Special", "Come hungry, leave inspired", "NOW OPEN", "Bebas Neue"],
+  ["Food Photography", "A Taste of Color", "A delicious story in every frame", "FOOD STORY", "Playfair Display"],
+  ["Fitness Studio", "Stronger Every Day", "Move with purpose, feel the difference", "FITNESS", "Oswald"],
+  ["Yoga & Mindfulness", "Find Your Balance", "Space to breathe, stretch and reset", "MINDFUL", "Playfair Display"],
+  ["Outdoor Adventure", "Take the Long Way", "Make the most of the open road", "ADVENTURE", "Bebas Neue"],
+  ["Cycling Club", "Ride Your Own Route", "Good miles, great company", "RIDE CLUB", "Oswald"],
+  ["Running Community", "One More Mile", "Every step moves you forward", "RUN CLUB", "Bebas Neue"],
+  ["Water Sports", "Make Waves", "Chase the blue and dive right in", "WATERSPORT", "Space Grotesk"],
+  ["Automotive Showcase", "Built to Move", "Precision, performance and presence", "MOTORING", "Oswald"],
+  ["Electric Mobility", "Move into Tomorrow", "A cleaner kind of momentum", "E-MOTION", "Space Grotesk"],
+  ["Workspace Inspiration", "Make Space to Create", "A better setup for better ideas", "WORKSPACE", "Space Grotesk"],
+  ["Creative Agency", "Ideas into Impact", "Strategy meets imagination", "CREATIVE CO", "Montserrat"],
+  ["Personal Portfolio", "Selected Works", "A collection of things made with purpose", "PORTFOLIO", "Playfair Display"],
+  ["Graphic Design Showcase", "Design with Intent", "A visual language of your own", "DESIGNER", "Space Grotesk"],
+  ["Digital Product Launch", "Meet the New Standard", "Thoughtful tools for everyday life", "NEW PRODUCT", "Montserrat"],
+  ["Tech Product Campaign", "Made for What’s Next", "Innovation, made beautifully simple", "TECH", "Space Grotesk"],
+  ["Mobile App Promotion", "A Better Way to Do More", "Your next favorite app starts here", "APP LAUNCH", "Montserrat"],
+  ["Online Course Launch", "Learn Something Brilliant", "Build a skill that moves you forward", "LEARN", "Plus Jakarta Sans"],
+  ["Book Cover Editorial", "A Story Worth Opening", "A new chapter begins here", "BOOKS", "Playfair Display"],
+  ["Podcast Cover Art", "The Conversation Starts Here", "Ideas worth listening to", "PODCAST", "Space Grotesk"],
+  ["Music Festival Poster", "Feel the Frequency", "A night of sound, light and energy", "LIVE MUSIC", "Bebas Neue"],
+  ["Art Exhibition", "A Different Perspective", "An invitation to see things differently", "EXHIBITION", "Playfair Display"],
+  ["Gallery Collection", "Curated Moments", "A selection of work to explore", "CURATED", "Montserrat"],
+  ["Wedding Editorial", "A Day to Remember", "Thoughtful details, timeless memories", "FOREVER", "Dancing Script"],
+  ["Engagement Announcement", "The Next Chapter", "Two hearts, one beautiful story", "JUST ENGAGED", "Dancing Script"],
+  ["Birthday Editorial", "A Year More Wonderful", "Celebrate every little thing", "CELEBRATE", "Caveat"],
+  ["Baby Shower Invitation", "A Little One Is Coming", "A sweet celebration is on its way", "OH BABY", "Dancing Script"],
+  ["Family Photo Story", "The Ones We Love", "Everyday moments become forever memories", "FAMILY", "Caveat"],
+  ["Travel Photo Diary", "Postcards from Somewhere", "Collect moments, not things", "POSTCARDS", "Playfair Display"],
+  ["European City Guide", "The City Edit", "A local guide to beautiful places", "CITY GUIDE", "Montserrat"],
+  ["Japan Travel Journal", "Somewhere in Japan", "A little wonder around every corner", "JOURNAL", "Playfair Display"],
+  ["Bangladesh Travel Story", "Discover Bangladesh", "Beautiful places, closer than you think", "BANGLADESH", "Hind Siliguri"],
+  ["Ramadan Reflections", "A Month of Meaning", "Moments of gratitude and togetherness", "RAMADAN", "Noto Sans Bengali"],
+  ["Eid Celebration", "Eid Mubarak", "Wishing you joy, peace and togetherness", "EID MUBARAK", "Noto Sans Bengali"],
+  ["Pohela Boishakh", "Notun Bochor, Notun Rong", "Celebrate color, culture and new beginnings", "শুভ নববর্ষ", "Hind Siliguri"],
+  ["Bangla Quote Collection", "কথায় কথায়", "Words that stay with the heart", "বাংলা", "Noto Sans Bengali"],
+  ["Minimal Quote Cards", "A Thought to Keep", "A little reminder for today", "A NOTE", "Playfair Display"],
+  ["Abstract Color Study", "Color Outside the Lines", "An exploration of shape and movement", "COLOR STUDY", "Space Grotesk"],
+  ["Texture & Material Study", "The Beauty of Texture", "A closer look at the details", "MATERIAL", "Montserrat"],
+  ["Sustainable Living", "Choose a Lighter Footprint", "Small choices, meaningful change", "LIVE WELL", "Space Grotesk"],
+  ["Pet Portrait Collection", "Best Days with You", "The little things make life better", "PET CLUB", "Caveat"],
+  ["Birdwatching Journal", "Wings & Wonders", "A field note from the wild", "FIELD NOTES", "Playfair Display"],
+  ["Ocean Conservation", "Protect Our Blue", "There is only one ocean", "BLUE PLANET", "Montserrat"],
+  ["Seasonal Lookbook", "A Season of Style", "Fresh inspiration for the months ahead", "THE LOOKBOOK", "Playfair Display"]
+];
+/* 1,080 premium photo layouts: 72 categories × 15 distinct compositions. */
+const SIGNATURE_PHOTO_PRESETS = SIGNATURE_PHOTO_CATS.map((x, n) => {
+  const [name, headline, sub, badge, font] = x;
+  const copy = Array.from({ length: 15 }, (_, i) => {
+    const variants = [
+      [headline, sub], [`${headline}\nTHE EDIT`, 'A considered collection of fresh visual ideas'],
+      [`${headline}\nSTUDIO`, 'Made to inspire your next great idea'], ['A CLOSER LOOK', sub],
+      ['NEW PERSPECTIVE', 'Discover the details that make it special'], ['MADE FOR YOU', 'A visual story worth sharing'],
+      ['THE COLLECTION', 'Thoughtfully selected, beautifully presented'], ['LESS IS MORE', 'A simple idea with a lasting impression'],
+      ['THE GOOD LIFE', 'Find inspiration in the everyday'], ['FRESH POINT OF VIEW', 'A new way to see familiar things'],
+      ['INSPIRED BY LIFE', 'Create something worth remembering'], ['A MOMENT IN TIME', 'Keep the moments that matter'],
+      ['DESIGNED TO INSPIRE', 'Bring your ideas to life'], ['THE SIGNATURE EDIT', 'A distinctive look for your next story'],
+      ['MAKE IT MEMORABLE', 'Your story starts with this design']
+    ];
+    return variants[i];
+  });
+  const size = n % 7;
+  const dims = [[1080,1350],[1080,1080],[1080,1920],[1200,1500],[1600,1200],[1920,1080],[1080,1440]][size];
+  return [`Studio ${name}`, dims[0], dims[1], font, 1, copy, 6, badge, 0, 30000 + n];
+});
+
+CATS.push(...PHOTO_CATS, ...SIGNATURE_PHOTO_PRESETS);
+
 function gen(ci, i) {
+  if (CATS[ci][6] === 6) return gen6(ci, i);
   if (CATS[ci][6] === 5) return gen5(ci, i);
   if (CATS[ci][6] === 4) return gen4(ci, i);
   if (CATS[ci][6] === 2) return gen3(ci, i);
@@ -1842,6 +2161,58 @@ function gen4(ci, i) {
   return { w, h, bg: P[0], els };
 }
 
+/* Premium photo template engine: 15 genuinely different compositions per category. */
+function gen6(ci, i) {
+  const [nm, w, h, f, k, rawCp, , badge, , photoSeed] = CATS[ci];
+  const cp = Array.isArray(rawCp) && rawCp.length ? rawCp : [['Create Something','A fresh visual story']];
+  const [hd, sb] = cp[i % cp.length];
+  const P = PAL2[(ci * 3 + i * 5) % PAL2.length];
+  const s = Math.min(w, h), R = Math.round, pad = s * .055, gap = s * .022;
+  const ink = P[1], accent = P[2], accent2 = P[3], paper = P[0];
+  const wt = /Bebas|Anton|Oswald/.test(f) ? 400 : 800;
+  const photo = slot => `https://picsum.photos/seed/frame-studio-premium-${photoSeed}-${i}-${slot}/1000/1300`;
+  const p0 = photo(0), p1 = photo(1), p2 = photo(2), p3 = photo(3);
+  const E = (type,x,y,ww,hh,o={}) => N(type,{x:R(x),y:R(y),w:R(ww),h:R(hh),...o});
+  const X = (x,y,ww,text,fs,col,al='left',font=f,weight=700) => N('text',{x:R(x),y:R(y),w:R(ww),text,fs:R(fs),col,al,font,wt:weight});
+  const H = (x,y,ww,fs,col=ink,al='left') => X(x,y,ww,hd,fs*k,col,al,f,wt);
+  const B = (x,y,ww,fs,col=ink,al='left') => X(x,y,ww,sb,fs,col,al,'Plus Jakarta Sans',600);
+  const T = (x,y,ww,fs,col=accent,al='left') => X(x,y,ww,badge,fs,col,al,'Plus Jakarta Sans',800);
+  let els = [];
+  switch (i % 15) {
+    case 0: // full-bleed hero with editorial footer
+      els=[E('img',0,0,w,h,{src:p0}),E('rect',0,h*.60,w,h*.40,{fill:paper,op:.96}),T(pad,h*.65,w-pad*2,s*.026),H(pad,h*.71,w-pad*2,s*.085),B(pad,h*.84,w-pad*2,s*.028)]; break;
+    case 1: // asymmetric split magazine
+      els=[E('img',0,0,w*.57,h,{src:p0}),E('rect',w*.57,0,w*.43,h,{fill:paper}),T(w*.63,h*.16,w*.32,s*.025),H(w*.63,h*.29,w*.31,s*.072),B(w*.63,h*.59,w*.30,s*.028),E('rect',w*.63,h*.84,w*.22,s*.065,{fill:accent,rad:s*.03}),X(w*.64,h*.855,w*.20,'EXPLORE',s*.022,fg(accent),'center','Plus Jakarta Sans',800)]; break;
+    case 2: // cinematic top image + large title
+      els=[E('img',0,0,w,h*.67,{src:p0}),E('rect',0,h*.67,w,h*.33,{fill:ink}),T(pad,h*.72,w-pad*2,s*.024,accent2),H(pad,h*.77,w-pad*2,s*.09,paper),B(pad,h*.90,w-pad*2,s*.026,paper)]; break;
+    case 3: // editorial mosaic
+      els=[E('img',0,0,w*.64,h*.67,{src:p0}),E('img',w*.66,0,w*.34,h*.32,{src:p1}),E('img',w*.66,h*.34,w*.34,h*.33,{src:p2}),E('rect',0,h*.69,w,h*.31,{fill:paper}),T(pad,h*.72,w-pad*2,s*.023),H(pad,h*.77,w*.86,s*.078),B(pad,h*.91,w*.86,s*.025)]; break;
+    case 4: // gallery contact sheet
+      els=[E('rect',0,0,w,h,{fill:paper}),E('img',pad,pad,(w-pad*3)/2,h*.57,{src:p0}),E('img',pad*2+(w-pad*3)/2,pad,(w-pad*3)/2,h*.57,{src:p1}),E('img',pad,pad+h*.59,(w-pad*3)/2,h*.22,{src:p2}),E('img',pad*2+(w-pad*3)/2,pad+h*.59,(w-pad*3)/2,h*.22,{src:p3}),T(pad,h*.86,w-pad*2,s*.022),H(pad,h*.895,w-pad*2,s*.062)]; break;
+    case 5: // framed print / gallery card
+      els=[E('rect',0,0,w,h,{fill:accent}),E('rect',pad,pad,w-pad*2,h-pad*2,{fill:paper,sh:1}),E('img',pad*1.5,pad*1.5,w-pad*3,h*.59,{src:p0}),T(pad*1.7,h*.69,w-pad*3.4,s*.022),H(pad*1.7,h*.75,w-pad*3.4,s*.075),B(pad*1.7,h*.88,w-pad*3.4,s*.025)]; break;
+    case 6: // large photo with side note panel
+      els=[E('img',0,0,w,h*.76,{src:p0}),E('rect',0,h*.76,w,h*.24,{fill:paper}),T(pad,h*.79,w*.25,s*.022),H(w*.30,h*.79,w*.65,s*.064),B(w*.30,h*.90,w*.65,s*.024)]; break;
+    case 7: // layered overlapping photo cards
+      els=[E('rect',0,0,w,h,{fill:paper}),E('img',pad,pad,w*.62,h*.62,{src:p0,r:-3,sh:1}),E('img',w*.48,h*.25,w*.43,h*.47,{src:p1,r:3,sh:1}),E('rect',pad,h*.72,w-pad*2,h*.22,{fill:ink,rad:s*.018}),T(pad*1.5,h*.75,w*.82,s*.022,accent2),H(pad*1.5,h*.80,w*.82,s*.065,paper)]; break;
+    case 8: // vertical triptych
+      els=[E('img',0,0,w*.325,h*.76,{src:p0}),E('img',w*.337,0,w*.326,h*.76,{src:p1}),E('img',w*.675,0,w*.325,h*.76,{src:p2}),E('rect',0,h*.78,w,h*.22,{fill:paper}),T(pad,h*.80,w-pad*2,s*.022),H(pad,h*.84,w-pad*2,s*.07),B(pad,h*.94,w-pad*2,s*.022)]; break;
+    case 9: // photo strip with bold color block
+      els=[E('rect',0,0,w,h,{fill:accent}),E('img',w*.12,h*.08,w*.76,h*.48,{src:p0}),E('rect',w*.08,h*.60,w*.84,h*.32,{fill:paper,rad:s*.02}),T(w*.13,h*.64,w*.74,s*.022),H(w*.13,h*.70,w*.74,s*.075),B(w*.13,h*.84,w*.74,s*.025)]; break;
+    case 10: // split collage with stacked thumbnails
+      els=[E('img',0,0,w*.56,h,{src:p0}),E('rect',w*.58,0,w*.42,h,{fill:paper}),E('img',w*.64,h*.07,w*.29,h*.22,{src:p1}),E('img',w*.64,h*.32,w*.29,h*.22,{src:p2}),T(w*.64,h*.59,w*.30,s*.022),H(w*.64,h*.66,w*.30,s*.068),B(w*.64,h*.84,w*.30,s*.022)]; break;
+    case 11: // clean minimal editorial with inset image
+      els=[E('rect',0,0,w,h,{fill:paper}),T(pad,h*.08,w-pad*2,s*.022),H(pad,h*.14,w-pad*2,s*.09),B(pad,h*.29,w-pad*2,s*.025),E('img',pad,h*.39,w-pad*2,h*.48,{src:p0}),E('rect',pad,h*.90,w-pad*2,s*.055,{fill:accent}),X(pad,h*.913,w-pad*2,'DISCOVER MORE',s*.022,fg(accent),'center','Plus Jakarta Sans',800)]; break;
+    case 12: // oversized type over image
+      els=[E('img',0,0,w,h,{src:p0}),E('rect',0,0,w,h,{fill:ink,op:.42}),T(pad,h*.15,w-pad*2,s*.026,accent2),H(pad,h*.34,w-pad*2,s*.13,paper),B(pad,h*.70,w*.75,s*.03,paper),E('rect',pad,h*.84,s*.28,s*.065,{fill:accent,rad:s*.03}),X(pad,h*.855,s*.28,'VIEW',s*.024,fg(accent),'center','Plus Jakarta Sans',800)]; break;
+    case 13: // editorial image rail and quote panel
+      els=[E('img',0,0,w*.40,h,{src:p0}),E('rect',w*.42,0,w*.58,h,{fill:paper}),T(w*.49,h*.13,w*.44,s*.022),H(w*.49,h*.25,w*.44,s*.077),B(w*.49,h*.56,w*.43,s*.026),E('rect',w*.49,h*.82,w*.27,s*.012,{fill:accent})]; break;
+    default: // hero + filmstrip + footer
+      els=[E('img',0,0,w,h*.62,{src:p0}),E('img',0,h*.64,w*.31,h*.18,{src:p1}),E('img',w*.345,h*.64,w*.31,h*.18,{src:p2}),E('img',w*.69,h*.64,w*.31,h*.18,{src:p3}),E('rect',0,h*.84,w,h*.16,{fill:ink}),H(pad,h*.86,w*.62,s*.065,paper),T(w*.72,h*.89,w*.23,s*.022,accent2,'right')]; break;
+  }
+  return {w,h,bg:paper,els};
+}
+
 /* Extra 510+ picture templates: collage frames, split cards & banner overlays */
 function gen5(ci, i) {
   const [nm, w, h, f, k, rawCp, , bd, srcIdx, photoSeed] = CATS[ci];
@@ -1852,10 +2223,16 @@ function gen5(ci, i) {
   const s = Math.min(w, h), R = Math.round, ln = hd.split('\n').length;
   const wt = (f === 'Bebas Neue' || f === 'Anton') ? 400 : 800, l = i % 6;
   const base = typeof photoSeed === 'number' ? photoSeed : (ci * 5 + i);
-  const p0 = STOCK[(base + i) % STOCK.length].src;
-  const p1 = STOCK[(base + i + 2) % STOCK.length].src;
-  const p2 = STOCK[(base + i + 4) % STOCK.length].src;
-  const p3 = STOCK[(base + i + 6) % STOCK.length].src;
+  // New photo presets get four unique, deterministic photo URLs per design.
+  // Existing presets keep their curated Pexels image selection.
+  const uniquePhoto = typeof photoSeed === 'number' && photoSeed >= 10000;
+  const photo = slot => uniquePhoto
+    ? `https://picsum.photos/seed/frame-studio-${photoSeed}-${i}-${slot}/900/1200`
+    : STOCK[(base + i + slot * 2) % STOCK.length].src;
+  const p0 = photo(0);
+  const p1 = photo(1);
+  const p2 = photo(2);
+  const p3 = photo(3);
   const c1 = P[2], c2 = P[3], ink = P[1];
   const X = (x, y, ww, t, fs, col, al, o) => N('text', { x: R(x), y: R(y), w: R(ww), text: t, fs: R(fs), col, al: al || 'left', ...o });
   const H = (x, y, ww, fs, col, al) => X(x, y, ww, hd, fs * k, col, al, { font: f, wt });
@@ -1956,6 +2333,7 @@ function showCat(ci) {
 let catSel = 0;
 const CAT_RULES = [
   ['Bangla', /bangla/i],
+  ['Premium Studio', /^studio\s/i],
   ['Stories', /\bstor(y|ies)\b|vertical/i],
   ['Creator & Learning', /creator|education|tips|learn|youtube|podcast/i],
   ['Covers & Banners', /cover|banner|header|thumb|linkedin|email/i],
@@ -1968,9 +2346,10 @@ const CAT_RULES = [
   ['Quotes & Motivation', /quote|motivation|morning|minimal/i],
   ['Events & Invites', /event|invite|birthday|wedding|concert|music|party|flyer|announce|poster|love/i],
   ['Business & Tech', /business|presentation|startup|agency|pitch|brochure|certificate|logo|tech|saas|\bai\b|workspace|desk|coding|studio|team|product|marketing|card/i],
-  ['Photo Collage & Editorial', /collage|grid|polaroid|editorial|duo|split|magazine/i]
+  ['Photo Collage & Editorial', /collage|grid|polaroid|editorial|duo|split|magazine/i],
+  ['Photo Templates', /photo|photography|jewelry|timepiece|sneaker|mobile|hospitality|engagement|family|pets|sports|outdoors|ocean|floral|automotive|motorcycle|cycling|reading|gallery|live music|creator|profile|graduation|campus|packaging|fragrance|furniture|kitchen|autumn|winter|spring|abstract|texture/i]
 ];
-const GROUPS = ['All', 'Social Posts', 'Sale & Promo', 'Food & Cafe', 'Fashion & Shop', 'Travel & Nature', 'Quotes & Motivation', 'Business & Tech', 'Events & Invites', 'Health & Fitness', 'Stories', 'Covers & Banners', 'Photo Collage & Editorial', 'City & Property', 'Creator & Learning', 'Bangla'];
+const GROUPS = ['All', 'Premium Studio', 'Social Posts', 'Sale & Promo', 'Food & Cafe', 'Fashion & Shop', 'Travel & Nature', 'Quotes & Motivation', 'Business & Tech', 'Events & Invites', 'Health & Fitness', 'Stories', 'Covers & Banners', 'Photo Collage & Editorial', 'City & Property', 'Creator & Learning', 'Photo Templates', 'Bangla'];
 function catGroup(c) { for (const [g, re] of CAT_RULES) if (re.test(c[0])) return g; return 'Social Posts'; }
 function buildCatSelect(q) {
   q = (q || '').trim().toLowerCase();
@@ -2182,7 +2561,7 @@ document.addEventListener('click', ev => {
     const [w, h] = $('#mrz').value.split(',').map(Number);
     snap();
     const k = Math.min(w / S.w, h / S.h), ox = (w - S.w * k) / 2, oy = (h - S.h * k) / 2;
-    S.els.forEach(item => {
+    (S.pgs ? [S.els, ...S.pgs.filter(Boolean).map(pg => pg.els)] : [S.els]).flat().forEach(item => {
       if (item.x <= 0 && item.y <= 0 && item.w >= S.w - 1 && item.h >= S.h - 1) { item.x = 0; item.y = 0; item.w = w; item.h = h; return; }
       item.x = Math.round(ox + item.x * k); item.y = Math.round(oy + item.y * k);
       item.w = Math.round(item.w * k); item.h = Math.round(item.h * k);
@@ -2688,7 +3067,7 @@ const FL = [
 HM.innerHTML = `<div id='hmain'>
 <section id='hero'>
 <header id='hnav'>
-  <div class='hlogo' data-h='home'><i></i>Frame</div>
+  <div class='hlogo' data-h='home'><i><svg viewBox='6.5 6.5 27 27' fill='none' stroke='#fff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='M11 17v-3a3 3 0 0 1 3-3h3M23 11h3a3 3 0 0 1 3 3v3M29 23v3a3 3 0 0 1-3 3h-3M17 29h-3a3 3 0 0 1-3-3v-3'/><circle cx='20' cy='20' r='3.2' fill='#fff' stroke='none'/></svg></i>Frame</div>
   <button class='rb on' data-h='home'>${ico(IC.home)}Home</button>
   <button class='rb' data-h='tpl'>${ico(IC.tpl)}Templates</button>
   <button class='rb' data-h='ph'>${ico(IC.ph)}Photos</button>
@@ -2705,9 +3084,9 @@ HM.innerHTML = `<div id='hmain'>
     <label id='hsearch'>${ico(IC.search)}<input id='hq' type='text' placeholder='Try: sale, bangla, photo, cafe, travel, quote'><button type='button' id='hgo'>Search</button></label>
     <div id='hchips'>
       <span class='hlab'>Browse</span>
-      <button class='chip' data-k='biz'><i style='background:#14b8a6'></i>Business</button>
-      <button class='chip' data-k='video'><i style='background:#8b5cf6'></i>Video</button>
-      <button class='chip' data-k='social'><i style='background:#ef4444'></i>Social &amp; Photo</button>
+      <button class='chip' data-k='biz'><i><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='7' width='18' height='13' rx='2'/><path d='M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18'/></svg></i>Business</button>
+      <button class='chip' data-k='video'><i><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='6' width='13' height='12' rx='2'/><path d='M16 10l5-3v10l-5-3z'/></svg></i>Video</button>
+      <button class='chip' data-k='social'><i><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z'/><circle cx='12' cy='13' r='3.5'/></svg></i>Social &amp; Photo</button>
     </div>
     <button class='hlink' id='hcont'>Continue editing &rarr;</button> <button class='hlink' id='hall'>Browse all ${CATS.length * 15} templates &darr;</button>
   </div>
@@ -2751,7 +3130,7 @@ const TP = document.createElement('div');
 TP.id = 'tpage';
 TP.innerHTML = `<header class='tphead'>
   <button class='tpback' id='tpback' type='button'>&larr; Back</button>
-  <div class='tplogo' id='tplogo'><i></i>Frame</div>
+  <div class='tplogo' id='tplogo'><i><svg viewBox='6.5 6.5 27 27' fill='none' stroke='#fff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='M11 17v-3a3 3 0 0 1 3-3h3M23 11h3a3 3 0 0 1 3 3v3M29 23v3a3 3 0 0 1-3 3h-3M17 29h-3a3 3 0 0 1-3-3v-3'/><circle cx='20' cy='20' r='3.2' fill='#fff' stroke='none'/></svg></i>Frame</div>
   <div class='tpt'><h1 id='tptitle'></h1><span id='tpsub'></span></div>
   <label class='tpsearch'><input id='tpq' type='text' placeholder='Search in this page...' aria-label='Search templates'></label>
   <button class='btn pri' id='tpnew' type='button'>Start blank</button>
@@ -2761,6 +3140,7 @@ TP.innerHTML = `<header class='tphead'>
 document.body.appendChild(TP);
 let tpAll = [], tpCi = null, tpText = '', tpN = 48, tpShown = 0, tpMeta = {};
 function openTP(o) {
+  topStart();
   tpAll = o.list; tpMeta = o; tpCi = null; tpText = ''; $('#tpq').value = '';
   $('#tptitle').textContent = o.title;
   $('#tpnew').style.display = o.blank ? '' : 'none';
@@ -2779,21 +3159,38 @@ function tpFiltered() {
     return (CATS[ci][0] + ' ' + cp[i % cp.length].join(' ')).toLowerCase().replace(/\n/g, ' ').includes(tpText);
   });
 }
+let tpTok = 0;
 function renderTP(append) {
-  const list = tpFiltered(), box = $('#tpgrid');
-  if (!append) { tpN = 48; tpShown = 0; box.replaceChildren(); }
-  const end = Math.min(tpN, list.length);
-  for (let k = tpShown; k < end; k++) { try { box.appendChild(th2(list[k][0], list[k][1])); } catch (e) {} }
-  tpShown = end;
-  const left = list.length - tpShown;
+  const tok = ++tpTok, list = tpFiltered(), box = $('#tpgrid');
+  // Fail-safe: never leave the page progress bar spinning if animation frames are throttled.
+  clearTimeout(window.__frameTpProgressFallback);
+  window.__frameTpProgressFallback = setTimeout(() => { if (tok === tpTok) topDone(); }, 5000);
+  if (!append) {
+    tpN = 48; tpShown = 0; box.replaceChildren();
+    for (let k = 0; k < Math.min(12, list.length); k++) { const d = document.createElement('div'); d.className = 'sk'; d.style.aspectRatio = k % 3 === 1 ? '4/5' : '1/1'; box.appendChild(d); }
+  }
+  $('#tpmore').innerHTML = '';
   $('#tpsub').textContent = `${list.length} templates` + (tpMeta.sub ? ` · ${tpMeta.sub}` : '');
-  $('#tpmore').innerHTML = left > 0 ? `<button class='hmorebtn' id='tpmorebtn' type='button'>Show ${Math.min(48, left)} more &middot; ${left} left</button>` : (list.length ? '' : "<p class='tpempty'>No templates match your search.</p>");
+  const end = Math.min(tpN, list.length); let k = tpShown;
+  const step = () => {
+    if (tok !== tpTok) return;
+    if (k === tpShown) box.querySelectorAll('.sk').forEach(x => x.remove());
+    const stop = Math.min(k + 8, end);
+    for (; k < stop; k++) { try { box.appendChild(th2(list[k][0], list[k][1])); } catch (e) {} }
+    if (k < end) { requestAnimationFrame(step); return; }
+    tpShown = k; box.querySelectorAll('.sk').forEach(x => x.remove());
+    clearTimeout(window.__frameTpProgressFallback);
+    const left = list.length - tpShown;
+    $('#tpmore').innerHTML = left > 0 ? `<button class='hmorebtn' id='tpmorebtn' type='button'>Show ${Math.min(48, left)} more &middot; ${left} left</button>` : (list.length ? '' : "<p class='tpempty'>No templates match your search.</p>");
+    topDone();
+  };
+  requestAnimationFrame(() => requestAnimationFrame(step));
 }
 function closeTP() { TP.classList.remove('on'); }
 TP.addEventListener('click', ev => {
   const t = ev.target;
   if (t.closest('#tpback') || t.closest('#tplogo')) { closeTP(); return; }
-  if (t.closest('#tpmorebtn')) { tpN += 48; renderTP(true); return; }
+  if (t.closest('#tpmorebtn')) { t.closest('#tpmorebtn').textContent = 'Loading…'; topStart(); tpN += 48; renderTP(true); return; }
   if (t.closest('#tpnew')) { blank(tpMeta.blank[0], tpMeta.blank[1]); return; }
   const c = t.closest('.tpc');
   if (c) {
@@ -2892,6 +3289,126 @@ try {
 if (!S.els.length) { S = TPL[0][2](); }
 render(); fit(); props(); renderProjs();
 $('#sw').insertAdjacentHTML('afterbegin',['#2b6777','#c8d8e4','#ffffff','#f2f2f2','#52ab98'].map(c=>`<button data-act='bg' data-c='${c}' style='background:${c}' aria-label='Brand color ${c}' title='${c}'></button>`).join(''));
+
+/* ===== loading states between pages ===== */
+let ldCount = 0, ldT = 0;
+function topStart() { const b = $('#topbar b'); b.style.transition = 'none'; b.style.opacity = '1'; b.style.width = '0'; void b.offsetWidth; b.style.transition = 'width 6s cubic-bezier(.1,.8,.2,1)'; b.style.width = '85%'; }
+function topDone() { const b = $('#topbar b'); b.style.transition = 'width .25s ease, opacity .4s .25s'; b.style.width = '100%'; b.style.opacity = '0'; }
+function showLoader(msg) { ldCount++; ldT = performance.now(); $('#ltxt').textContent = msg || 'Loading…'; $('#loader').classList.add('on'); topStart(); }
+function hideLoader() {
+  ldCount = Math.max(0, ldCount - 1); if (ldCount) return;
+  const wait = Math.max(0, 450 - (performance.now() - ldT));
+  setTimeout(() => { if (!ldCount) { $('#loader').classList.remove('on'); topDone(); } }, wait);
+}
+function fadeIn(el) { el.classList.remove('fx'); void el.offsetWidth; el.classList.add('fx'); }
+function withLoader(fn, msg) {
+  return function (...a) {
+    showLoader(msg);
+    const self = this;
+    setTimeout(() => {
+      try { fn.apply(self, a); fadeIn($('#app')); pgRender(); }
+      catch (err) { console.error('Frame Studio page action failed:', err); $('#ltxt').textContent = 'Could not open. Please try again.'; }
+      finally { hideLoader(); }
+    }, 80);
+    // Last-resort release in case the browser suspends or interrupts the callback.
+    setTimeout(() => { if (ldCount > 0) { ldCount = 0; $('#loader').classList.remove('on'); topDone(); } }, 12000);
+  };
+}
+openEd = withLoader(openEd, 'Opening design…');
+blank = withLoader(blank, 'Creating canvas…');
+openProj = withLoader(openProj, 'Opening project…');
+const _showHome = showHome;
+showHome = function () { _showHome(); fadeIn(HM); };
+{ const sp = $('#splash'); sp.classList.add('out'); setTimeout(() => sp.remove(), 500); }
+
+/* ===== multi-page designs ===== */
+function ensurePgs() { if (!S.pgs) { S.pgs = [null]; S.pi = 0; } }
+function pgGet(i) { return S.pgs && i !== S.pi ? S.pgs[i] : capPage(); }
+function pgLoad(d) { S.els = d.els; S.bg = d.bg; S.bg2 = d.bg2; S.g2 = d.g2; S.bga = d.bga; }
+function pgSwitch(i, d) { S.pi = i; S.pgs[i] = null; pgLoad(d); sel = null; ms.clear(); render(); props(); pgRender(); save(); }
+function goPage(i) {
+  ensurePgs();
+  if (i < 0 || i >= S.pgs.length || i === S.pi) return;
+  S.pgs[S.pi] = capPage();
+  pgSwitch(i, S.pgs[i]);
+}
+function addPage(dup) {
+  ensurePgs(); snap();
+  const cur = capPage(); S.pgs[S.pi] = cur;
+  let np;
+  if (dup) { np = JSON.parse(JSON.stringify(cur)); np.els.forEach(e => { e.id = uid++; }); }
+  else np = { els: [], bg: '#ffffff', bg2: S.bg2, g2: 0, bga: 135 };
+  S.pgs.splice(S.pi + 1, 0, np);
+  pgSwitch(S.pi + 1, np);
+}
+function delPage() {
+  if (!S.pgs || S.pgs.length < 2) return;
+  snap(); S.pgs[S.pi] = null; S.pgs.splice(S.pi, 1);
+  const ni = Math.min(S.pi, S.pgs.length - 1);
+  pgSwitch(ni, S.pgs[ni]);
+}
+function movePage(dir) {
+  if (!S.pgs) return;
+  const j = S.pi + dir; if (j < 0 || j >= S.pgs.length) return;
+  snap(); S.pgs[S.pi] = capPage();
+  const t = S.pgs[S.pi]; S.pgs[S.pi] = S.pgs[j]; S.pgs[j] = t;
+  pgSwitch(j, S.pgs[j]);
+}
+let pgT = 0;
+function pgSched() { clearTimeout(pgT); pgT = setTimeout(pgRender, 350); }
+function pgRender() {
+  const box = $('#pages'); if (!box) return;
+  const n = S.pgs ? S.pgs.length : 1, cur = S.pgs ? S.pi : 0;
+  box.replaceChildren();
+  const list = document.createElement('div'); list.className = 'pglist';
+  for (let i = 0; i < n; i++) {
+    const d = S.pgs ? pgGet(i) : capPage();
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'pgi' + (i === cur ? ' on' : ''); b.dataset.pg = i; b.title = 'Page ' + (i + 1);
+    try { const t = thumb({ w: S.w, h: S.h, bg: d.bg, els: d.els }, 0, 0); delete t.dataset.act; b.appendChild(t); } catch (e) {}
+    const sp = document.createElement('span'); sp.textContent = i + 1; b.appendChild(sp);
+    list.appendChild(b);
+  }
+  box.appendChild(list);
+  const acts = document.createElement('div'); acts.className = 'pgact';
+  acts.innerHTML = `<button type='button' data-pa='add'>+ Add page</button><button type='button' data-pa='dup'>Duplicate</button><button type='button' data-pa='del' ${n < 2 ? 'disabled' : ''}>Delete</button><button type='button' data-pa='left' ${cur < 1 ? 'disabled' : ''} title='Move page left'>&larr;</button><button type='button' data-pa='right' ${cur >= n - 1 ? 'disabled' : ''} title='Move page right'>&rarr;</button>${n > 1 ? "<button type='button' data-pa='all' class='pri'>Export all pages</button>" : ''}`;
+  box.appendChild(acts);
+}
+async function exportAllPages() {
+  const fmt = $('#xf').value, sc = +$('#xs').value;
+  showLoader('Rendering pages…');
+  try { await document.fonts.ready; } catch (e) {}
+  const pages = S.pgs.map((_, i) => pgGet(i)), keep = capPage(), urls = [];
+  try {
+    for (const d of pages) {
+      pgLoad(d);
+      let u;
+      try { u = await renderExportCanvas(fmt, sc, true); }
+      catch (e1) { try { u = await renderExportCanvas(fmt, sc, false); } catch (e2) { u = FALLBACK_SVG[0]; } }
+      urls.push(u);
+    }
+  } finally { pgLoad(keep); render(); hideLoader(); }
+  const m = $('#pgmodal');
+  m.querySelector('.pgm-grid').innerHTML = urls.map((u, i) => `<figure><img src='${u}' alt='Page ${i + 1}'><figcaption>Page ${i + 1}</figcaption></figure>`).join('');
+  m.classList.add('on');
+}
+{
+  const bar = document.createElement('div'); bar.id = 'pages'; document.body.appendChild(bar);
+  bar.addEventListener('click', ev => {
+    const pg = ev.target.closest('.pgi'); if (pg) { goPage(+pg.dataset.pg); return; }
+    const a = ev.target.closest('[data-pa]'); if (!a || a.disabled) return;
+    const k = a.dataset.pa;
+    if (k === 'add') addPage(false); else if (k === 'dup') addPage(true); else if (k === 'del') delPage();
+    else if (k === 'left') movePage(-1); else if (k === 'right') movePage(1); else if (k === 'all') exportAllPages();
+  });
+  const m = document.createElement('div'); m.id = 'pgmodal';
+  m.innerHTML = "<div><h3 style='margin-top:0'>All pages</h3><p style='color:var(--mute);margin:0 0 12px'>Press and hold (or right-click) a page and choose Save image.</p><div class='pgm-grid'></div><div style='margin-top:14px'><button class='btn pri' type='button' id='pgmclose'>Close</button></div></div>";
+  document.body.appendChild(m);
+  m.addEventListener('click', e => { if (e.target === m || e.target.id === 'pgmclose') m.classList.remove('on'); });
+  const _save = save;
+  save = function () { _save(); pgSched(); };
+  pgRender();
+}
 </script>
 </body>
 </html>
